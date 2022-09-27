@@ -1,4 +1,4 @@
-import { Place } from "../src/models/place.model";
+//import { Place } from "../src/models/place.model";
 export const VALID_CONFIG_RESPONSE = JSON.stringify({
     requestType: 'config',
     serverName: 't99',
@@ -8,7 +8,7 @@ export const VALID_CONFIG_RESPONSE = JSON.stringify({
 export const INVALID_REQUEST = JSON.stringify({
     invalid: 'this is an invalid response to fail the schema'
 });
-
+/*
 export const MOCK_PLACES = [
     new Place({ name: 'Place A', latitude: "40.0", longitude: "-20.0" }),
     new Place({ name: 'Place B', latitude: "-20.0", longitude: "50.0" }),
@@ -63,3 +63,4 @@ export const MOCK_PLACE_RESPONSE = {
     region: "Colorado",
     streetAddress: "South College Avenue",
 };
+*/

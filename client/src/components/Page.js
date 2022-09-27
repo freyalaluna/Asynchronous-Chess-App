@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Collapse } from 'reactstrap';
 import Header from './Header/Header';
-import About from './About/About';
-import Planner from './Trip/Planner';
 import { useToggle } from '../hooks/useToggle';
 import { LOG } from '../utils/constants';
 import { getOriginalServerUrl, sendAPIRequest } from '../utils/restfulAPI';
-import { usePlaces } from '../hooks/usePlaces';
 
 export default function Page(props) {
 	const [showAbout, toggleAbout] = useToggle(false);
 	const [serverSettings, processServerConfigSuccess] = useServerSettings(
 		props.showMessage
 	);
-	const { places, selectedIndex, placeActions } = usePlaces();
+	//const { places, selectedIndex, placeActions } = usePlaces();
 	const [tripName, setTripName] = useState('My Trip');
 
 	return (
@@ -21,8 +18,6 @@ export default function Page(props) {
 			<Header
 				toggleAbout={toggleAbout}
 				showAbout={showAbout}
-				placeActions={placeActions}
-				disableRemoveAll={!places?.length}
 				serverSettings={serverSettings}
 				processServerConfigSuccess={processServerConfigSuccess}
 				setTripName={setTripName}
@@ -30,9 +25,6 @@ export default function Page(props) {
 			<MainContentArea
 				showAbout={showAbout}
 				toggleAbout={toggleAbout}
-				places={places}
-				selectedIndex={selectedIndex}
-				placeActions={placeActions}
 				tripName={tripName}
 			/>
 		</>
@@ -42,17 +34,6 @@ export default function Page(props) {
 function MainContentArea(props) {
 	return (
 		<div className='body'>
-			<Collapse isOpen={props.showAbout}>
-				<About closePage={props.toggleAbout} />
-			</Collapse>
-			<Collapse isOpen={!props.showAbout} data-testid='planner-collapse'>
-				<Planner
-					places={props.places}
-					selectedIndex={props.selectedIndex}
-					placeActions={props.placeActions}
-					tripName={props.tripName}
-				/>
-			</Collapse>
 		</div>
 	);
 }

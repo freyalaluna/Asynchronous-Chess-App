@@ -1,11 +1,7 @@
 import React from 'react';
 import { Container, Button } from 'reactstrap';
 import { CLIENT_TEAM_NAME } from '../../utils/constants';
-import Menu from './Menu';
 import { useToggle } from '../../hooks/useToggle';
-import AddPlace from './AddPlace';
-import LoadFile from './LoadFile'
-import ServerSettings from './ServerSettings';
 import { IoMdClose } from 'react-icons/io';
 
 export default function Header(props) {
@@ -13,7 +9,7 @@ export default function Header(props) {
 	const [showServerSettings, toggleServerSettings] = useToggle(false);
 	const [showLoadFile, toggleLoadFile] = useToggle(false);
 	return (
-		<React.Fragment>
+		/*<React.Fragment>
 			<HeaderContents
 				toggleAbout={props.toggleAbout}
 				showAbout={props.showAbout}
@@ -32,7 +28,8 @@ export default function Header(props) {
 				serverSettings={props.serverSettings}
 				setTripName={props.setTripName}
 			/>
-		</React.Fragment>
+		</React.Fragment>*/
+		<p></p>
 	);
 }
 
