@@ -1,7 +1,7 @@
 //import { Place } from "../src/models/place.model";
 export const VALID_CONFIG_RESPONSE = JSON.stringify({
     requestType: 'config',
-    serverName: 't99',
+    serverName: 'g17',
     features: ['config']
 });
 
