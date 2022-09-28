@@ -14,7 +14,7 @@ describe('Header', () => {
 		},
 		disableRemoveAll: true,
 		serverSettings: {
-			serverConfig: { requestType: 'config', serverName: 't99' },
+			serverConfig: { requestType: 'config', serverName: 'g17' },
 			serverUrl: 'http://localhost:8000',
 		},
 		processServerConfigSuccess: jest.fn(),
