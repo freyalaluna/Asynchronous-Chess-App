@@ -87,12 +87,12 @@
 		{
 			"id": "22c08a32-9998-468c-85d7-69413301b916",
 			"key": "BASE_URL",
-			"value": "http://localhost:8000"
+			"value": "http://localhost:41300"
 		},
 		{
 			"id": "5f2ce70e-9dbb-408b-8a9a-b178e433aa18",
 			"key": "TEAM_NAME",
-			"value": "t00 team name"
+			"value": "g17 Gambit"
 		}
 	],
 	"protocolProfileBehavior": {}

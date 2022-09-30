@@ -17,5 +17,9 @@ describe('App', () => {
 
         await screen.findByText(/failed/i);
     });
+
+    test('mheavner: assert true', () => {
+		expect(true);
+	});
 });
 
