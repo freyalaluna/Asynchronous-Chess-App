@@ -11,3 +11,13 @@ CREATE TABLE notifications (
     FOREIGN KEY (recipientID) REFERENCES user(userID),
     FOREIGN KEY (senderID) REFERENCES user(userID)
 );
+
+CREATE TABLE matchRecordTable(
+    userID REFERENCES user(userID)
+    matchID int NOT NULL
+    beginTime String NOT NULL
+    endTime String NOT NULL
+    outcome String NOT NULL
+    opponent REFERENCES user(userID)
+    primary key (userID, matchID)
+);
