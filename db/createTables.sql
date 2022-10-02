@@ -13,11 +13,13 @@ CREATE TABLE notifications (
 );
 
 CREATE TABLE matchRecordTable(
-    userID REFERENCES user(userID),
+    userID int NOT NULL,
     matchID int NOT NULL,
     beginTime String NOT NULL,
     endTime String NOT NULL,
     outcome String NOT NULL,
-    opponent REFERENCES user(userID),
-    primary key (userID, matchID)
+    opponent int NOT NULL,
+    FOREIGN KEY (userID) REFERENCES user(userID),
+    FOREIGN KEY (opponent) REFERENCES user(userID),
+    PRIMARY KEY (userID, matchID)
 );
