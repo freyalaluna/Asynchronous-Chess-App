@@ -1,19 +1,29 @@
 import java.util.ArrayList;
-//import Account.java;
+import com.tco.misc.Account;
+import com.tco.misc.Pieces;
+
 
 public class Player {
-    public boolean color;
-    public ArrayList<String> capturedPieces; // TODO: needs to be ArrayList<Pieces>
-    public ArrayList<String> remainingPieces; // TODO: needs to be ArrayList<Pieces>
+    private boolean color;
+    private ArrayList<Pieces> capturedPieces; 
+    private ArrayList<Pieces> remainingPieces; 
     private int accountID;
-    public String username;
+    private String username;
     
+    public Player(){
+        this.color= color;
+        this.capturedPieces = new ArrayList<Pieces>();
+        this.remainingPieces = new ArrayList<Pieces>();
+        this.accountID = accountID;
+        this.username = username;
+    };
+
     public int getAccountID(){
-        return 0;
+        return accountID;
     }
 
     public String getUsername(){
-        return "Username";
+        return username;
     }
     
     
