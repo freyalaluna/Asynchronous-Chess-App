@@ -1,17 +1,27 @@
-// import MatchHistory.java
-// inport Inbox.java
-public class Account {
-    public String username;
-    private String email;
-    public int accountID;
+import com.tco.misc.MatchHistory;
+import com.tco.misc.Inbox;
+import com.tco.misc.MatchRecord;
+import com.tco.misc.Notification;
 
-    //needs to return type MatchHistory
-    public String getMatchHistory() {
-        return "MatchHistory";
+public class Account {
+    private String username;
+    private String email;
+    private int accountID;
+
+    public Account(String username, String email, int accountID){
+        this.username = username;
+        this.email = email;
+        this.accountID= accountID;
+    }
+
+    public ArrayList<MatchRecord> getMatchHistory() {
+        ArrayList<MatchRecord> matchHistory = new ArrayList<MatchRecord>();
+        return matchHistory;
     }
 
     //needs to return type Inbox
-    public String getInbox(){
-        return "Inbox";
+    public ArrayList<Notification> getInbox(){
+        ArrayList<Notification> inbox = new ArrayList<Notification>();
+        return inbox;
     }
 }
