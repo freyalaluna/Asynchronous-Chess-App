@@ -3,20 +3,20 @@ import java.time.LocalDateTime;
 
 public final class Notification {
     private String messageBody;
-    private messageType type;
+    private MessageType type;
     private LocalDateTime timestamp;
 
-    public enum messageType{
+    public enum MessageType{
         INVITE_PENDING,
         INVITE_REJECTED,
         INVITE_ACCEPTED,
         TURN_NOTIFICATION;
     }
 
-    public Notification(messageType type, String senderName){
+    public Notification(MessageType type, String senderName){
         this.type = type;
         this.messageBody = this.generateMessageTemplate(senderName);
-        this.timestamp = LocalDateTime.now()
+        this.timestamp = LocalDateTime.now();
     }
 
     private String generateMessageTemplate(String senderName){

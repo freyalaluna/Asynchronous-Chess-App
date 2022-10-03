@@ -9,12 +9,12 @@ public final class Invitation {
     private boolean isAccepted;
 
     public Invitation(Account inviteCreator, Account inviteRecipient, int matchID){
-        this.inviteCreator = sender;
-        this.inviteRecipient = receiver;
+        this.inviteCreator = inviteCreator;
+        this.inviteRecipient = inviteRecipient;
         this.matchID = matchID;
         this.timestamp = LocalDateTime.now();
 
-        this.generateNotification(INVITE_PENDING, inviteCreator, inviteRecipient);
+        this.generateNotification(Notification.MessageType.INVITE_PENDING, inviteCreator, inviteRecipient);
     }
 
     private void acceptInvite(){
@@ -29,14 +29,13 @@ public final class Invitation {
 
     private void sendInviteStatus(){
         if(isAccepted){
-            generateNotification(INVITE_ACCEPTED, inviteRecipient, inviteCreator);
+            generateNotification(Notification.MessageType.INVITE_ACCEPTED, inviteRecipient, inviteCreator);
         } else {
-            generateNotification(INVITE_REJECTED, inviteRecipient, inviteCreator);
+            generateNotification(Notification.MessageType.INVITE_REJECTED, inviteRecipient, inviteCreator);
         }
-        return;
     }
 
-    private void generateNotification(Notification.messageType type, Account toSend, Account toReceive){
+    private void generateNotification(Notification.MessageType type, Account toSend, Account toReceive){
         //Notification newNotif = new Notification(type, toSend.username());
         //toReceive.getInbox().addNotification(newNotif);
         return;
