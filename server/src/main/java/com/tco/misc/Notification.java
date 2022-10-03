@@ -10,12 +10,13 @@ public final class Notification {
     }
 
     public Notification(messageType type, String senderName){
-        this.messageType = type;
+        this.type = type;
         this.messageBody = this.generateMessageTemplate(senderName);
     }
 
+    //TODO: Add a try/catch for messageType validity
     private String generateMessageTemplate(String senderName){
-        switch(messageType){
+        switch(type){
             case INVITE_PENDING: return "Invite from " + senderName;
             case INVITE_REJECTED: return "Invite to " + senderName + " rejected";
             case INVITE_RECEIVED: return "Invite to " + senderName + " accepted";
@@ -27,7 +28,7 @@ public final class Notification {
         return messageBody;
     }
 
-    public setMessageBody(String toSet){
+    public void setMessageBody(String toSet){
         messageBody = toSet;
     }
 
