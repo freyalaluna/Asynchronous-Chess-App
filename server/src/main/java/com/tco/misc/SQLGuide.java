@@ -115,9 +115,9 @@ public class SQLGuide {
   }
 
   static class Credential {
-    private final static String USER = "TODO: ADD DB USERNAME";
-    private final static String PASSWORD = "TODO: ADD DB PASSWORD";
-    private final static String URL = "TODO: ADD jdbc:mariadb:// DB URL";
+    private final static String USER = "victor45";
+    private final static String PASSWORD = "832519031";
+    private final static String URL = "jdbc:mariadb://faure.cs.colostate.edu/cs414_team17";
     
     static String getUser() {
       return USER;
