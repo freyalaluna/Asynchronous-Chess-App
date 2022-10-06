@@ -23,3 +23,14 @@ CREATE TABLE matchRecordTable(
     FOREIGN KEY (opponent) REFERENCES user(userID),
     PRIMARY KEY (userID, matchID)
 );
+
+create TABLE moveLogTable (
+    matchID int NOT NULL,
+    moveSequence int NOT NULL,
+    userID int NOT NULL,
+    beginTime String NOT NULL,
+    endTime String NOT NULL,
+    gameState String NOT NULL,
+    FOREIGN KEY (userID) REFERENCES user(userID),
+    PRIMARY KEY (matchID, userID)
+);
