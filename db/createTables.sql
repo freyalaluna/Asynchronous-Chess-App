@@ -28,9 +28,9 @@ create TABLE moveLogTable (
     matchID int NOT NULL,
     moveSequence int NOT NULL,
     userID int NOT NULL,
-    beginTime String NOT NULL,
-    endTime String NOT NULL,
-    gameState String NOT NULL,
+    beginTime varchar(30) NOT NULL,
+    endTime varchar(30) NOT NULL,
+    gameState varchar(90) NOT NULL,
     FOREIGN KEY (userID) REFERENCES user(userID),
     PRIMARY KEY (matchID, userID)
 );
