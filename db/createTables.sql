@@ -15,9 +15,9 @@ CREATE TABLE notifications (
 CREATE TABLE matchRecordTable(
     userID int NOT NULL,
     matchID int NOT NULL,
-    beginTime String NOT NULL,
-    endTime String NOT NULL,
-    outcome String NOT NULL,
+    beginTime varchar(30) NOT NULL,
+    endTime varchar(30) NOT NULL,
+    outcome varchar(4) NOT NULL,
     opponent int NOT NULL,
     FOREIGN KEY (userID) REFERENCES user(userID),
     FOREIGN KEY (opponent) REFERENCES user(userID),
