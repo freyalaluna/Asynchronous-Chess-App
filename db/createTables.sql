@@ -15,11 +15,22 @@ CREATE TABLE notifications (
 CREATE TABLE matchRecordTable(
     userID int NOT NULL,
     matchID int NOT NULL,
-    beginTime String NOT NULL,
-    endTime String NOT NULL,
-    outcome String NOT NULL,
+    beginTime varchar(30) NOT NULL,
+    endTime varchar(30) NOT NULL,
+    outcome varchar(4) NOT NULL,
     opponent int NOT NULL,
     FOREIGN KEY (userID) REFERENCES user(userID),
     FOREIGN KEY (opponent) REFERENCES user(userID),
     PRIMARY KEY (userID, matchID)
+);
+
+create TABLE moveLogTable (
+    matchID int NOT NULL,
+    moveSequence int NOT NULL,
+    userID int NOT NULL,
+    beginTime varchar(30) NOT NULL,
+    endTime varchar(30) NOT NULL,
+    gameState varchar(90) NOT NULL,
+    FOREIGN KEY (userID) REFERENCES user(userID),
+    PRIMARY KEY (matchID, userID)
 );
