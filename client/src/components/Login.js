@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import '../static/styles/login.css'
+import '../static/styles/login.css';
 //import { BrowserRouter, Route, Switch } from 'react-router-dom'; 
-//fturner: Don't know if we want to work with react-router-dom extension yet
 
 /*
 const Login = () => {
