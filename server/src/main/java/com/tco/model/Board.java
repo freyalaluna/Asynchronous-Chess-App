@@ -13,6 +13,10 @@ public class Board {
     setInitialBoardState();
   }
 
+  public Board() {
+    setInitialBoardState();
+  }
+
   private void setInitialBoardState() {
     // K = king, Q = queen, R = rook, B = bishop, N = knight, P = pawn, o = empty space
     // Uppercase = white, lowercase = black
