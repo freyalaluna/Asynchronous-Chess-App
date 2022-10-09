@@ -10,8 +10,41 @@ public class Queen extends Piece {
 
   public ArrayList<Square> getPossibleMoves(char[][] boardState) {
     ArrayList<Square> possibleMoves = new ArrayList<>();
-    //TODO implement this
+    for (int i=-1; i<2; ++i) {
+      for (int j=-1; j<2; ++j) {
+        if (i==0 && j==0) continue;
+        possibleMoves.addAll(getMovesInDirection(boardState, i, j));
+      }
+    }
 
     return possibleMoves;
+  }
+
+  private ArrayList<Square> getMovesInDirection(char[][] boardState, int xDirection, int yDirection) {
+    ArrayList<Square> directionMoves = new ArrayList<>();
+    int currentX = currentPosition.getX();
+    int currentY = currentPosition.getY();
+    int deltaX, deltaY;
+    for (int i=1; i<8; ++i) {
+      deltaX = i*xDirection;
+      deltaY = i*yDirection;
+      if (!isValidCoord(currentX+deltaX, currentY+deltaY)) {break;}
+      else if (boardState[currentX+deltaX][currentY+deltaY]!='o') {
+        if (Character.isUpperCase(boardState[currentX+deltaX][currentY+deltaY])==color) {
+        }
+        else {
+          directionMoves.add(new Square(currentX+deltaX, currentY+deltaY));
+        }
+        break;
+      } else {
+        directionMoves.add(new Square(currentX+deltaX, currentY+deltaY));
+      }
+    }
+    return directionMoves;
+  }
+
+  private boolean isValidCoord(int x, int y) {
+    if (0<=x && x<8 && 0<=y && y<8) return true;
+    return false;
   }
 }
