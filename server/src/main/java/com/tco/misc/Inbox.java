@@ -1,4 +1,5 @@
-package com.tco.misc;
+package com.tco.model;
+
 import java.util.ArrayList;
 
 public class Inbox {
