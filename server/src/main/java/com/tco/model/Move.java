@@ -1,8 +1,8 @@
-package com.tco.misc;
+package com.tco.model;
 
 import java.time.LocalDateTime;
-import com.tco.misc.Piece;
-import com.tco.misc.Square;
+import com.tco.model.Piece;
+import com.tco.model.Square;
 
 public final class Move {
     private Piece piece;

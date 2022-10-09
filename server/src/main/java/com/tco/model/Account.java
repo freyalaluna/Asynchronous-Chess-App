@@ -1,7 +1,10 @@
-import com.tco.misc.MatchHistory;
-import com.tco.misc.Inbox;
-import com.tco.misc.MatchRecord;
-import com.tco.misc.Notification;
+package com.tco.model;
+
+import java.util.ArrayList;
+import com.tco.model.MatchHistory;
+// import com.tco.model.Inbox;
+import com.tco.model.MatchRecord;
+import com.tco.model.Notification;
 
 public class Account {
     private String username;

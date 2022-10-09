@@ -8,7 +8,7 @@ public abstract class Piece {
 
   public abstract ArrayList<Square> getPossibleMoves(char[][] boardState);
 
-  public Square getColor() {
+  public boolean getColor() {
     return color;
   }
 

@@ -1,4 +1,4 @@
-package com.tco.misc;
+package com.tco.model;
 
 public class MatchRecord {
    private MoveLog moveLog;
