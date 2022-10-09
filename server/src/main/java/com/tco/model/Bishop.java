@@ -10,81 +10,65 @@ public class Bishop extends Piece {
 
   public ArrayList<Square> getPossibleMoves(char[][] boardState) {
     ArrayList<Square> possibleMoves = new ArrayList<>();
-
+    //TODO implement this
     int currentX = currentPosition.getX();
     int currentY = currentPosition.getY();
+
     // up left
-    for(int i = 0; i < 8; i++){
+    for(int i = currentPosition.getX()-1; i >= 0; i--)
+    {
       currentX--;
       currentY--;
-      if(!isValidCoord(currentX,currentY)) {break;}
-      else if(boardState[currentX][currentY] != 'o'){
-        if(Character.isUpperCase(boardState[currentX][currentY])== color){
-        }
-        else{
-          possibleMoves.add(new Square(currentX,currentY));
-        }
+      possibleMoves.add(new Square(currentX,currentY));
+
+      if(boardState[currentX][currentY] != 'o')
         break;
-      } else {
-        possibleMoves.add(new Square(currentX,currentY));
-      }   
     }
 
     currentX = currentPosition.getX();
     currentY = currentPosition.getY();
+
     // up right
-    for(int i = 0; i < 8; i++){
+    for(int i = currentPosition.getX(); i<=7 ; i++)
+    {
       currentX++;
       currentY--;
-      if(!isValidCoord(currentX,currentY)) {break;}
-      else if(boardState[currentX][currentY] != 'o'){
-        if(Character.isUpperCase(boardState[currentX][currentY])== color){
-        }
-        else{
-          possibleMoves.add(new Square(currentX,currentY));
-        }
+
+      possibleMoves.add(new Square(currentX,currentY));
+
+      if(boardState[currentX][currentY] != 'o')
         break;
-      } else {
-        possibleMoves.add(new Square(currentX,currentY));
-      }   
+
     }
 
     currentX = currentPosition.getX();
     currentY = currentPosition.getY();
     // down left
-    for(int i = 0; i < 8; i++){
+    for(int i = currentPosition.getY(); i <= 7; i++)
+    {
       currentY++;
       currentX--;
-      if(!isValidCoord(currentX,currentY)) {break;}
-      else if(boardState[currentX][currentY] != 'o'){
-        if(Character.isUpperCase(boardState[currentX][currentY])== color){
-        }
-        else{
-          possibleMoves.add(new Square(currentX,currentY));
-        }
+
+      possibleMoves.add(new Square(currentX,currentY));
+
+      if(boardState[currentX][currentY] != 'o')
         break;
-      } else {
-        possibleMoves.add(new Square(currentX,currentY));
-      }   
+
     }
 
     currentX = currentPosition.getX();
     currentY = currentPosition.getY();
+
     //down right
-    for(int i = 0; i < 8; i++){
+    for(int i = currentPosition.getY(); i <= 7; i++)
+    {
       currentX++;
       currentY++;
-      if(!isValidCoord(currentX,currentY)) {break;}
-      else if(boardState[currentX][currentY] != 'o'){
-        if(Character.isUpperCase(boardState[currentX][currentY])== color){
-        }
-        else{
-          possibleMoves.add(new Square(currentX,currentY));
-        }
+
+      possibleMoves.add(new Square(currentX,currentY));
+
+      if(boardState[currentX][currentY] != 'o')
         break;
-      } else {
-        possibleMoves.add(new Square(currentX,currentY));
-      }   
     }
 
     return possibleMoves;
