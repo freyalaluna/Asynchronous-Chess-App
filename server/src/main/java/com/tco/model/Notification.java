@@ -1,4 +1,5 @@
-package account_features;
+package com.tco.model;
+
 import java.time.LocalDateTime;
 
 public final class Notification {
@@ -26,6 +27,7 @@ public final class Notification {
             case INVITE_ACCEPTED: return "Invite to " + senderName + " accepted";
             case TURN_NOTIFICATION: return "It is your turn in game with " + senderName;
         }
+        return "";
     }
 
     public String getMessageBody(){

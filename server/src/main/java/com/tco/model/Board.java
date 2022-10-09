@@ -50,9 +50,9 @@ public class Board {
     }
   }
 
-  public validateMove(Move incomingMove) {
-    boolean isValidMove;
-    //call getPossibleMoves() on piece, see if returned ArrayList<Square> contains incomingMove.getEndCoord()
+  public boolean validateMove(Move incomingMove) {
+    boolean isValidMove = false;
+    //call getPossibleMoves() on piece given current board state, see if returned ArrayList<Square> contains incomingMove.getEndCoord()
     return isValidMove;
   }
 
@@ -60,7 +60,7 @@ public class Board {
     return boardState;
   }
 
-  public updateBoardState(int x, int y, char piece) {
+  public void updateBoardState(int x, int y, char piece) {
     boardState[y][x] = piece;
   }
 }

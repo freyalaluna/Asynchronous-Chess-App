@@ -1,4 +1,5 @@
-package account_features;
+package com.tco.model;
+
 import java.time.LocalDateTime;
 
 public final class Invitation {

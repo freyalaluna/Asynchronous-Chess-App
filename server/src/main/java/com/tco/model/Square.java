@@ -11,11 +11,11 @@ public class Square {
     y = yCoord;
   }
 
-  public void getX() {
+  public int getX() {
     return x;
   }
 
-  public void getY() {
+  public int getY() {
     return y;
   }
 }

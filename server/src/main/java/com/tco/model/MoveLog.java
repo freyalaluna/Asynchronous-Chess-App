@@ -1,7 +1,7 @@
-package com.tco.misc;
+package com.tco.model;
 
 import java.util.ArrayList;
-import com.tco.misc.Move;
+import com.tco.model.Move;
 
 public class MoveLog {
     private ArrayList<Move> moves;
