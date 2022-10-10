@@ -25,4 +25,9 @@ public class Square {
     Square s = (Square) o;
     return (s.getX() == x && s.getY() == y);
   }
+
+  @Override
+  public String toString() {
+    return "[" + x + ", " + y + "]";
+  }
 }
