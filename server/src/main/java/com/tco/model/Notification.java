@@ -1,5 +1,9 @@
+<<<<<<< HEAD:server/src/main/java/com/tco/model/Notification.java
 package com.tco.model;
 
+=======
+package com.tco.misc;
+>>>>>>> ab2b054 (Changed packages for Notification, Invitation and Inbox to match the rest of the classes):server/src/main/java/com/tco/misc/Notification.java
 import java.time.LocalDateTime;
 
 public final class Notification {
