@@ -7,7 +7,7 @@ CREATE TABLE notifications (
     notificationID int PRIMARY KEY,
     recipientID int NOT NULL,
     senderID int NOT NULL,
-    messageType String NOT NULL,
+    messageType varchar(30) NOT NULL,
     FOREIGN KEY (recipientID) REFERENCES user(userID),
     FOREIGN KEY (senderID) REFERENCES user(userID)
 );
