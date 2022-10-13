@@ -144,10 +144,6 @@ public class TestPawn {
         ArrayList<Square> blackExpected = new ArrayList<Square>();
         ArrayList<Square> blackResult = blackPawn.getPossibleMoves(newBoard);
 
-        for(Square s : blackResult){
-            System.out.println(s.getX() + "," + s.getY());
-        }
-
         assertEquals(whiteExpected, whiteResult);
         assertEquals(blackExpected, blackResult);
     }
