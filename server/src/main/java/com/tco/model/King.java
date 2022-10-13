@@ -21,8 +21,28 @@ public class King extends Piece {
 
   public ArrayList<Square> getPossibleMoves(char[][] boardState) {
     ArrayList<Square> possibleMoves = new ArrayList<>();
-    //TODO implement this
+    int currentX = this.getX();
+    int currentY = this.getY();
+
+    //Surrounding 8 Squares
+    for(int row = -1; row <= 1; row++){
+      for(int col = -1; col <=1; col++){
+        if(isValidMove(currentX+col, currentY+row) && boardState[currentX+col][currentY+row] == 'o'){
+          possibleMoves.add(new Square(currentX+col, currentY+row));
+        }
+      }
+    }
 
     return possibleMoves;
+  }
+
+  private boolean isValidMove(int x, int y){
+    if(this.getX() == x && this.getY() == y){
+      return false;
+    }
+    if((x < 0 || x > 7) || (y < 0 || y > 7)){
+      return false;
+    }
+    return true;
   }
 }
