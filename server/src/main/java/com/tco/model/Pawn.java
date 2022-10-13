@@ -31,12 +31,12 @@ public class Pawn extends Piece {
     }
 
     //Forward One Space
-    if(isValidCoord(currentX, currentY+moveDirection) && boardState[currentX][currentY+moveDirection] == 'o'){
+    if(isValidCoord(currentX, currentY+moveDirection) && boardState[currentY+moveDirection][currentX] == 'o'){
       possibleMoves.add(new Square(currentX, currentY+moveDirection));
     }
 
     //Forward Two Spaces
-    if(this.canDoubleMove && boardState[currentX][currentY+(2*moveDirection)] == 'o' && boardState[currentX][currentY] == 'o'){
+    if(this.canDoubleMove && boardState[currentY+(2*moveDirection)][currentX] == 'o' && boardState[currentY+moveDirection][currentX] == 'o'){
       possibleMoves.add(new Square(currentX, currentY+(2*moveDirection)));
     }
 
@@ -68,7 +68,6 @@ public class Pawn extends Piece {
     return possibleMoves;
   }
 
-  //Maybe make this a prototype in Piece?
   private boolean isValidCoord(int x, int y){
     if((x >= 0 && x <= 7) && (y >= 0 && y <= 7)){
       return true;
@@ -77,8 +76,8 @@ public class Pawn extends Piece {
   }
 
   private boolean isEnemyPiece(char[][] boardState, int x, int y, int xOffset, int yOffset, boolean color){
-    if(boardState[x+xOffset][y+yOffset] != 'o'){
-      return Character.isLowerCase(boardState[x+xOffset][y+yOffset]) != color;
+    if(boardState[y+yOffset][x+xOffset] != 'o'){
+      return Character.isLowerCase(boardState[y+yOffset][x+xOffset]) != color;
     }
     return false;
   }
@@ -88,7 +87,7 @@ public class Pawn extends Piece {
       return false;
     }
     
-    Character adjacentPiece = boardState[x+xOffset][y];
+    Character adjacentPiece = boardState[y][x+xOffset];
     if(Character.toLowerCase(adjacentPiece) != 'p' || Character.isLowerCase(adjacentPiece) == this.color){
       return false;
     }
@@ -97,7 +96,7 @@ public class Pawn extends Piece {
       return false;
     }
 
-    Character previousLoc = boardState[x+xOffset][y+(2*yOffset)];
+    Character previousLoc = boardState[y+(2*yOffset)][x+xOffset];
     if(Character.toLowerCase(previousLoc) != 'd' || Character.isLowerCase(previousLoc) == this.color){
       return false;
     }

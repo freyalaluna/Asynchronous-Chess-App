@@ -11,12 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 
 public class TestPawn {
-    private static Board board = new Board();
+    private static Board board;
     private static char[][] boardState;
 
     @BeforeEach
     public void resetBoardState() {
-        boardState = board.getBoardState();
+        board = new Board();
     }
 
     @Test
@@ -42,13 +42,6 @@ public class TestPawn {
         expected.add(new Square(3, 2));
         expected.add(new Square(3, 3));
 
-        for(int i = 0; i <= 7; i++){
-            for(int j = 0; j <=7; j++){
-                System.out.print(newBoard[i][j]);
-            }
-            System.out.println();
-        }
-        System.out.println();
         assertEquals(expected, result);
     }
 
@@ -67,14 +60,6 @@ public class TestPawn {
         expected.add(new Square(3, 3));
         expected.add(new Square(2, 3));
         expected.add(new Square(4, 3));
-
-        for(int i = 0; i <= 7; i++){
-            for(int j = 0; j <=7; j++){
-                System.out.print(newBoard[i][j]);
-            }
-            System.out.println();
-        }
-        System.out.println();
         
         assertEquals(expected, result);
     }
@@ -94,14 +79,6 @@ public class TestPawn {
         expected.add(new Square(3, 4));
         expected.add(new Square(2, 4));
         expected.add(new Square(4, 4));
-
-        for(int i = 0; i <= 7; i++){
-            for(int j = 0; j <=7; j++){
-                System.out.print(newBoard[i][j]);
-            }
-            System.out.println();
-        }
-        System.out.println();
 
         assertEquals(expected, result);
     }
@@ -160,14 +137,17 @@ public class TestPawn {
         Pawn blackPawn = new Pawn(true, new Square(3, 3));
 
         newBoard[3][3] = 'p';
-        newBoard[3][4] = 'P';
+        newBoard[4][3] = 'P';
 
         ArrayList<Square> whiteExpected = new ArrayList<Square>();
         ArrayList<Square> whiteResult = whitePawn.getPossibleMoves(newBoard);
         ArrayList<Square> blackExpected = new ArrayList<Square>();
         ArrayList<Square> blackResult = blackPawn.getPossibleMoves(newBoard);
 
-        resetBoardState();
+        for(Square s : blackResult){
+            System.out.println(s.getX() + "," + s.getY());
+        }
+
         assertEquals(whiteExpected, whiteResult);
         assertEquals(blackExpected, blackResult);
     }
