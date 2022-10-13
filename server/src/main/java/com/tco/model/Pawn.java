@@ -19,15 +19,15 @@ public class Pawn extends Piece {
     this.canDoubleMove = canDoubleMove;
   }
 
-  private ArrayList<Square> getPossibleMoves(char[][] boardState){
+  public ArrayList<Square> getPossibleMoves(char[][] boardState){
     ArrayList<Square> possibleMoves = new ArrayList<>();
     int currentX = currentPosition.getX();
     int currentY = currentPosition.getY();
     int moveDirection;
     if(this.color){
-      moveDirection = -1;
-    } else {
       moveDirection = 1;
+    } else {
+      moveDirection = -1;
     }
 
     //Forward One Space
@@ -36,7 +36,7 @@ public class Pawn extends Piece {
     }
 
     //Forward Two Spaces
-    if(this.canDoubleMove && boardState[currentX][currentY+(2*moveDirection)] == 'o'){
+    if(this.canDoubleMove && boardState[currentX][currentY+(2*moveDirection)] == 'o' && boardState[currentX][currentY] == 'o'){
       possibleMoves.add(new Square(currentX, currentY+(2*moveDirection)));
     }
 
@@ -54,29 +54,15 @@ public class Pawn extends Piece {
       possibleMoves.add(new Square(currentX+1, currentY+moveDirection));
     }
 
-    //En Passants
-    //fturner: TODO: This is gross. Clean it up, if possible
-    if(isValidCoord(currentX-1, currentY+moveDirection) && boardState[currentX-1][currentY] == 'p'){
-      Character adjacentPawn = boardState[currentX-1][currentY];
-      if(adjacentPawn.toLowerCase() == 'p' && adjacentPawn.isUpperCase() != this.color){
-        if(isValidCoord(currentX-1, currentY+(3*moveDirection))){
-          Character previousLoc = boardState[currentX-1][currentY+(3*moveDirection)]
-          if(previousLoc.toLowerCase() == 'd' && previousLoc.isUpperCase() != this.color){
-            possibleMoves.add(new Square(currentX-1, currentY+moveDirection));
-          }
-        }
+    //En Passant
+    //Pawn must be exactly 3 rows forward from where they started, have an enemy pawn to either side, and
+    //the enemy pawn must have double-moved the previous turn for en passant to be legal
+    if((this.color == false && currentY == 3) || (this.color == true && currentY == 4)){
+      if(canEnPassant(boardState, currentX, currentY, -1, moveDirection, this.color)){
+        possibleMoves.add(new Square(currentX-1, currentY+moveDirection));
       }
-    }
-
-    if(isValidCoord(currentX+1, currentY+moveDirection) && boardState[currentX+1][currentY] == 'p'){
-      Character adjacentPawn = boardState[currentX+1][currentY];
-      if(adjacentPawn.toLowerCase() == 'p' && adjacentPawn.isUpperCase() != this.color){
-        if(isValidCoord(currentX+1, currentY+(3*moveDirection))){
-          Character previousLoc = boardState[currentX+1][currentY+(3*moveDirection)]
-          if(previousLoc.toLowerCase() == 'd' && previousLoc.isUpperCase() != this.color){
-            possibleMoves.add(new Square(currentX+1, currentY+moveDirection));
-          }
-        }
+      if(canEnPassant(boardState, currentX, currentY, 1, moveDirection, this.color)){
+        possibleMoves.add(new Square(currentX+1, currentY+moveDirection));
       }
     }
     return possibleMoves;
@@ -92,8 +78,30 @@ public class Pawn extends Piece {
 
   private boolean isEnemyPiece(char[][] boardState, int x, int y, int xOffset, int yOffset, boolean color){
     if(boardState[x+xOffset][y+yOffset] != 'o'){
-      return Character.isUpperCase(boardState[x+xOffset][y+yOffset]) != color;
+      return Character.isLowerCase(boardState[x+xOffset][y+yOffset]) != color;
     }
     return false;
+  }
+
+  private boolean canEnPassant(char[][] boardState, int x, int y, int xOffset, int yOffset, boolean color){
+    if(!isValidCoord(x+xOffset, y+yOffset)){
+      return false;
+    }
+    
+    Character adjacentPiece = boardState[x+xOffset][y];
+    if(Character.toLowerCase(adjacentPiece) != 'p' || Character.isLowerCase(adjacentPiece) == this.color){
+      return false;
+    }
+
+    if(!isValidCoord(x+xOffset, y+(2*yOffset))){
+      return false;
+    }
+
+    Character previousLoc = boardState[x+xOffset][y+(2*yOffset)];
+    if(Character.toLowerCase(previousLoc) != 'd' || Character.isLowerCase(previousLoc) == this.color){
+      return false;
+    }
+
+    return true;
   }
 }
