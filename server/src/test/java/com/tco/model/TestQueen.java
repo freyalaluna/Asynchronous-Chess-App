@@ -46,7 +46,6 @@ public class TestQueen {
     public void testGetValidMovesD2() {
         Queen queen = new Queen(true, new Square(6,3));
         ArrayList<Square> result = queen.getPossibleMoves(boardState);
-        System.out.println(result);
         ArrayList<Square> expected = new ArrayList<Square>();
         expected.add(new Square(5,2));
         expected.add(new Square(4,1));
@@ -68,7 +67,6 @@ public class TestQueen {
     public void testGetValidMovesC6() {
         Queen queen = new Queen(false, new Square(2,2));
         ArrayList<Square> result = queen.getPossibleMoves(boardState);
-        System.out.println(result);
         ArrayList<Square> expected = new ArrayList<Square>();
         expected.add(new Square(2,1));
         expected.add(new Square(2,0));
