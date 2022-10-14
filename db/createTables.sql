@@ -1,6 +1,12 @@
 -- Tables must be in order based on dependencies, ie. if your table has a foreign key, the table that it references
 -- should come before it
 
+CREATE TABLE users (
+    userID int PRIMARY KEY,
+    username varchar(64),
+    pass char(60),
+    email varchar(320)
+);
 
 -- CREATE TABLE user comes before this
 CREATE TABLE notifications (
