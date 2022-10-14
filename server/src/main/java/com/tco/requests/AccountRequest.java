@@ -1,6 +1,6 @@
 package com.tco.requests;
 
-public class LoginRequest extends Request {
+public class AccountRequest extends Request {
   
   @Override
   public void buildResponse() {
