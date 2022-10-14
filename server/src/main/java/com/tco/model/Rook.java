@@ -106,12 +106,9 @@ public class Rook extends Piece {
       if(!isValidCoord(currentRow,currentColumn)) {
         break;
       }
-      //if space is not an empty space
       else if(boardState[currentRow][currentColumn] != 'o') {
-        //if char is white(uppercase) and if white is the color of the player
         if(Character.isLowerCase(boardState[currentRow][currentColumn])!=color) {
         }
-        //if the colors don't match 
         else {
           getDownDirectionMoves.add(new Square(currentRow,currentColumn));
         }
