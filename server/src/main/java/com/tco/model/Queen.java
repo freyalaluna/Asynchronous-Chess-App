@@ -30,7 +30,7 @@ public class Queen extends Piece {
       deltaY = i*yDirection;
       if (!isValidCoord(currentX+deltaX, currentY+deltaY)) {break;}
       else if (boardState[currentX+deltaX][currentY+deltaY]!='o') {
-        if (Character.isUpperCase(boardState[currentX+deltaX][currentY+deltaY])==color) {
+        if (Character.isLowerCase(boardState[currentX+deltaX][currentY+deltaY])==color) {
         }
         else {
           directionMoves.add(new Square(currentX+deltaX, currentY+deltaY));

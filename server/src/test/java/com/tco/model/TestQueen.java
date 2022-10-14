@@ -26,7 +26,7 @@ public class TestQueen {
     @Test
     @DisplayName("mheavner: test getValidMoves with white queen on starting board")
     public void testGetValidMovesInitialPositionWhite() {
-        Queen queen = new Queen(true, new Square(7,3));
+        Queen queen = new Queen(false, new Square(7,3));
         ArrayList<Square> result = queen.getPossibleMoves(boardState);
         ArrayList<Square> expected = new ArrayList<Square>();
         assertEquals(expected, result);
@@ -35,7 +35,7 @@ public class TestQueen {
     @Test
     @DisplayName("mheavner: test getValidMoves with black queen on starting board")
     public void testGetValidMovesInitialPositionBlack() {
-        Queen queen = new Queen(false, new Square(0,3));
+        Queen queen = new Queen(true, new Square(0,3));
         ArrayList<Square> result = queen.getPossibleMoves(boardState);
         ArrayList<Square> expected = new ArrayList<Square>();
         assertEquals(expected, result);
@@ -44,7 +44,7 @@ public class TestQueen {
     @Test
     @DisplayName("mheavner: test getValidMoves with white queen on D2")
     public void testGetValidMovesD2() {
-        Queen queen = new Queen(true, new Square(6,3));
+        Queen queen = new Queen(false, new Square(6,3));
         ArrayList<Square> result = queen.getPossibleMoves(boardState);
         ArrayList<Square> expected = new ArrayList<Square>();
         expected.add(new Square(5,2));
@@ -65,7 +65,7 @@ public class TestQueen {
     @Test
     @DisplayName("mheavner: test getValidMoves with black queen on C6")
     public void testGetValidMovesC6() {
-        Queen queen = new Queen(false, new Square(2,2));
+        Queen queen = new Queen(true, new Square(2,2));
         ArrayList<Square> result = queen.getPossibleMoves(boardState);
         ArrayList<Square> expected = new ArrayList<Square>();
         expected.add(new Square(2,1));
