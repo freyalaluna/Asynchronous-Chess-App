@@ -34,4 +34,16 @@ public class AccountRequest extends Request {
     private void login() {
 
     }
+
+    private boolean sendDBQuery() {
+        try {
+            if (!email.isEmpty()) {
+                Database.login();
+            } else {
+                Database.register();
+            }
+        } catch (Exception e) {
+            this.userID = -1;
+        }
+    }
 }
