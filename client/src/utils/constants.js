@@ -16,7 +16,9 @@ setLogLevelIfDefault();
 
 export const LOG = ulog("App");
 
-export const CLIENT_TEAM_NAME = "g17 Gambit";
+export const APP_NAME = "Extinction Chess";
+
+export const CLIENT_TEAM_NAME = "Team 17 - Gambit";
 
 export const EARTH_RADIUS_UNITS_DEFAULT = { "miles": 3959 };
 

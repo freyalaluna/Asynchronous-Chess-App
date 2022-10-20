@@ -1,35 +1,14 @@
 import React from 'react';
 import { Container, Button } from 'reactstrap';
-import { CLIENT_TEAM_NAME } from '../../utils/constants';
+import { APP_NAME, CLIENT_TEAM_NAME } from '../../utils/constants';
 import { useToggle } from '../../hooks/useToggle';
 import { IoMdClose } from 'react-icons/io';
 
 export default function Header(props) {
-	const [showAddPlace, toggleAddPlace] = useToggle(false);
-	const [showServerSettings, toggleServerSettings] = useToggle(false);
-	const [showLoadFile, toggleLoadFile] = useToggle(false);
 	return (
-		/*<React.Fragment>
-			<HeaderContents
-				toggleAbout={props.toggleAbout}
-				showAbout={props.showAbout}
-				placeActions={props.placeActions}
-				disableRemoveAll={props.disableRemoveAll}
-				toggleAddPlace={toggleAddPlace}
-				toggleServerSettings={toggleServerSettings}
-				toggleLoadFile={toggleLoadFile}
-			/>
-			<AppModals
-				showAddPlace={showAddPlace} toggleAddPlace={toggleAddPlace}
-				showLoadFile={showLoadFile} toggleLoadFile={toggleLoadFile}
-				showServerSettings={showServerSettings} toggleServerSettings={toggleServerSettings}
-				placeActions={props.placeActions}
-				processServerConfigSuccess={props.processServerConfigSuccess}
-				serverSettings={props.serverSettings}
-				setTripName={props.setTripName}
-			/>
-		</React.Fragment>*/
-		<p></p>
+		<React.Fragment>
+			<HeaderContents />
+		</React.Fragment>
 	);
 }
 
@@ -38,13 +17,20 @@ function HeaderContents(props) {
 		<div className='full-width header vertical-center'>
 			<Container>
 				<div className='header-container'>
-					<h1
-						className='tco-text-upper header-title'
-						data-testid='header-title'
-					>
-						{CLIENT_TEAM_NAME}
+					<h1 className='header-text-container'>
+						<p
+							className='tco-text-upper-title'
+							data-testid='header-title'
+						>
+							{APP_NAME}
+						</p>
+						<p
+							className='tco-text-upper-subtitle'
+							data-testid='header-subtitle'
+						>
+							{CLIENT_TEAM_NAME}
+						</p>
 					</h1>
-					<HeaderButton {...props} />
 				</div>
 			</Container>
 		</div>
