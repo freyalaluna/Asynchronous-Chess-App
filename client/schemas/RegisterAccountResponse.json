@@ -14,12 +14,11 @@
       "description": "username of a user",
       "type": "string"
     },
-    "email": {
-      "description": "email address of a user",
-      "type": "string",
-      "pattern": "^S+@S+.S+$/"
+    "userID": {
+      "description": "userID",
+      "type": "integer"
     }
   },
-  "required":["requestType", "username"],
+  "required":["requestType", "username", "userID"],
   "additionalProperties": true
 }
