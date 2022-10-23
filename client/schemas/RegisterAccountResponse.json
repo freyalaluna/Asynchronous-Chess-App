@@ -20,6 +20,6 @@
       "pattern": "^S+@S+.S+$/"
     }
   },
-  "required":["requestType", "username", "email"],
+  "required":["requestType", "username"],
   "additionalProperties": true
 }

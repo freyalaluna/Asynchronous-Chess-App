@@ -24,7 +24,7 @@
         "type": "string"
       }
     },
-    "required":["requestType", "username", "email", "password"],
+    "required":["requestType", "username", "password"],
     "additionalProperties": true
   }
   
