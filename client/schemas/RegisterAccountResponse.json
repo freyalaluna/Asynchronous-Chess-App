@@ -1,0 +1,24 @@
+{
+  "$id": "https://example.com/address.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "registerAccount",
+  "description": "config object for POST request",
+  "type": "object",
+  "properties": {
+    "requestType": {
+      "description": "the object type should be registerAccount",
+      "type": "string",
+      "pattern": "^registerAccount$"
+    },
+    "username": {
+      "description": "username of a user",
+      "type": "string"
+    },
+    "userID": {
+      "description": "userID",
+      "type": "integer"
+    }
+  },
+  "required":["requestType", "username", "userID"],
+  "additionalProperties": true
+}
