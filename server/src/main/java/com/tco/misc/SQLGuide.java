@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.lang.Exception;
+import java.util.NoSuchElementException;
 
 public class SQLGuide {
 
@@ -13,8 +14,8 @@ public class SQLGuide {
   private final static String USERS_TABLE = "users";
   private final static String USERS_COLUMNS = " (username, email, password)";
 
-  static class Database {
-    static boolean registerUser(String user, String email, String encryptedPassword) throws Exception {
+  public static class Database {
+    public static boolean registerUser(String user, String email, String encryptedPassword) throws Exception {
       String sql = Select.insertUser(user, email, encryptedPassword);
       // try-with-resources, auto closes db connection
       try (
@@ -33,7 +34,7 @@ public class SQLGuide {
       }
     }
 
-    static boolean verifyUser(String user, String encryptedPassword) throws Exception {
+    public static String[] verifyUser(String user, String encryptedPassword) throws Exception {
       String sql = Select.selectUserByLogin(user, encryptedPassword);
       // try-with-resources, auto closes db connection
       try (
@@ -43,16 +44,16 @@ public class SQLGuide {
         ResultSet results = query.executeQuery(sql);
       ) {
         if (count(results) == 1) {
-          return true;
+          return convertResultsToStringArray(results);
         } else {
-          return false;
+          throw new NoSuchElementException("No match found in database");
         }
       } catch (Exception e) {
         throw e;
       }
     }
 
-    static String[] getUserById(String userId) throws Exception {
+    public static String[] getUserById(String userId) throws Exception {
       String sql = Select.selectUserById(userId);
       // try-with-resources, auto closes db connection
       try (
