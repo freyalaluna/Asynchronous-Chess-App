@@ -6,11 +6,11 @@ import { VALID_CONFIG_RESPONSE } from '../sharedMocks';
 import Page from '../../src/components/Page';
 
 describe('Page', () => {
-	beforeEach(() => {
-		fetch.resetMocks();
-		fetch.mockResponse(VALID_CONFIG_RESPONSE);
-		render(<Page />);
-	});
+	// beforeEach(() => {
+	// 	fetch.resetMocks();
+	// 	fetch.mockResponse(VALID_CONFIG_RESPONSE);
+	// 	render(<Page />);
+	// });
 /*
 	test('base: closes map and opens about when About button is clicked', async () => {
 		const collapse = screen.getByTestId('planner-collapse');

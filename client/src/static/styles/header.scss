@@ -1,4 +1,4 @@
-$header-height: 8vh;
+$header-height: 10vh;
 $footer-height: 6vh;
 $map-top: $header-height + 2.5vh;
 $scrollbar-width: calc(100vw - 100%);
@@ -43,6 +43,10 @@ $scrollbar-width: calc(100vw - 100%);
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.header-text-container{
+    margin: auto;
 }
 
 .menu-item{

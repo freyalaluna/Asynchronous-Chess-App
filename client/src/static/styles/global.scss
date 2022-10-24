@@ -12,13 +12,26 @@ a {
     color: white;
 }
 
-.tco-text-upper {
+.tco-text-upper-title {
     font-family: 'prox-light', sans-serif;
-    font-size: 28px;
+    font-size: 24px;
     letter-spacing: .05em;
     line-height: 1em;
     text-transform: uppercase;
     color: white;
+    text-align: center;
+    margin: 2px;
+}
+
+.tco-text-upper-subtitle {
+    font-family: 'prox-light', sans-serif;
+    font-size: 16px;
+    letter-spacing: .05em;
+    line-height: 1em;
+    text-transform: uppercase;
+    color: white;
+    text-align: center;
+    margin: 2px;
 }
 
 // Class Useful for Vertical Centering
@@ -27,6 +40,16 @@ a {
     height: 100%;
     display: flex;
     align-items: center;
+}
+
+// Board styles
+
+.primary-board-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
 }
 
 // Map Styles
