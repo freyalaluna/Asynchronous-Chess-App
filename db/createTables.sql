@@ -2,10 +2,10 @@
 -- should come before it
 
 CREATE TABLE users (
-    userID int PRIMARY KEY,
-    username varchar(64),
-    pass char(60),
-    email varchar(320)
+    userID int PRIMARY KEY AUTO_INCREMENT,
+    username varchar(64) NOT NULL UNIQUE,
+    pass char(60) NOT NULL,
+    email varchar(320) NOT NULL UNIQUE
 );
 
 -- CREATE TABLE user comes before this
