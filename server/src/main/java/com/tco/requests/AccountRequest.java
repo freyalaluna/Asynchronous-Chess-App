@@ -14,15 +14,11 @@ public class AccountRequest extends Request {
     private String username;
     private String password;
     private String email;
-    private String userID;
+    private int userID;
 
     @Override
     public void buildResponse() {
-        if (!email.isEmpty()) {
-            login();
-        } else {
-            register();
-        }
+        sendDBQuery();
     }
 
     public AccountRequest() {
@@ -31,19 +27,36 @@ public class AccountRequest extends Request {
         this.email = "email@domain.com";
     }
 
-    private void login() {
+    public String getUsername() {
+        return this.username;
+    }
 
+    public String getPassword() {
+        return this.password;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public int getUserID() {
+        return this.userID;
     }
 
     private boolean sendDBQuery() {
         try {
+            String[] results;
             if (!email.isEmpty()) {
-                Database.login();
+                results = SQLGuide.Database.verifyUser(this.username, this.password);
+                this.userID = Integer.parseInt(results[0]);
+                return true;
             } else {
-                Database.register();
+                SQLGuide.Database.registerUser(this.username, this.email, this.password);
+                return true;
             }
         } catch (Exception e) {
             this.userID = -1;
+            return false;
         }
     }
 }
