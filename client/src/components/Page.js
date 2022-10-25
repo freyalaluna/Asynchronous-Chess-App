@@ -5,10 +5,12 @@ import Board from './Gameplay/Board';
 import { useToggle } from '../hooks/useToggle';
 import { LOG } from '../utils/constants';
 import { getOriginalServerUrl, sendAPIRequest } from '../utils/restfulAPI';
+import { useAccount } from '../hooks/useAccount';
 
 export default function Page(props) {
 	// const [showAbout, toggleAbout] = useToggle(false);
 	//const { places, selectedIndex, placeActions } = usePlaces();
+	const {account, setAccount, userID, setUserID, email, setEmail, accountActions} = useAccount();
 
 	return (
 		<>
