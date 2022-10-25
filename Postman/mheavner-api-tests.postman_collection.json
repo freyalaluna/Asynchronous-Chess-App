@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "5662ea92-018e-4096-bd86-0085a28a7bb3",
+		"name": "mheavner-api-tests",
+		"description": "This collection contains tests for the various API requests in the CS314 webapp.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19636524"
+	},
+	"item": [
+		{
+			"name": "account",
+			"item": [
+				{
+					"name": "Test Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"UserID is 1\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    pm.expect(response.userID).to.equal(1);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"requestType\":\"account\",\r\n    \"username\":\"mheavner\",\r\n    \"password\":\"$2y$10$gaLGEEvbEvuhXjTkys1eJu51kg639syRCyyTJtfvdt39ZKXE.GXIm\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/account",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"account"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:41300"
+		},
+		{
+			"key": "TEAM_NAME",
+			"value": "g17 Gambit"
+		}
+	]
+}
