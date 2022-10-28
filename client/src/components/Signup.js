@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Header from './Header/Header';
 import { sendAPIRequest, getOriginalServerUrl } from '../utils/restfulAPI';
+import {LOG} from '../utils/constants'
 //import {sendAccountRequest} from '../hooks/useAccount';
 import '../static/styles/login.css';
 //import { Link, Redirect } from 'react-router-dom'; 
@@ -8,41 +9,16 @@ import '../static/styles/login.css';
 var bcrypt = require('bcryptjs');
 var salt = bcrypt.genSaltSync(10);
 
-const Signup = () => {
+export default function Signup(props){
 
     const [formData, setFormData] = useState({
         email: "",
         username: "",
-        password: ""
+        password: "",
+        confPassword : ""
     })
 
-    const [confPassword, setConfPassword] = useState('');
-
     const [errorMessage, setErrorMessage] = useState('');
-
-    const validateEmail = (str = "") => {
-        if(!str.includes("@")){
-            setErrorMessage(errorMessage + 'Email must be of form \'name@domain.extension\'\n')
-            return false
-        }
-        return true
-    }
-
-    const validateUsername = (str = "") => {
-        if(str.length === 0){
-            setErrorMessage(errorMessage+'Username field must be filled out\n');
-            return false;
-        }
-        return true;
-    }
-
-    const validatePass = (pass, confirmPass) => {
-        if(pass !== confirmPass){
-            setErrorMessage(errorMessage+'Passwords must match\n');
-            return false;
-        }
-        return true;
-    }
 
     const handleChange = e => {
         setFormData({
@@ -50,10 +26,6 @@ const Signup = () => {
             [e.target.name] : e.target.value
         })
     };
-
-    const handlePWChange = e => {
-        setConfPassword(e.target.value);
-    }
 
     const handleSignin = async(e) => {
         e.preventDefault();
@@ -63,28 +35,45 @@ const Signup = () => {
         var success = true;
         if(!validateEmail(formData.email)) {success=false;}
         if(!validateUsername(formData.username)){success=false};
-        if(!validatePass(formData.password, confPassword)){success=false;}
+        if(!validatePass(formData.password, formData.confPassword)){success=false;}
 
         if(!success){
+            e.target.reset();
+            setFormData({
+                ...formData,
+                email : "",
+                username : "",
+                password : "",
+                confPassword : ""
+            })
             return
         }
+        console.log(formData);
 
         var hash = bcrypt.hashSync(formData.password, salt);
         formData.password = hash;
 
-        console.log(formData, confPassword);
+        console.log(formData);
 
-        try{
-            const accountResponse = await sendAPIRequest({
-                requestType: "registerAccount", 
-                username: formData.username, 
-                email: formData.email, 
-                password: formData.password}, 
-                getOriginalServerUrl()); 
-        } catch (e){
-            setErrorMessage("Information is already registered to an account");
-            return;
-        }
+        // try{
+        //     const accountResponse = await sendAPIRequest({
+        //         requestType: "registerAccount", 
+        //         username: formData.username, 
+        //         email: formData.email, 
+        //         password: formData.password}, 
+        //         getOriginalServerUrl()); 
+        // } catch (e){
+        //     setErrorMessage("Information is already registered to an account");
+        //     return;
+        // }
+        e.target.reset();
+        setFormData({
+            ...formData,
+            email : "",
+            username : "",
+            password : "",
+            confPassword : ""
+        })
         //<Redirect to="/Board" />
     };
 
@@ -103,8 +92,9 @@ const Signup = () => {
                             <input type='text' 
                                 name='email' 
                                 placeholder='Enter email'
+                                value={formData.email}
                                 onChange={handleChange}
-                                required/> 
+                                /> 
                         </label>
                     </div>
 
@@ -114,6 +104,7 @@ const Signup = () => {
                             <input type='text' 
                                 name='username'
                                 placeholder='Enter username'
+                                value={formData.username}
                                 onChange={handleChange}
                                 />
                         </label>
@@ -126,8 +117,9 @@ const Signup = () => {
                                 type='password' 
                                 name='password'
                                 placeholder='Enter password'
+                                value={formData.password}
                                 onChange={handleChange} 
-                                required/>
+                                />
                         </label>
                     </div>
                     <div className='input-field'>
@@ -137,8 +129,9 @@ const Signup = () => {
                                 type='password' 
                                 name='confPassword'
                                 placeholder='Re-enter password'
-                                onChange={handlePWChange}
-                                required/>
+                                value={formData.confPassword}
+                                onChange={handleChange}
+                                />
                         </label>
                     </div>
 
@@ -156,5 +149,29 @@ const Signup = () => {
     )
 }
 
+export const validateEmail = (str = "") => {
+    if(!str.includes("@")){
+        //setErrorMessage(errorMessage + 'Email must be of form \'name@domain.extension\'\n')
+        LOG.error("Email must be of form \'name@domain.extension\'\n'");
+        return false
+    }
+    return true
+}
 
-export default Signup
+export const validateUsername = (str = "") => {
+    if(str.length === 0){
+        //setErrorMessage(errorMessage+'Username field must be filled out\n');
+        LOG.error("Username field must be filled out\n");
+        return false;
+    }
+    return true;
+}
+
+export const validatePass = (pass, confirmPass) => {
+    if(pass !== confirmPass){
+        //setErrorMessage(errorMessage+'Passwords must match\n');
+        LOG.error("Passwords must match\n");
+        return false;
+    }
+    return true;
+}
