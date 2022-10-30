@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AccountRequest extends Request {
-    private static final transient Logger log = LoggerFactory.getLogger(ConfigRequest.class);
+    private static final transient Logger log = LoggerFactory.getLogger(AccountRequest.class);
 
     private String username;
     private String password;
@@ -21,8 +21,9 @@ public class AccountRequest extends Request {
         sendDBQuery();
     }
 
-    public AccountRequest() {
-        this.username = "User";
+    // Constructor for testing
+    public AccountRequest(String user) {
+        this.username = user;
         this.password = "password";
         this.email = "email@domain.com";
     }
@@ -45,18 +46,30 @@ public class AccountRequest extends Request {
 
     private boolean sendDBQuery() {
         try {
-            String[] results;
-            if (!email.isEmpty()) {
-                results = SQLGuide.Database.verifyUser(this.username, this.password);
-                this.userID = Integer.parseInt(results[0]);
+            if (this.email == null) {
+                login();
                 return true;
             } else {
-                SQLGuide.Database.registerUser(this.username, this.email, this.password);
+                register();
                 return true;
             }
         } catch (Exception e) {
+            log.error(e.getMessage());
             this.userID = -1;
             return false;
         }
+    }
+
+    private void login() throws Exception {
+        log.info("Attempting to login with username "+this.username);
+        String[] results = SQLGuide.Database.verifyUser(this.username, this.password);
+        this.userID = Integer.parseInt(results[0]);
+        log.info("Successfully logged in with username "+this.username);
+    }
+
+    private void register() throws Exception {
+        log.info("Attempting to register account with email "+this.email);
+        SQLGuide.Database.registerUser(this.username, this.email, this.password);
+        log.info("Successfully registered account with email "+this.email);
     }
 }
