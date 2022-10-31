@@ -1,16 +1,24 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import user from '@testing-library/user-event';
-import { beforeEach, describe, expect, test } from '@jest/globals';
+import { beforeEach, describe, expect, it, test } from '@jest/globals';
 import { VALID_CONFIG_RESPONSE } from '../sharedMocks';
+import { CLIENT_TEAM_NAME } from '../../src/utils/constants';
 import Page from '../../src/components/Page';
 
 describe('Page', () => {
-	// beforeEach(() => {
-	// 	fetch.resetMocks();
-	// 	fetch.mockResponse(VALID_CONFIG_RESPONSE);
-	// 	render(<Page />);
-	// });
+	beforeEach(() => {
+		fetch.resetMocks();
+		fetch.mockResponse(VALID_CONFIG_RESPONSE);
+		render(<Page />);
+	});
+
+	it('craetz: test team name in header', async () => {
+		await waitFor(() => {
+			const headings = screen.getByTestId('header-subtitle');
+			expect(headings.textContent).toEqual(CLIENT_TEAM_NAME);
+		})
+	});
 /*
 	test('base: closes map and opens about when About button is clicked', async () => {
 		const collapse = screen.getByTestId('planner-collapse');
