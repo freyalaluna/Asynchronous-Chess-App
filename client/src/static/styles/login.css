@@ -1,0 +1,92 @@
+
+/*
+* Credit to https://www.freecodecamp.org/news/how-to-build-sign-up-form-with-html-and-css/ for the template css
+*/
+
+body{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+.auth-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+form{
+    background-color: white;
+    width: 400px;
+    border-radius: 8px;
+    padding: 20px 40px;
+    box-shadow: 0 10px 25px rgba(92, 99, 105, .2);
+}
+
+.input-field{
+    position: relative;
+    height: 40px;
+    width: 100%;
+    margin-bottom: 17px;
+}
+
+label{
+    z-index: 10;
+    padding: 0 4px;
+    font-size: 14px;
+    font-weight: 600;
+    color: green;
+
+}
+
+input{
+    position: absolute;
+    top: 22px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    border: 1px solid #DADCE0;
+    border-radius: 7px;
+    font-size: 16px;
+    padding: 0 20px;
+    outline: none;
+    background: none;
+    z-index: 0;
+}
+
+::placeholder{
+    color: transparent;
+}
+
+
+.submit-button{
+    display: block;
+    margin-left: auto;
+    padding: 15px 30px;
+    border: none;
+    background-color: green;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 30px;
+}
+
+.submit-button:hover{
+    background-color: rgb(68, 156, 68);
+}
+
+input:focus{
+    border: 2px solid green;
+}
+
+.signup-subscript{
+    padding: 10px;
+    font-size: 12px;
+}
+
+.subscript-link{
+    color: rgb(68, 156, 68);
+}

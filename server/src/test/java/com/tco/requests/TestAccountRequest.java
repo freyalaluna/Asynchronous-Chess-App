@@ -13,7 +13,7 @@ public class TestAccountRequest {
 
     @BeforeEach
     public void createConfigurationForTestCases() {
-        req = new AccountRequest();
+        req = new AccountRequest("User");
     }
 
     @Test

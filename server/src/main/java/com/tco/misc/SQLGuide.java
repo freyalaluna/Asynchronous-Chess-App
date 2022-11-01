@@ -12,7 +12,7 @@ public class SQLGuide {
 
   //add more tables as needed
   private final static String USERS_TABLE = "users";
-  private final static String USERS_COLUMNS = " (username, email, password)";
+  private final static String USERS_COLUMNS = " (username, email, pass)";
 
   public static class Database {
     public static boolean registerUser(String user, String email, String encryptedPassword) throws Exception {
@@ -43,7 +43,8 @@ public class SQLGuide {
         Statement query = conn.createStatement();
         ResultSet results = query.executeQuery(sql);
       ) {
-        if (count(results) == 1) {
+
+        if (results.first()) {
           return convertResultsToStringArray(results);
         } else {
           throw new NoSuchElementException("No match found in database");
@@ -74,7 +75,7 @@ public class SQLGuide {
     private static String[] convertResultsToStringArray(ResultSet results) throws Exception {
       int colCount = results.getMetaData().getColumnCount();
       String[] resultsArray = new String[colCount];
-      if (results.next()) {
+      if (results.first()) {
         for (int i = 1; i <= colCount; i++) {
           resultsArray[i-1] = results.getString(i);
         }
@@ -92,20 +93,20 @@ public class SQLGuide {
 
   static class Select {
     static String insertUser(String user, String email, String encryptedPassword) {
-      return "INSERT IGNORE INTO "
+      return "INSERT INTO "
         + USERS_TABLE
         + USERS_COLUMNS
-        + " VALUES ("
-        + user + ", "
-        + email + ", "
-        + encryptedPassword + ");";
+        + " VALUES ('"
+        + user + "', '"
+        + email + "', '"
+        + encryptedPassword + "');";
     }
 
     static String selectUserByLogin(String user, String encryptedPassword) {
       return "SELECT * FROM "
         + USERS_TABLE
         + " WHERE username = '" + user + "'"
-        + " AND password = '" + encryptedPassword + "';";
+        + " AND pass = '" + encryptedPassword + "';";
     }
 
     static String selectUserById(String userId) {
