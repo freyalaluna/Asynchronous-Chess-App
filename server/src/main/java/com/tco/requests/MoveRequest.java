@@ -12,7 +12,7 @@ import com.tco.model.King;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MoveRequest {
+public class MoveRequest extends Request {
   private static final transient Logger log = LoggerFactory.getLogger(MoveRequest.class);
   
   private String sourceSquare;
