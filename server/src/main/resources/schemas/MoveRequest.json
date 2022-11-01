@@ -21,8 +21,12 @@
     "piece": {
       "description": "the piece that made the move",
       "type": "string"
+    },
+    "gameState": {
+      "description": "the current state of the board (before attempting this move) in FEN string notation",
+      "type": "string"
     }
   },
-  "required":["requestType", "sourceSquare", "targetSquare", "piece"],
+  "required":["requestType", "sourceSquare", "targetSquare", "piece", "gameState"],
   "additionalProperties": false
 }
