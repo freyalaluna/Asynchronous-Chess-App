@@ -1,0 +1,20 @@
+{
+  "$id": "https://example.com/address.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "move",
+  "description": "move response",
+  "type": "object",
+  "properties": {
+    "requestType": {
+      "description":"the TIP object type should be move",
+      "type":"string",
+      "pattern":"^move$"
+    },
+    "isLegalMove": {
+      "description":"whether the requested move is legal or not",
+      "type":"boolean"
+    }
+  },
+  "required":["requestType", "isLegalMove"],
+  "additionalProperties": false
+}
