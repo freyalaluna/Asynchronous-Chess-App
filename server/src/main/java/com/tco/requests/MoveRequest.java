@@ -18,43 +18,86 @@ public class MoveRequest extends Request {
   private String sourceSquare;
   private String targetSquare;
   private String piece;
+  private String gameState;
   private boolean isLegalMove;
 
   @Override
   public void buildResponse() {
+    Square initialPos = transformSquare(sourceSquare);
+    Square targetPos = transformSquare(targetSquare);
+    Piece targetPiece = transformPiece(initialPos);
+    char[][] boardState = transformGameState(gameState);
+    validateMove(targetPiece, initialPos, boardState);
   }
 
-  public Square transformSquare() {
-
+  public void validateMove(Piece piece, Square target, char[][] boardState) {
+    //todo implement
+    this.isLegalMove = false;
   }
 
-  public Piece transformPiece() {
+  public Square transformSquare(String posString) {
+    //todo implement
+    return new Square(-1, -1);
+  }
+
+  public Piece transformPiece(Square initialPos) {
     char identifier = piece.charAt(1);
+    char color = piece.charAt(0);
     Piece targetPiece;
 
     switch (identifier) {
       case 'P':
-        targetPiece = new Pawn();
+        if (color == 'w') {
+          targetPiece = new Pawn(false, initialPos);
+        } else {
+          targetPiece = new Pawn(true, initialPos);
+        }
         break;
       case 'N':
-        targetPiece = new Knight();
+        if (color == 'w') {
+          targetPiece = new Knight(false, initialPos);
+        } else {
+          targetPiece = new Knight(true, initialPos);
+        }
         break;
       case 'B':
-        targetPiece = new Bishop();
+        if (color == 'w') {
+          targetPiece = new Bishop(false, initialPos);
+        } else {
+          targetPiece = new Bishop(true, initialPos);
+        }
         break;
       case 'R':
-        targetPiece = new Rook();
+        if (color == 'w') {
+          targetPiece = new Rook(false, initialPos);
+        } else {
+          targetPiece = new Rook(true, initialPos);
+        }
         break;
       case 'Q':
-        targetPiece = new Queen();
-        break;
-      case 'K':
-        targetPiece = new King();
+        if (color == 'w') {
+          targetPiece = new Queen(false, initialPos);
+        } else {
+          targetPiece = new Queen(true, initialPos);
+        }
         break;
       default:
+        if (color == 'w') {
+          targetPiece = new King(false, initialPos);
+        } else {
+          targetPiece = new King(true, initialPos);
+        }
         break;
     }
 
     return targetPiece;
+  }
+
+  public char[][] transformGameState(String fenString) {
+    //todo implement
+    if (fenString.equals("start")) {
+    }
+
+    return new char[8][8];
   }
 }
