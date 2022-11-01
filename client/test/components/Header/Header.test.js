@@ -29,6 +29,7 @@ describe('Header', () => {
 		await waitFor(() => {
 			const headings = screen.getByTestId('header-subtitle');
 			expect(headings.textContent).toEqual(CLIENT_TEAM_NAME);
+			
 		})
 	});
 
