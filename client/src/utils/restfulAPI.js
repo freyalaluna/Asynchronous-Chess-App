@@ -5,7 +5,7 @@ import { LOG } from './constants';
 
 const SCHEMAS = {
     config: configSchema,
-    registerAccount: registerAccountSchema
+    account: registerAccountSchema
 }
 
 export async function sendAPIRequest(requestBody, serverUrl) {

@@ -25,17 +25,17 @@ export function useAccount(){
 async function sendAccountRequest(username, password, email = "", context) {
     var accountResponse = null;
     if(email.length == 0){
-        accountResponse = await sendAPIRequest({requestType: "registerAccount", username: username, password: password}, getOriginalServerUrl());
+        accountResponse = await sendAPIRequest({requestType: "account", username: username, password: password}, getOriginalServerUrl());
     } else {
-        accountResponse = await sendAPIRequest({requestType: "registerAccount", username: username, email: email, password: password}, getOriginalServerUrl());
+        accountResponse = await sendAPIRequest({requestType: "account", username: username, email: email, password: password}, getOriginalServerUrl());
     }
 
     if(accountResponse.userID != null && accountResponse.userID != -1){
         context.setUserID(accountResponse.userID);
         context.setEmail(accountResponse.email);
-        setRequestValidated(true);
+        context.setRequestValidated(true);
     } else {
         LOG.error("Account Request failed.");
-        setRequestValidated(false);
+        context.setRequestValidated(false);
     }
 }
