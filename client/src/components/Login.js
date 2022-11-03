@@ -1,40 +1,41 @@
-import React, {useEffect, useRef, useState} from 'react';
-import Header from './Header/Header'
-import { sendAPIRequest, getOriginalServerUrl } from '../utils/restfulAPI';
-import '../static/styles/login.css'
-//import { BrowserRouter, Route, Switch } from 'react-router-dom'; 
+import React, {useEffect, useState} from 'react';
+import {LOG} from '../utils/constants'
+import '../static/styles/login.css';
 
+var bcrypt = require('bcryptjs');
+var salt = bcrypt.genSaltSync(10);
 
-const Login = () => {
+export default function Login(props){
 
     const [formData, setFormData] = useState({
         username: "",
         password: ""
     })
 
-    const [errorMessage, setErrorMessage] = useState('');
-
     const handleLogin = async(e) => {
         e.preventDefault();
 
-        setErrorMessage("");
-        if(formData.username.length === 0 || formData.password.length === 0){
-            setErrorMessage("All form fields must be filled out");
-            return;
+        if(formData.username.length == 0 || formData.password.length == 0){
+            LOG.error("All form fields must be filled out");
+            e.target.reset();
+            setFormData({
+                ...formData,
+                username : "",
+                password : "",
+            })
+            return
         }
 
         var hash = bcrypt.hashSync(formData.password, salt);
         formData.password = hash;
-        try{
-            const accountResponse = await sendAPIRequest({
-                requestType: "registerAccount", 
-                username: formData.username, 
-                email: formData.email, 
-                password: formData.password}, 
-                getOriginalServerUrl()); 
-        } catch (e){
-            setErrorMessage("Username and/or password are invalid");
-            return;
+        console.log(formData);
+
+        props.accountActions.sendAccountRequest(formData.username, formData.password);
+        
+        if(props.requestValidated){
+            console.log("Success");
+        } else {
+            console.log("Failure");
         }
     };
 
@@ -47,9 +48,6 @@ const Login = () => {
 
     return(
             <div className='auth-wrapper'>
-                <p className={errorMessage ? "loginError" : "offscreen"}>
-                    {errorMessage}
-                </p>
                 <h2>Log In</h2>
                 <form onSubmit={handleLogin}>
                     <div className='input-field'>
@@ -87,6 +85,3 @@ const Login = () => {
             </div>
     )
 }
-
-
-export default Login

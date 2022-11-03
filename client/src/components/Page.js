@@ -3,6 +3,7 @@ import { Collapse } from 'reactstrap';
 import Header from './Header/Header';
 import Board from './Gameplay/Board';
 import Signup from './Signup';
+import Login from './Login';
 import { useToggle } from '../hooks/useToggle';
 import { LOG } from '../utils/constants';
 import { getOriginalServerUrl, sendAPIRequest } from '../utils/restfulAPI';
@@ -16,7 +17,8 @@ export default function Page(props) {
 	return (
 		<>
 			<Header />
-			<Signup accountActions = {accountActions} setUserID = {setUserID} setEmail = {setEmail} requestValidated = {requestValidated}/>
+			{/*<Signup accountActions = {accountActions} setUserID = {setUserID} setEmail = {setEmail} requestValidated = {requestValidated}/>*/}
+			<Login accountActions = {accountActions} setUserID = {setUserID} requestValidated = {requestValidated} />
 		</>
 	);
 }

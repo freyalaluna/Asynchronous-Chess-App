@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Header from './Header/Header';
-import { sendAPIRequest, getOriginalServerUrl } from '../utils/restfulAPI';
 import {LOG} from '../utils/constants'
-//import {sendAccountRequest} from '../hooks/useAccount';
 import '../static/styles/login.css';
 
 var bcrypt = require('bcryptjs');
@@ -57,21 +55,11 @@ export default function Signup(props){
 
         if(props.requestValidated){
             console.log("Success");
+            //Reroute to main page
         } else {
             console.log("Failure");
         }
 
-        // try{
-        //     const accountResponse = await sendAPIRequest({
-        //         requestType: "registerAccount", 
-        //         username: formData.username, 
-        //         email: formData.email, 
-        //         password: formData.password}, 
-        //         getOriginalServerUrl()); 
-        // } catch (e){
-        //     setErrorMessage("Information is already registered to an account");
-        //     return;
-        // }
         e.target.reset();
         setFormData({
             ...formData,
@@ -80,7 +68,6 @@ export default function Signup(props){
             password : "",
             confPassword : ""
         })
-        //<Redirect to="/Board" />
     };
 
     return(
