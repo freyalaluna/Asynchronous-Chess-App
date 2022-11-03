@@ -23,4 +23,13 @@ public class TestPlayer {
         assertEquals("User", player.getUsername());
         assertEquals(true, player.getColor());
     }
+
+    @Test
+    @DisplayName("mheavner: Test constructor w/ args")
+    public void testConstructorWithArgs() {
+        player = new Player(10, "User10", false);
+        assertEquals(10, player.getAccountID());
+        assertEquals("User10", player.getUsername());
+        assertEquals(false, player.getColor());
+    }
 }
