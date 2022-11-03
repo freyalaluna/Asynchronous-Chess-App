@@ -17,6 +17,10 @@ public class MoveLog {
     public void addMove(Move move) {
         this.moves.add(move);
     }
+
+    public ArrayList<Move> getMoves() {
+        return this.moves;
+    }
     /*
     public String toString() {
         return "";
