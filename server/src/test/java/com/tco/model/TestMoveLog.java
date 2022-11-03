@@ -39,4 +39,15 @@ public class TestMoveLog {
         assertEquals(mockList, moveLog.getMoves());
     }
 
+    @Test
+    @DisplayName("mheavner: test constructor with moves")
+    public void testConstructorWithMoves() {
+        Move mockMove = Mockito.mock(Move.class);
+        ArrayList mockList = new ArrayList<Move>();
+        mockList.add(mockMove);
+
+        moveLog = new MoveLog(mockList);
+        assertEquals(mockList, moveLog.getMoves());
+    }
+
 }
