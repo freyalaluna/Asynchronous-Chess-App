@@ -135,7 +135,7 @@ export default function Signup(props){
                     </button>
                 </form>
                 <br></br>
-                <p className='signup-subscript'>Already have an account? {/*<Link to="/Login" className='subscript-link'>Click here to log in.</Link>*/}
+                <p className='signup-subscript'>Already have an account? <a className='subscript-link' href='#'>Click here to sign up.</a>
                 </p>
             </div>
         </>

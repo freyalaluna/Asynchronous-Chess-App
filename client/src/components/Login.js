@@ -15,28 +15,17 @@ export default function Login(props){
     const handleLogin = async(e) => {
         e.preventDefault();
 
-        if(formData.username.length == 0 || formData.password.length == 0){
-            LOG.error("All form fields must be filled out");
-            e.target.reset();
-            setFormData({
-                ...formData,
-                username : "",
-                password : "",
-            })
-            return
-        }
-
         var hash = bcrypt.hashSync(formData.password, salt);
-        formData.password = hash;
-        console.log(formData);
+        console.log(formData, hash);
 
-        props.accountActions.sendAccountRequest(formData.username, formData.password);
+        var test = await props.accountActions.sendAccountRequest(formData.username, hash);
         
         if(props.requestValidated){
             console.log("Success");
         } else {
             console.log("Failure");
         }
+        
     };
 
     const handleChange = e => {
