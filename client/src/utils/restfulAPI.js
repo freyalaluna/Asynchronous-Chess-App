@@ -1,9 +1,11 @@
 import Ajv from 'ajv';
 import * as configSchema from '../../schemas/ConfigResponse';
+import * as registerAccountSchema from '../../schemas/RegisterAccountResponse.json'
 import { LOG } from './constants';
 
 const SCHEMAS = {
-    config: configSchema
+    config: configSchema,
+    registerAccount: registerAccountSchema
 }
 
 export async function sendAPIRequest(requestBody, serverUrl) {

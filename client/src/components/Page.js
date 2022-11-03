@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Collapse } from 'reactstrap';
 import Header from './Header/Header';
 import Board from './Gameplay/Board';
+import Signup from './Signup';
 import { useToggle } from '../hooks/useToggle';
 import { LOG } from '../utils/constants';
 import { getOriginalServerUrl, sendAPIRequest } from '../utils/restfulAPI';
@@ -10,12 +11,12 @@ import { useAccount } from '../hooks/useAccount';
 export default function Page(props) {
 	// const [showAbout, toggleAbout] = useToggle(false);
 	//const { places, selectedIndex, placeActions } = usePlaces();
-	const {account, setAccount, userID, setUserID, email, setEmail, accountActions} = useAccount();
+	const {account, setAccount, userID, setUserID, email, setEmail, requestValidated, setRequestValidated, accountActions} = useAccount();
 
 	return (
 		<>
 			<Header />
-			<Board />
+			<Signup accountActions = {accountActions} setUserID = {setUserID} setEmail = {setEmail} requestValidated = {requestValidated}/>
 		</>
 	);
 }

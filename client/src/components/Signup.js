@@ -4,7 +4,6 @@ import { sendAPIRequest, getOriginalServerUrl } from '../utils/restfulAPI';
 import {LOG} from '../utils/constants'
 //import {sendAccountRequest} from '../hooks/useAccount';
 import '../static/styles/login.css';
-//import { Link, Redirect } from 'react-router-dom'; 
 
 var bcrypt = require('bcryptjs');
 var salt = bcrypt.genSaltSync(10);
@@ -31,7 +30,6 @@ export default function Signup(props){
         e.preventDefault();
         setErrorMessage("");
 
-        //This isn't very DRY
         var success = true;
         if(!validateEmail(formData.email)) {success=false;}
         if(!validateUsername(formData.username)){success=false};
@@ -54,6 +52,14 @@ export default function Signup(props){
         formData.password = hash;
 
         console.log(formData);
+
+        props.accountActions.sendAccountRequest(formData.username, formData.password, formData.email);
+
+        if(props.requestValidated){
+            console.log("Success");
+        } else {
+            console.log("Failure");
+        }
 
         // try{
         //     const accountResponse = await sendAPIRequest({

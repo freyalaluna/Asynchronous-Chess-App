@@ -46,8 +46,6 @@ const Login = () => {
     };
 
     return(
-        <>
-            <Header/>
             <div className='auth-wrapper'>
                 <p className={errorMessage ? "loginError" : "offscreen"}>
                     {errorMessage}
@@ -87,7 +85,6 @@ const Login = () => {
                 <p className='signup-subscript'>Don't have an account? <a className='subscript-link' href='#'>Click here to sign up.</a>
                 </p>
             </div>
-        </>
     )
 }
 
