@@ -25,7 +25,12 @@ public class AccountRequest extends Request {
     public AccountRequest(String user) {
         this.username = user;
         this.password = "password";
-        this.email = "email@domain.com";
+    }
+
+    public AccountRequest(String user, String email) {
+        this.username = user;
+        this.password = "password";
+        this.email = email;
     }
 
     public String getUsername() {
@@ -67,9 +72,10 @@ public class AccountRequest extends Request {
         log.info("Successfully logged in with username "+this.username);
     }
 
-    private void register() throws Exception {
+    private boolean register() throws Exception {
         log.info("Attempting to register account with email "+this.email);
         SQLGuide.Database.registerUser(this.username, this.email, this.password);
         log.info("Successfully registered account with email "+this.email);
+        return true;
     }
 }
