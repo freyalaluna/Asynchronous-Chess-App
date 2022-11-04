@@ -16,7 +16,8 @@ export default function Page(props) {
 	useEffect(() => {
     function handleResize() {
       const display = document.getElementsByClassName("primary-board-container")[0];
-      setChessboardWidth(display.offsetWidth - 20);
+			let width = Math.min(display.offsetWidth - 20, display.offsetHeight - 20);
+      setChessboardWidth(width);
     }
 
     window.addEventListener("resize", handleResize);
