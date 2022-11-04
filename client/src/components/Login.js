@@ -18,7 +18,7 @@ export default function Login(props){
         var hash = bcrypt.hashSync(formData.password, salt);
         console.log(formData, hash);
 
-        var test = await props.accountActions.sendAccountRequest(formData.username, hash);
+        await props.accountActions.sendAccountRequest(formData.username, hash);
         
         if(props.requestValidated){
             console.log("Success");

@@ -51,7 +51,7 @@ export default function Signup(props){
 
         console.log(formData);
 
-        props.accountActions.sendAccountRequest(formData.username, formData.password, formData.email);
+        await props.accountActions.sendAccountRequest(formData.username, formData.password, formData.email);
 
         if(props.requestValidated){
             console.log("Success");
