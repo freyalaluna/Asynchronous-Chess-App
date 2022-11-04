@@ -27,4 +27,16 @@ public class Account {
         ArrayList<Notification> inbox = new ArrayList<Notification>();
         return inbox;
     }
+
+    public String getUsername(){
+        return username;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+
+    public int getAccountID(){
+        return accountID;
+    }
 }
