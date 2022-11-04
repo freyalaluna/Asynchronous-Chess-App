@@ -14,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestAccountRequest {
 
@@ -52,6 +53,7 @@ public class TestAccountRequest {
         registerMethod.setAccessible(true);
         mockDb.when(() -> Database.registerUser(Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(true);
         assertTrue((boolean) registerMethod.invoke(req));
+        assertEquals("email@domain.com", req.getEmail());
     }
 
     @Test
@@ -60,6 +62,17 @@ public class TestAccountRequest {
         mockDb.when(() -> Database.verifyUser(Mockito.anyString(), Mockito.anyString())).thenReturn(loginResult);
         req.buildResponse();
         assertEquals(0, req.getUserID());
+    }
+
+    @Test
+    @DisplayName("mheavner: Test registration conflict with existing account")
+    public void testRegistrationConflict() throws Exception {
+        mockDb.when(() -> Database.registerUser(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
+            .thenThrow(new Exception());
+        req = new AccountRequest("User", "email@domain.com");
+        Method registerMethod = AccountRequest.class.getDeclaredMethod("register");
+        registerMethod.setAccessible(true);
+        assertThrows(Exception.class, () -> registerMethod.invoke(req));
     }
 
 }
