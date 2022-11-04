@@ -12,13 +12,22 @@ public class Player {
     private int accountID;
     private String username;
     
-    public Player(){
-        this.color= color;
-        this.capturedPieces = new ArrayList<Piece>();
-        this.remainingPieces = new ArrayList<Piece>();
+    public Player(int accountID, String username, boolean color){
         this.accountID = accountID;
         this.username = username;
+        this.color = color;
+        this.capturedPieces = new ArrayList<Piece>();
+        this.remainingPieces = new ArrayList<Piece>();
     };
+
+    // Default constructor for testing
+    public Player() {
+        this.accountID = 1;
+        this.username = "User";
+        this.color = true;
+        this.capturedPieces = new ArrayList<Piece>();
+        this.remainingPieces = new ArrayList<Piece>();
+    }
 
     public int getAccountID(){
         return accountID;
@@ -26,6 +35,10 @@ public class Player {
 
     public String getUsername(){
         return username;
+    }
+
+    public boolean getColor() {
+        return color;
     }
     
     
