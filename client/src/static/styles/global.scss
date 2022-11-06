@@ -44,12 +44,16 @@ a {
 
 // Board styles
 
+
 .primary-board-container {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    min-height: 100vh;
+    margin: auto;
+    margin-top: 10vh;
+    min-height: 90vh;
+    max-width: 720px;
 }
 
 // Map Styles
