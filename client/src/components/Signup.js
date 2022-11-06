@@ -3,9 +3,6 @@ import Header from './Header/Header';
 import {LOG} from '../utils/constants'
 import '../static/styles/login.css';
 
-var bcrypt = require('bcryptjs');
-var salt = bcrypt.genSaltSync(10);
-
 export default function Signup(props){
 
     const [formData, setFormData] = useState({
@@ -44,11 +41,6 @@ export default function Signup(props){
             })
             return
         }
-        console.log(formData);
-
-        var hash = bcrypt.hashSync(formData.password, salt);
-        formData.password = hash;
-
         console.log(formData);
 
         await props.accountActions.sendAccountRequest(formData.username, formData.password, formData.email);

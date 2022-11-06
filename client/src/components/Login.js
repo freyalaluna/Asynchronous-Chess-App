@@ -2,9 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {LOG} from '../utils/constants'
 import '../static/styles/login.css';
 
-var bcrypt = require('bcryptjs');
-var salt = bcrypt.genSaltSync(10);
-
 export default function Login(props){
 
     const [formData, setFormData] = useState({
@@ -15,10 +12,9 @@ export default function Login(props){
     const handleLogin = async(e) => {
         e.preventDefault();
 
-        var hash = bcrypt.hashSync(formData.password, salt);
-        console.log(formData, hash);
+        console.log(formData);
 
-        await props.accountActions.sendAccountRequest(formData.username, hash);
+        await props.accountActions.sendAccountRequest(formData.username, formData.password);
         
         if(props.requestValidated){
             console.log("Success");
