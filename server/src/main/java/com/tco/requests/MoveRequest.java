@@ -1,5 +1,7 @@
 package com.tco.requests;
 
+import java.util.ArrayList;
+import com.tco.model.Board;
 import com.tco.model.Square;
 import com.tco.model.Piece;
 import com.tco.model.Pawn;
@@ -31,13 +33,17 @@ public class MoveRequest extends Request {
   }
 
   public void validateMove(Piece piece, Square target, char[][] boardState) {
-    //todo implement
-    this.isLegalMove = false;
+    ArrayList<Square> validMoves = piece.getPossibleMoves(boardState);
+    this.isLegalMove = validMoves.contains(target);
   }
 
   public Square transformSquare(String posString) {
-    //todo implement
-    return new Square(-1, -1);
+    //a-h maps to 0-7
+    int x = ((int) posString.charAt(0)) - 97;
+    //8-1 maps to 0-7
+    int y = 8 - Character.getNumericValue(posString.charAt(1));
+
+    return new Square(x, y);
   }
 
   public Piece transformPiece(Square initialPos) {
@@ -94,10 +100,47 @@ public class MoveRequest extends Request {
   }
 
   public char[][] transformGameState(String fenString) {
-    //todo implement
+    //this check may or may not be needed depending on client-side implementation
     if (fenString.equals("start")) {
+      //returns initial board state
+      Board board = new Board();
+      char[][] boardState = board.getBoardState();
+      return boardState;
     }
 
-    return new char[8][8];
+    char[][] boardState = new char[8][8];
+    int x = 0;
+    int y = 0;
+
+    for (int i = 0; i < fenString.length(); i++) {
+      if (fenString.charAt(i) == '/') { //reached end of row
+        x = 0;
+        y++;
+      }
+      else if (Character.isDigit(fenString.charAt(i))) { //encounter empty square(s)
+        int numEmptySquares = Character.getNumericValue(fenString.charAt(i));
+        for (int j = 0; j < numEmptySquares; j++) {
+          boardState[y][x] = 'o';
+          x++;
+        }
+      }
+      else { //encountered piece
+        boardState[y][x] = fenString.charAt(i);
+        x++;
+      }
+
+    }
+
+    return boardState;
+  }
+
+
+  //VISIBLE FOR TESTING
+  public void setPiece(String p) {
+    this.piece = p;
+  }
+
+  public boolean getIsLegalMove() {
+    return this.isLegalMove;
   }
 }
