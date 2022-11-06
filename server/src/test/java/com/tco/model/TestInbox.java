@@ -39,15 +39,15 @@ public class TestInbox {
     public void testgetNotificationList(){
         inbox.allNotifs.add(notif1);
         inbox.allNotifs.add(notif2);
-        inbox.getNotificationList();
-        assertEquals(inbox.allNotifs.size(), 2);
+        // inbox.getNotificationList();
+        assertEquals(inbox.getNotificationList().size(), 2);
     }
     @Test
     @DisplayName("rheachan9983: Test getInviteList returns both invites")
     public void testgetInboxList(){
         inbox.allInvites.add(invite1);
         inbox.allInvites.add(invite2);
-        inbox.getInvitationList();
-        assertEquals(inbox.allInvites.size(), 2);
+        // inbox.getInvitationList();
+        assertEquals(inbox.getInvitationList().size(), 2);
     }
 }
