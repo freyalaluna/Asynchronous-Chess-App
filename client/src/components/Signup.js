@@ -1,13 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Header from './Header/Header';
-import { sendAPIRequest, getOriginalServerUrl } from '../utils/restfulAPI';
 import {LOG} from '../utils/constants'
-//import {sendAccountRequest} from '../hooks/useAccount';
 import '../static/styles/login.css';
-//import { Link, Redirect } from 'react-router-dom'; 
-
-var bcrypt = require('bcryptjs');
-var salt = bcrypt.genSaltSync(10);
 
 export default function Signup(props){
 
@@ -31,7 +25,6 @@ export default function Signup(props){
         e.preventDefault();
         setErrorMessage("");
 
-        //This isn't very DRY
         var success = true;
         if(!validateEmail(formData.email)) {success=false;}
         if(!validateUsername(formData.username)){success=false};
@@ -50,22 +43,15 @@ export default function Signup(props){
         }
         console.log(formData);
 
-        var hash = bcrypt.hashSync(formData.password, salt);
-        formData.password = hash;
+        await props.accountActions.sendAccountRequest(formData.username, formData.password, formData.email);
 
-        console.log(formData);
+        if(props.requestValidated){
+            console.log("Success");
+            //Reroute to main page
+        } else {
+            console.log("Failure");
+        }
 
-        // try{
-        //     const accountResponse = await sendAPIRequest({
-        //         requestType: "registerAccount", 
-        //         username: formData.username, 
-        //         email: formData.email, 
-        //         password: formData.password}, 
-        //         getOriginalServerUrl()); 
-        // } catch (e){
-        //     setErrorMessage("Information is already registered to an account");
-        //     return;
-        // }
         e.target.reset();
         setFormData({
             ...formData,
@@ -74,7 +60,6 @@ export default function Signup(props){
             password : "",
             confPassword : ""
         })
-        //<Redirect to="/Board" />
     };
 
     return(
@@ -142,7 +127,7 @@ export default function Signup(props){
                     </button>
                 </form>
                 <br></br>
-                <p className='signup-subscript'>Already have an account? {/*<Link to="/Login" className='subscript-link'>Click here to log in.</Link>*/}
+                <p className='signup-subscript'>Already have an account? <a className='subscript-link' href='#'>Click here to sign up.</a>
                 </p>
             </div>
         </>
