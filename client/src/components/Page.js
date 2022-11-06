@@ -10,12 +10,25 @@ import { useAccount } from '../hooks/useAccount';
 export default function Page(props) {
 	// const [showAbout, toggleAbout] = useToggle(false);
 	//const { places, selectedIndex, placeActions } = usePlaces();
+	const [chessboardWidth, setChessboardWidth] = useState(400);
 	const {account, setAccount, userID, setUserID, email, setEmail, accountActions} = useAccount();
+
+	useEffect(() => {
+    function handleResize() {
+      const display = document.getElementsByClassName("primary-board-container")[0];
+			let width = Math.min(display.offsetWidth - 20, display.offsetHeight - 20);
+      setChessboardWidth(width);
+    }
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
 	return (
 		<>
 			<Header />
-			<Board />
+			<Board boardWidth={chessboardWidth} />
 		</>
 	);
 }
