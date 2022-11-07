@@ -19,7 +19,9 @@ public class MatchRecord {
     return loser;
    }
 
+   /*
    public String displayMoveLog(){
     return "";
    }
+   */
 }
