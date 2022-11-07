@@ -51,9 +51,58 @@ a {
     align-items: center;
     text-align: center;
     margin: auto;
-    margin-top: 10vh;
+    margin-top: 5vh;
     min-height: 90vh;
-    max-width: 720px;
+    max-width: 520px;
+}
+// Page styles
+
+@media screen and (max-width: 500px) {
+    .opponent-username {
+        position: relative;
+        font-family: 'prox-light', sans-serif;
+        font-size: 1em;
+        color: black;
+        left: 5vw;
+        top: -76vh;
+        
+    }
+}
+
+@media screen and (min-width: 501px) {
+    .opponent-username {
+        position: relative;
+        font-family: 'prox-light', sans-serif;
+        font-size: 1em;
+        color: black;
+        left: 36vw;
+        top: -76vh;
+        
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .player-username {
+        position: relative;
+        font-family: 'prox-light', sans-serif;
+        font-size: 1em;
+        color: black;
+        left: 5vw;
+        top: -20vh;
+        
+    }
+}
+
+@media screen and (min-width: 501px) {
+    .player-username {
+        position: relative;
+        font-family: 'prox-light', sans-serif;
+        font-size: 1em;
+        color: black;
+        left: 36vw;
+        top: -20vh;
+        
+    }
 }
 
 // Map Styles

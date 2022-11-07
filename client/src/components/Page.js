@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Collapse } from 'reactstrap';
 import Header from './Header/Header';
 import Board from './Gameplay/Board';
+
 import { useToggle } from '../hooks/useToggle';
 import { LOG } from '../utils/constants';
 import { getOriginalServerUrl, sendAPIRequest } from '../utils/restfulAPI';
@@ -12,7 +13,7 @@ export default function Page(props) {
 	//const { places, selectedIndex, placeActions } = usePlaces();
 	const [chessboardWidth, setChessboardWidth] = useState(400);
 	const {account, setAccount, userID, setUserID, email, setEmail, accountActions} = useAccount();
-
+	
 	useEffect(() => {
     function handleResize() {
       const display = document.getElementsByClassName("primary-board-container")[0];
@@ -27,8 +28,12 @@ export default function Page(props) {
 
 	return (
 		<>
+		<div className='wrapper'>
 			<Header />
-			<Board boardWidth={chessboardWidth} />
+			<Board boardWidth={chessboardWidth}/>
+			<div className='opponent-username'>Opponent</div>
+			<div className='player-username'>Player</div>
+		</div>
 		</>
 	);
 }
