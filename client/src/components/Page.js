@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Collapse } from 'reactstrap';
 import Header from './Header/Header';
-import Board from './Gameplay/Board';
+import GamePage from './Gameplay/GamePage';
 
 import { useToggle } from '../hooks/useToggle';
 import { LOG } from '../utils/constants';
@@ -28,12 +28,8 @@ export default function Page(props) {
 
 	return (
 		<>
-		<div className='wrapper'>
 			<Header />
-			<Board boardWidth={chessboardWidth}/>
-			<div className='opponent-username'>Opponent</div>
-			<div className='player-username'>Player</div>
-		</div>
+			<GamePage boardWidth = {chessboardWidth}/>
 		</>
 	);
 }
