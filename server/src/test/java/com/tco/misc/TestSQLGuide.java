@@ -4,7 +4,13 @@ import com.tco.misc.SQLGuide.Credential;
 import com.tco.misc.SQLGuide.Database;
 import com.tco.misc.SQLGuide.Select;
 
-import java.lang.reflect.Type;
+import java.util.NoSuchElementException;
+import java.lang.reflect.Method;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,9 +20,19 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockedStatic;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestSQLGuide {
+
+    private static MockedStatic<DriverManager> mockDriverManager;
+    
+    @BeforeAll
+    public static void beforeAll() {
+        mockDriverManager = Mockito.mockStatic(DriverManager.class);
+    }
 
     // Tests for Credential class
     @Test
@@ -50,4 +66,93 @@ public class TestSQLGuide {
     }
 
     // Tests for Database Class
+    @Test
+    @DisplayName("mheavner: Test registerUser w/ true")
+    public void testRegisterUserSuccess() throws Exception {
+        Connection mockConnection = Mockito.mock(Connection.class);
+        Statement mockStatement = Mockito.mock(Statement.class);
+
+        mockDriverManager.when(() -> DriverManager.getConnection(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
+            .thenReturn(mockConnection);
+        Mockito.when(mockConnection.createStatement()).thenReturn(mockStatement);
+        Mockito.when(mockStatement.executeUpdate(Mockito.anyString())).thenReturn(1);
+
+        assertTrue(Database.registerUser("User", "email@domain.com", "password"));
+    }
+
+    @Test
+    @DisplayName("mheavner: Test registerUser w/ false")
+    public void testRegisterUserFail() throws Exception {
+        Connection mockConnection = Mockito.mock(Connection.class);
+        Statement mockStatement = Mockito.mock(Statement.class);
+
+        mockDriverManager.when(() -> DriverManager.getConnection(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
+            .thenReturn(mockConnection);
+        Mockito.when(mockConnection.createStatement()).thenReturn(mockStatement);
+        Mockito.when(mockStatement.executeUpdate(Mockito.anyString())).thenReturn(0);
+
+        assertFalse(Database.registerUser("User", "email@domain.com", "password"));
+    }
+
+    @Test
+    @DisplayName("mheavner: Test registerUser w/ error")
+    public void testRegisterUserError() throws Exception {
+        Connection mockConnection = Mockito.mock(Connection.class);
+        Statement mockStatement = Mockito.mock(Statement.class);
+        SQLException sqlException = new SQLException();
+
+        mockDriverManager.when(() -> DriverManager.getConnection(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
+            .thenReturn(mockConnection);
+        Mockito.when(mockConnection.createStatement()).thenReturn(mockStatement);
+        Mockito.when(mockStatement.executeUpdate(Mockito.anyString())).thenThrow(sqlException);
+
+        assertThrows(SQLException.class, () -> Database.registerUser("User", "email@domain.com", "password"));
+    }
+
+    @Test
+    @DisplayName("mheavner: Test verifyUser w/ false")
+    public void testVerifyUserFail() throws Exception {
+        Connection mockConnection = Mockito.mock(Connection.class);
+        Statement mockStatement = Mockito.mock(Statement.class);
+        ResultSet mockResultSet = Mockito.mock(ResultSet.class);
+        
+
+        mockDriverManager.when(() -> DriverManager.getConnection(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
+            .thenReturn(mockConnection);
+        Mockito.when(mockConnection.createStatement()).thenReturn(mockStatement);
+        Mockito.when(mockStatement.executeQuery(Mockito.anyString())).thenReturn(mockResultSet);
+        Mockito.when(mockResultSet.first()).thenReturn(false);
+
+        assertThrows(NoSuchElementException.class, () -> Database.verifyUser("User", "password"));
+    }
+
+    @Test
+    @DisplayName("mheavner: Test verifyUser w/ error")
+    public void testVerifyUserError() throws Exception {
+        Connection mockConnection = Mockito.mock(Connection.class);
+        Statement mockStatement = Mockito.mock(Statement.class);
+        SQLException sqlException = new SQLException();
+
+        mockDriverManager.when(() -> DriverManager.getConnection(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
+            .thenReturn(mockConnection);
+        Mockito.when(mockConnection.createStatement()).thenReturn(mockStatement);
+        Mockito.when(mockStatement.executeQuery(Mockito.anyString())).thenThrow(sqlException);
+
+        assertThrows(SQLException.class, () -> Database.verifyUser("User", "password"));
+    }
+
+    @Test
+    @DisplayName("mheavner: Test getUserById w/ error")
+    public void testGetUserByIdError() throws Exception {
+        Connection mockConnection = Mockito.mock(Connection.class);
+        Statement mockStatement = Mockito.mock(Statement.class);
+        SQLException sqlException = new SQLException();
+
+        mockDriverManager.when(() -> DriverManager.getConnection(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
+            .thenReturn(mockConnection);
+        Mockito.when(mockConnection.createStatement()).thenReturn(mockStatement);
+        Mockito.when(mockStatement.executeQuery(Mockito.anyString())).thenThrow(sqlException);
+
+        assertThrows(SQLException.class, () -> Database.getUserById("1"));
+    }
 }
