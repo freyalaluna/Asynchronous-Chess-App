@@ -28,7 +28,7 @@ export default function Page(props) {
 
 	return (
 		<>
-			<Header />
+			<Header /> 
 			<GamePage boardWidth = {chessboardWidth}/>
 		</>
 	);
