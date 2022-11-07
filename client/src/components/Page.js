@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Collapse } from 'reactstrap';
 import Header from './Header/Header';
 import GamePage from './Gameplay/GamePage';
+import Signup from './Signup';
+import Login from './Login';
 
 import { useToggle } from '../hooks/useToggle';
 import { LOG } from '../utils/constants';
@@ -11,9 +13,12 @@ import { useAccount } from '../hooks/useAccount';
 export default function Page(props) {
 	// const [showAbout, toggleAbout] = useToggle(false);
 	//const { places, selectedIndex, placeActions } = usePlaces();
+
 	const [chessboardWidth, setChessboardWidth] = useState(400);
-	const {account, setAccount, userID, setUserID, email, setEmail, accountActions} = useAccount();
-	
+
+	const {account, setAccount, userID, setUserID, email, setEmail, requestValidated, setRequestValidated, accountActions} = useAccount();
+
+
 	useEffect(() => {
     function handleResize() {
       const display = document.getElementsByClassName("primary-board-container")[0];
@@ -28,8 +33,12 @@ export default function Page(props) {
 
 	return (
 		<>
+	
 			<Header /> 
+      {/*<Signup accountActions = {accountActions} setUserID = {setUserID} setEmail = {setEmail} requestValidated = {requestValidated}/>*/}
+			{/*<Login accountActions = {accountActions} setUserID = {setUserID} requestValidated = {requestValidated} />*/}
 			<GamePage boardWidth = {chessboardWidth}/>
+	
 		</>
 	);
 }
