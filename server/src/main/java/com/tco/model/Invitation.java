@@ -18,12 +18,12 @@ public final class Invitation {
         this.generateNotification(Notification.MessageType.INVITE_PENDING, inviteCreator, inviteRecipient);
     }
 
-    private void acceptInvite(){
+    public void acceptInvite(){
         isAccepted = true;
         sendInviteStatus();
     }
 
-    private void rejectInvite(){
+    public void rejectInvite(){
         isAccepted = false;
         sendInviteStatus();
     }
@@ -40,5 +40,9 @@ public final class Invitation {
         //Notification newNotif = new Notification(type, toSend.username());
         //toReceive.getInbox().addNotification(newNotif);
         return;
+    }
+
+    public boolean getAcceptedStatus(){
+        return isAccepted;
     }
 }

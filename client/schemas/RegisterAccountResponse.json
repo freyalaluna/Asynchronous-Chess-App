@@ -6,9 +6,9 @@
   "type": "object",
   "properties": {
     "requestType": {
-      "description": "the object type should be registerAccount",
+      "description": "the object type should be account",
       "type": "string",
-      "pattern": "^registerAccount$"
+      "pattern": "^account$"
     },
     "username": {
       "description": "username of a user",
