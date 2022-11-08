@@ -7,19 +7,17 @@ export function useAccount(){
     const [account, setAccount] = useState(null);
     const [userID, setUserID] = useState(0);
     const [email, setEmail] = useState(null);
-    const [requestValidated, setRequestValidated] = useState(false)
     
 
     const context = {account, setAccount,
                      userID, setUserID,
-                     email, setEmail,
-                     requestValidated, setRequestValidated};
+                     email, setEmail};
 
     const accountActions = {
         sendAccountRequest: async(username, password, email) => sendAccountRequest(username, password, email, context),
     };
 
-    return {account, setAccount, userID, setUserID, email, setEmail, requestValidated, setRequestValidated, accountActions};
+    return {account, setAccount, userID, setUserID, email, setEmail, accountActions};
 }
 
 async function sendAccountRequest(username, password, email = "", context) {
@@ -33,9 +31,11 @@ async function sendAccountRequest(username, password, email = "", context) {
     if(accountResponse.userID != null && accountResponse.userID != -1){
         context.setUserID(accountResponse.userID);
         context.setEmail(accountResponse.email);
-        context.setRequestValidated(true);
+        console.log("Account Request succeeded.");
+        console.log(accountResponse.userID);
+        return accountResponse.userID;
     } else {
         LOG.error("Account Request failed.");
-        context.setRequestValidated(false);
+        return -1;
     }
 }

@@ -43,23 +43,25 @@ export default function Signup(props){
         }
         console.log(formData);
 
-        await props.accountActions.sendAccountRequest(formData.username, formData.password, formData.email);
+        var responseID = await props.accountActions.sendAccountRequest(formData.username, formData.password, formData.email);
 
-        if(props.requestValidated){
+        if(responseID != -1){
             console.log("Success");
-            //Reroute to main page
+            console.log("UserID: " + responseID);
+            props.setUserID(responseID);
+            props.setEmail(formData.email);
         } else {
             console.log("Failure");
         }
 
-        e.target.reset();
-        setFormData({
-            ...formData,
-            email : "",
-            username : "",
-            password : "",
-            confPassword : ""
-        })
+        // e.target.reset();
+        // setFormData({
+        //     ...formData,
+        //     email : "",
+        //     username : "",
+        //     password : "",
+        //     confPassword : ""
+        // })
     };
 
     return(

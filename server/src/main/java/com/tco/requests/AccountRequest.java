@@ -74,7 +74,8 @@ public class AccountRequest extends Request {
 
     private boolean register() throws Exception {
         log.info("Attempting to register account with email "+this.email);
-        SQLGuide.Database.registerUser(this.username, this.email, this.password);
+        String[] results = SQLGuide.Database.registerUser(this.username, this.email, this.password);
+        this.userID = Integer.parseInt(results[0]);
         log.info("Successfully registered account with email "+this.email);
         return true;
     }

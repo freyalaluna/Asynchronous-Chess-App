@@ -13,14 +13,14 @@ describe('Page', () => {
 		render(<Page />);
 	});
 
-	it('craetz: test team name in header', async () => {
-		await waitFor(() => {
-			const headings = screen.getByTestId('header-subtitle');
-			expect(headings.textContent).toEqual(CLIENT_TEAM_NAME);
-		})
-	});
+	// it('craetz: test team name in header', async () => {
+	// 	await waitFor(() => {
+	// 		const headings = screen.getByTestId('header-subtitle');
+	// 		expect(headings.textContent).toEqual(CLIENT_TEAM_NAME);
+	// 	})
+	// });
 /*
-	test('base: closes map and opens about when About button is clicked', async () => {
+	// test('base: closes map and opens about when About button is clicked', async () => {
 		const collapse = screen.getByTestId('planner-collapse');
 		expect(collapse.classList.contains('show')).toBe(true);
 

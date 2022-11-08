@@ -14,26 +14,26 @@ export default function Page(props) {
 	//const { places, selectedIndex, placeActions } = usePlaces();
 
 	const [chessboardWidth, setChessboardWidth] = useState(400);
-	const {account, setAccount, userID, setUserID, email, setEmail, requestValidated, setRequestValidated, accountActions} = useAccount();
+	const {account, setAccount, userID, setUserID, email, setEmail, accountActions} = useAccount();
 
-	useEffect(() => {
-    function handleResize() {
-      const display = document.getElementsByClassName("primary-board-container")[0];
-			let width = Math.min(display.offsetWidth - 20, display.offsetHeight - 20);
-      setChessboardWidth(width);
-    }
+	// useEffect(() => {
+    // function handleResize() {
+    //   const display = document.getElementsByClassName("primary-board-container")[0];
+	// 		let width = Math.min(display.offsetWidth - 20, display.offsetHeight - 20);
+    //   setChessboardWidth(width);
+    // }
 
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+//     window.addEventListener("resize", handleResize);
+//     handleResize();
+//     return () => window.removeEventListener("resize", handleResize);
+//   }, []);
 
 	return (
 		<>
 			<Header />
-      {/*<Signup accountActions = {accountActions} setUserID = {setUserID} setEmail = {setEmail} requestValidated = {requestValidated}/>*/}
-			{/*<Login accountActions = {accountActions} setUserID = {setUserID} requestValidated = {requestValidated} />*/}
-			<Board boardWidth={chessboardWidth} />
+      		<Signup accountActions = {accountActions} setUserID = {setUserID} setEmail = {setEmail}/>
+			{/*<Login accountActions = {accountActions} setUserID = {setUserID} />*/}
+			{/*<Board boardWidth={chessboardWidth} /> */}
 		</>
 	);
 }
