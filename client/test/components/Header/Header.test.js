@@ -25,13 +25,13 @@ describe('Header', () => {
 		fetch.mockResponse(VALID_CONFIG_RESPONSE);
 		render(<Header {...headerProps} />);
 	});
-	// it('craetz: test team name in header', async () => {
-	// 	await waitFor(() => {
-	// 		const headings = screen.getByTestId('header-subtitle');
-	// 		expect(headings.textContent).toEqual(CLIENT_TEAM_NAME);
+	it('craetz: test team name in header', async () => {
+		await waitFor(() => {
+			const headings = screen.getByTestId('header-subtitle');
+			expect(headings.textContent).toEqual(CLIENT_TEAM_NAME);
 			
-	// 	})
-	// });
+		})
+	});
 
 	test('mheavner: assert true', () => {
 		expect(true);
