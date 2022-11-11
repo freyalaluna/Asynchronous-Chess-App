@@ -1,8 +1,8 @@
 import React from 'react';
-import { Container, Button } from 'reactstrap';
+import { Container, Button, Menu } from 'reactstrap';
 import { APP_NAME, CLIENT_TEAM_NAME } from '../../utils/constants';
 import { useToggle } from '../../hooks/useToggle';
-import { IoMdClose } from 'react-icons/io';
+import { IoMdMenu } from 'react-icons/io';
 
 export default function Header(props) {
 	return (
@@ -31,6 +31,7 @@ function HeaderContents(props) {
 							{CLIENT_TEAM_NAME}
 						</p>
 					</h1>
+					<HeaderButton />
 				</div>
 			</Container>
 		</div>
@@ -38,46 +39,13 @@ function HeaderContents(props) {
 }
 
 function HeaderButton(props) {
-	return props.showAbout ? (
-		<Button
-			data-testid='close-about-button'
-			color='primary'
-			onClick={() => props.toggleAbout()}
-		>
-			<IoMdClose size={32} />
-		</Button>
-	) : (
-		<Menu
-			toggleAbout={props.toggleAbout}
-			placeActions={props.placeActions}
-			toggleAddPlace={props.toggleAddPlace}
-			toggleLoadFile={props.toggleLoadFile}
-			disableRemoveAll={props.disableRemoveAll}
-			toggleServerSettings={props.toggleServerSettings}
-		/>
-	);
-}
-
-function AppModals(props) {
 	return (
-		<>
-			<AddPlace
-				isOpen={props.showAddPlace}
-				toggleAddPlace={props.toggleAddPlace}
-				append={props.placeActions.append}
-			/>
-			<ServerSettings
-				isOpen={props.showServerSettings}
-				toggleOpen={props.toggleServerSettings}
-				processServerConfigSuccess={props.processServerConfigSuccess}
-				serverSettings={props.serverSettings}
-			/>
-			<LoadFile
-				isOpen={props.showLoadFile}
-				toggleLoadFile={props.toggleLoadFile}
-				placeActions={props.placeActions}
-				setTripName={props.setTripName}
-			/>
-		</>
+		<React.Fragment>
+			<Button
+				color='primary'
+			>
+				<IoMdMenu size={32} />
+			</Button>
+		</React.Fragment>
 	);
 }
