@@ -5,18 +5,13 @@ import { LOG } from '../../src/utils/constants';
 import App from '../../src/components/App';
 
 describe('App', () => {
-    // beforeEach(() => {
-    //     fetch.resetMocks();
-    // });
+    beforeEach(() => {
+        fetch.resetMocks();
+    });
 
-    // test('base: shows error snackbar if no server config', async () => {
-    //     jest.spyOn(LOG, 'error').mockImplementation(() => {});
-    //     fetch.mockReject(() => Promise.reject("API is down (expected)."));
-
-    //     render(<App />);
-
-    //     await screen.findByText(/failed/i);
-    // });
+    test('victor45: render app', async () => {
+        render(<App />);
+    });
 
     test('mheavner: assert true', () => {
 		expect(true);
