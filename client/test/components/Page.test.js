@@ -20,7 +20,7 @@ describe('Page', () => {
 		})
 	});
 /*
-	test('base: closes map and opens about when About button is clicked', async () => {
+	// test('base: closes map and opens about when About button is clicked', async () => {
 		const collapse = screen.getByTestId('planner-collapse');
 		expect(collapse.classList.contains('show')).toBe(true);
 
