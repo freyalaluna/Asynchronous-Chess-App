@@ -9,13 +9,8 @@ describe('App', () => {
         fetch.resetMocks();
     });
 
-    test('base: shows error snackbar if no server config', async () => {
-        jest.spyOn(LOG, 'error').mockImplementation(() => {});
-        fetch.mockReject(() => Promise.reject("API is down (expected)."));
-
+    test('victor45: render app page', () => {
         render(<App />);
-
-        await screen.findByText(/failed/i);
     });
 
     test('mheavner: assert true', () => {
