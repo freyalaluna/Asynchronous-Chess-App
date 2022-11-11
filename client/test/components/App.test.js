@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, test } from '@jest/globals';
-import { APP_NAME } from '../../src/utils/constants';
+import { CLIENT_TEAM_NAME, APP_NAME } from '../../src/utils/constants';
 import App from '../../src/components/App';
 
 describe('App', () => {
