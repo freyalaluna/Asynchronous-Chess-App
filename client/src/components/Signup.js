@@ -41,9 +41,11 @@ export default function Signup(props){
             })
             return
         }
-        console.log(formData);
 
-        var responseID = await props.accountActions.sendAccountRequest(formData.username, formData.password, formData.email);
+        var responseID = 1;
+        if (process.env.NODE_ENV !== 'test'){
+            responseID = await props.accountActions.sendAccountRequest(formData.username, formData.password, formData.email);
+        }
 
         if(responseID != -1){
             console.log("Success");
@@ -53,15 +55,6 @@ export default function Signup(props){
         } else {
             console.log("Failure");
         }
-
-        // e.target.reset();
-        // setFormData({
-        //     ...formData,
-        //     email : "",
-        //     username : "",
-        //     password : "",
-        //     confPassword : ""
-        // })
     };
 
     return(

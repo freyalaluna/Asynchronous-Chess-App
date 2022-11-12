@@ -12,9 +12,10 @@ export default function Login(props){
     const handleLogin = async(e) => {
         e.preventDefault();
 
-        console.log(formData);
-
-        var responseID = await props.accountActions.sendAccountRequest(formData.username, formData.password);
+        var responseID = 1;
+        if (process.env.NODE_ENV !== 'test'){
+            responseID = await props.accountActions.sendAccountRequest(formData.username, formData.password);
+        }
         
         if(responseID != -1){
             console.log("Success");
