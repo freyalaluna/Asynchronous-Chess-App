@@ -24,9 +24,7 @@ async function sendMoveRequest(sourceSquare, targetSquare, pieceType, gameState,
                                                 gameState: gameState}, getOriginalServerUrl());
     if(accountResponse.isLegalMove){
         context.setValidMove(true);
-        context.log("Move is legal");
-        return accountResponse.isLegalMove
-        
+        context.log("Move is legal");   
     } else {
         context.setValidMove(false);
         LOG.error("Move is not legal");
