@@ -1,22 +1,28 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, test } from '@jest/globals';
-import { LOG } from '../../src/utils/constants';
+import { CLIENT_TEAM_NAME, APP_NAME } from '../../src/utils/constants';
 import App from '../../src/components/App';
 
 describe('App', () => {
-    // beforeEach(() => {
-    //     fetch.resetMocks();
-    // });
+    beforeEach(() => {
+        fetch.resetMocks();
+        render(<App />);
+    });
 
-    // test('base: shows error snackbar if no server config', async () => {
-    //     jest.spyOn(LOG, 'error').mockImplementation(() => {});
-    //     fetch.mockReject(() => Promise.reject("API is down (expected)."));
+    it('victor45: test team name in header', async () => {
+      await waitFor(() => {
+        const headings = screen.getByTestId('header-subtitle');
+        expect(headings.textContent).toEqual(CLIENT_TEAM_NAME);
+      })
+    });
 
-    //     render(<App />);
-
-    //     await screen.findByText(/failed/i);
-    // });
+    it('victor45: test app name in header', async () => {
+      await waitFor(() => {
+        const headings = screen.getByTestId('header-title');
+        expect(headings.textContent).toEqual(APP_NAME);
+      })
+    });
 
     test('mheavner: assert true', () => {
 		expect(true);
