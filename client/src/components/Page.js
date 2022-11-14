@@ -14,7 +14,7 @@ export default function Page(props) {
 	//const { places, selectedIndex, placeActions } = usePlaces();
 
 	const [chessboardWidth, setChessboardWidth] = useState(400);
-	const {account, setAccount, userID, setUserID, email, setEmail, requestValidated, setRequestValidated, accountActions} = useAccount();
+	const {account, setAccount, userID, setUserID, email, setEmail, accountActions} = useAccount();
 
 	useEffect(() => {
     function handleResize() {
@@ -31,10 +31,12 @@ export default function Page(props) {
 	return (
 		<>
 			<Header />
-      {/*<Signup accountActions = {accountActions} setUserID = {setUserID} setEmail = {setEmail} requestValidated = {requestValidated}/>*/}
-			{/*<Login accountActions = {accountActions} setUserID = {setUserID} requestValidated = {requestValidated} />*/}
+
+      {/*<Signup accountActions = {accountActions} setUserID = {setUserID} setEmail = {setEmail}/>*/}
+			{/*<Login accountActions = {accountActions} setUserID = {setUserID} />*/}
 			
 			<GamePage boardWidth={chessboardWidth}/>
+
 		</>
 	);
 }

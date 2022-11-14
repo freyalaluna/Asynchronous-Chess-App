@@ -14,10 +14,12 @@ export default function Login(props){
 
         console.log(formData);
 
-        await props.accountActions.sendAccountRequest(formData.username, formData.password);
+        var responseID = await props.accountActions.sendAccountRequest(formData.username, formData.password);
         
-        if(props.requestValidated){
+        if(responseID != -1){
             console.log("Success");
+            console.log("UserID: " + responseID);
+            props.setUserID(responseID);
         } else {
             console.log("Failure");
         }
