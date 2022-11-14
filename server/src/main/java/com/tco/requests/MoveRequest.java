@@ -4,12 +4,7 @@ import java.util.ArrayList;
 import com.tco.model.Board;
 import com.tco.model.Square;
 import com.tco.model.Piece;
-import com.tco.model.Pawn;
-import com.tco.model.Knight;
-import com.tco.model.Bishop;
-import com.tco.model.Rook;
-import com.tco.model.Queen;
-import com.tco.model.King;
+import com.tco.model.PieceFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,52 +44,9 @@ public class MoveRequest extends Request {
   public Piece transformPiece(Square initialPos) {
     char identifier = piece.charAt(1);
     char color = piece.charAt(0);
-    Piece targetPiece;
 
-    switch (identifier) {
-      case 'P':
-        if (color == 'w') {
-          targetPiece = new Pawn(false, initialPos);
-        } else {
-          targetPiece = new Pawn(true, initialPos);
-        }
-        break;
-      case 'N':
-        if (color == 'w') {
-          targetPiece = new Knight(false, initialPos);
-        } else {
-          targetPiece = new Knight(true, initialPos);
-        }
-        break;
-      case 'B':
-        if (color == 'w') {
-          targetPiece = new Bishop(false, initialPos);
-        } else {
-          targetPiece = new Bishop(true, initialPos);
-        }
-        break;
-      case 'R':
-        if (color == 'w') {
-          targetPiece = new Rook(false, initialPos);
-        } else {
-          targetPiece = new Rook(true, initialPos);
-        }
-        break;
-      case 'Q':
-        if (color == 'w') {
-          targetPiece = new Queen(false, initialPos);
-        } else {
-          targetPiece = new Queen(true, initialPos);
-        }
-        break;
-      default:
-        if (color == 'w') {
-          targetPiece = new King(false, initialPos);
-        } else {
-          targetPiece = new King(true, initialPos);
-        }
-        break;
-    }
+    PieceFactory factory = new PieceFactory();
+    Piece targetPiece = factory.createPieceFENType(identifier, color == 'b', initialPos);
 
     return targetPiece;
   }
