@@ -25,6 +25,10 @@
     "gameState": {
       "description": "the current state of the board (before attempting this move) in FEN string notation",
       "type": "string"
+    },
+    "captured": {
+      "description":"string that stores captured pieces",
+      "type":"string"
     }
   },
   "required":["requestType", "sourceSquare", "targetSquare", "piece", "gameState"],
