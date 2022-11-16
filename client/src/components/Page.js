@@ -35,7 +35,7 @@ export default function Page(props) {
       {/*<Signup accountActions = {accountActions} setUserID = {setUserID} setEmail = {setEmail}/>*/}
 			{/*<Login accountActions = {accountActions} setUserID = {setUserID} />*/}
 			
-			<GamePage boardWidth={chessboardWidth}/>
+			<GamePage account={account} boardWidth={chessboardWidth}/>
 
 		</>
 	);

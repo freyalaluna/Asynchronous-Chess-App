@@ -4,7 +4,7 @@ import { sendAPIRequest } from '../utils/restfulAPI';
 import { getOriginalServerUrl } from '../utils/restfulAPI';
 
 export function useAccount(){
-    const [account, setAccount] = useState(null);
+    const [account, setAccount] = useState('Player');
     const [userID, setUserID] = useState(0);
     const [email, setEmail] = useState(null);
     

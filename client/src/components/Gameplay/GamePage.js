@@ -8,7 +8,7 @@ export default function GamePage(props) {
     <>
     <Board boardWidth={props.boardWidth}/>
     <div className='opponent-username'>Opponent</div>
-    <div className='player-username'>Player</div>
+    <div className='player-username'>{props.account}</div>
     </>
   );
 }
