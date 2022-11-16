@@ -1,13 +1,32 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import user from '@testing-library/user-event';
-import { beforeEach, describe, expect, test } from '@jest/globals';
+import { beforeEach, describe, expect, it, test } from '@jest/globals';
 import { VALID_CONFIG_RESPONSE } from '../sharedMocks';
 import Login from '../../src/components/Login';
+import { sendAPIRequest } from '../../src/utils/restfulAPI';
 
 describe('Login', () => {
-    beforeEach(() => {
+    
+    test('fturner: test that form submission works', () => {
+        const name = "fturner";
+        const pass = "abcde";
 
+        const onSubmit = jest.fn();
+        render(<Login onSubmit={onSubmit}/>);
+        const logSpy = jest.spyOn(console, "log");
+
+        const nameField = screen.getByPlaceholderText("Enter username");
+        const pwField = screen.getByPlaceholderText("Enter password");
+        const submitButton = screen.getByText("Register");
+
+        fireEvent.change(nameField, {target: {value: name}});
+        fireEvent.change(pwField, {target: {value: pass}});
+        fireEvent.click(submitButton);
+
+        expect(logSpy).toHaveBeenCalledWith("Success");
+        
     });
 
     /*Future tests: 

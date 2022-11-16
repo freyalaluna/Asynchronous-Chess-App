@@ -1,17 +1,16 @@
 import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-//import { shallow } from 'enzyme';
 import user from '@testing-library/user-event';
-import { beforeEach, describe, expect, test } from '@jest/globals';
+import { beforeEach, describe, expect, it, test } from '@jest/globals';
 import { VALID_CONFIG_RESPONSE } from '../sharedMocks';
-import Signup, {validateEmail, validateUsername, validatePass} from '../../src/components/Signup';
+import Signup, {validateEmail, validateUsername, validatePass, apiResponse} from '../../src/components/Signup';
 import { sendAPIRequest } from '../../src/utils/restfulAPI';
 
 describe('Signup', () => {
-    // beforeEach(() => {
-    //     //wrapper = shallow(<Signup></Signup>);
-    // })
+    const setup = () => {
+        <Signup></Signup>
+    }
     
     test('fturner: validateEmail returns false on a string without an @', () => {
         const text = "name.extension";
@@ -75,39 +74,69 @@ describe('Signup', () => {
         expect(passConField.getAttribute("name")).toBe("confPassword");
     })
 
-    // test('fturner: form can be submitted', () => {
-    //     const mockFxn = jest.fn();
-    //     const { getByRole } = render(<Signup handleSignin={mockFxn}/>);
-    //     const submitButton = getByRole("button");
-    //     fireEvent.submit(submitButton);
-    //     expect(mockFxn).toHaveBeenCalledTimes(1);
-    // })
+    test('fturner: test that form submission works', () => {
+        const name = "fturner";
+        const email = "burner@gmail.com";
+        const pass = "abcde";
 
-    // describe("API Tests", () => {
-    //     beforeEach(() => {
-    //         fetch.resetMocks();
-    //     })
-    //     it('fturner: test registerAccount', async () => {
-    //         const MOCK_SIGNUP_RESPONSE = {requestType: "registerAccount", username: "fturner", userID: "1"}
-    //         fetch.mockResponse(JSON.stringify(MOCK_SIGNUP_RESPONSE));
-    //         const response = await sendAPIRequest({
-    //             requestType : "registerAccount",
-    //             username : "fturner",
-    //             email : "burner@gmail.com",
-    //             password : "abc"
-    //         }, null);
-    //         expect(fetch).toBeCalledTimes(1);
-    //     });
-        // it('alden: test extract places from response', () => {        
-        //     let placesArray = buildOptionsArray(MOCK_SIGNUP_RESPONSE);        
-        //     expect(placesArray).toEqual([new Place(MOCK_FIND_RESPONSE.places[0])]);    
-        // });
-        // it('alden: test findPlaces returns place', async () => {        
-        //     fetch.mockResponse(JSON.stringify(MOCK_FIND_RESPONSE));        
-        //     const response = await findPlaces('dave', null);        
-        //     expect(response).toEqual([1, [new Place(MOCK_FIND_RESPONSE.places[0])]]);    
-        // });
-    //})
+        const onSubmit = jest.fn();
+        render(<Signup onSubmit={onSubmit}/>);
+        const logSpy = jest.spyOn(console, "log");
+
+        const nameField = screen.getByPlaceholderText("Enter username");
+        const emailField = screen.getByPlaceholderText("Enter email");
+        const pwField = screen.getByPlaceholderText("Enter password");
+        const cpwField = screen.getByPlaceholderText("Re-enter password");
+        const submitButton = screen.getByText("Register");
+
+        fireEvent.change(nameField, {target: {value: name}});
+        fireEvent.change(emailField, {target: {value: email}});
+        fireEvent.change(pwField, {target: {value: pass}});
+        fireEvent.change(cpwField, {target: {value: pass}});
+        fireEvent.click(submitButton);
+
+        expect(logSpy).toHaveBeenCalledWith("Success");
+        
+    });
+
+    test('fturner: test that form is reset when bad args given', () => {
+        const name = "fturner";
+        const email = "bademail";
+        const pass = "abcde";
+
+        const onSubmit = jest.fn();
+        render(<Signup onSubmit={onSubmit}/>);
+        const logSpy = jest.spyOn(console, "log");
+
+        const nameField = screen.getByPlaceholderText("Enter username");
+        const emailField = screen.getByPlaceholderText("Enter email");
+        const pwField = screen.getByPlaceholderText("Enter password");
+        const cpwField = screen.getByPlaceholderText("Re-enter password");
+        const submitButton = screen.getByText("Register");
+
+        fireEvent.change(nameField, {target: {value: name}});
+        fireEvent.change(emailField, {target: {value: email}});
+        fireEvent.change(pwField, {target: {value: pass}});
+        fireEvent.change(cpwField, {target: {value: pass}});
+        fireEvent.click(submitButton);
+
+        expect(nameField).toHaveValue("");
+        expect(emailField).toHaveValue("");
+        expect(pwField).toHaveValue("");
+        expect(cpwField).toHaveValue("");
+    });
+
+    test('fturner: test account API call', async () => {
+        const MOCK_SIGNUP_RESPONSE = {requestType: "account", username: "fturner", userID: "1"}
+        fetch.mockResponse(JSON.stringify(MOCK_SIGNUP_RESPONSE));
+        const response = await sendAPIRequest({
+            requestType : "account",
+            username : "fturner",
+            email : "burner@gmail.com",
+            password : "abc"
+        }, null);
+        expect(fetch).toBeCalledTimes(1);
+    });
     /*Future tests:
         - Test that error messages are properly displayed on incorrect submission
         - Feedback is appropriately displayed based on successful/failed API call
