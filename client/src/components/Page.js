@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Collapse } from 'reactstrap';
 import Header from './Header/Header';
-import Board from './Gameplay/Board';
+import GamePage from './Gameplay/GamePage';
 import Signup from './Signup';
 import Login from './Login';
 import { useToggle } from '../hooks/useToggle';
@@ -31,9 +31,12 @@ export default function Page(props) {
 	return (
 		<>
 			<Header />
-      		{/*<Signup accountActions = {accountActions} setUserID = {setUserID} setEmail = {setEmail}/>*/}
+
+      {/*<Signup accountActions = {accountActions} setUserID = {setUserID} setEmail = {setEmail}/>*/}
 			{/*<Login accountActions = {accountActions} setUserID = {setUserID} />*/}
-			<Board boardWidth={chessboardWidth} />
+			
+			<GamePage boardWidth={chessboardWidth}/>
+
 		</>
 	);
 }
