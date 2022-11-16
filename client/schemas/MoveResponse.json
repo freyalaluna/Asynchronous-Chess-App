@@ -19,6 +19,6 @@
       "type":"string"
     }
   },
-  "required":["requestType", "isLegalMove", "fenString"],
+  "required":["requestType", "isLegalMove"],
   "additionalProperties": false
 }
