@@ -104,6 +104,15 @@ a {
         font-weight: bold; 
     }
 }
+
+@media screen and (min-width: 501px) {
+    .player-captured-pieces {
+        position: relative;
+        left: 40vw;
+        top: -10vh;
+        max-width: 10%;
+    }
+}
 // Map Styles
 
 .mapStyle {
