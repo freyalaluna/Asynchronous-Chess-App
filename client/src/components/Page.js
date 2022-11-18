@@ -8,6 +8,7 @@ import { useToggle } from '../hooks/useToggle';
 import { LOG } from '../utils/constants';
 import { getOriginalServerUrl, sendAPIRequest } from '../utils/restfulAPI';
 import { useAccount } from '../hooks/useAccount';
+import { useMove } from '../hooks/useMove';
 
 export default function Page(props) {
 	// const [showAbout, toggleAbout] = useToggle(false);
@@ -15,6 +16,7 @@ export default function Page(props) {
 
 	const [chessboardWidth, setChessboardWidth] = useState(400);
 	const {account, setAccount, userID, setUserID, email, setEmail, accountActions} = useAccount();
+	const {moveActions} = useMove();
 
 	useEffect(() => {
     function handleResize() {
@@ -35,7 +37,7 @@ export default function Page(props) {
       {/*<Signup accountActions = {accountActions} setUserID = {setUserID} setEmail = {setEmail}/>*/}
 			{/*<Login accountActions = {accountActions} setUserID = {setUserID} />*/}
 			
-			<GamePage boardWidth={chessboardWidth}/>
+			<GamePage boardWidth={chessboardWidth} moveActions={moveActions}/>
 
 		</>
 	);
