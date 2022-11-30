@@ -65,13 +65,13 @@ public class TestMoveRequest {
       {'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'}
     };
 
-    String fenString = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+    String fenString = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
     char[][] actualState = req.transformGameState(fenString);
     assertTrue(Arrays.deepEquals(expectedState, actualState));
   }
 
   @Test
-  @DisplayName("victor45: test transform game state middle of game")
+  @DisplayName("victor45: test transform game state middle of game w KQkq - 0 1")
   public void testGameTransformMidGameState() {
     char[][] expectedState = {
       {'r', 'n', 'b', 'o', 'k', 'b', 'n', 'r'},
@@ -84,7 +84,7 @@ public class TestMoveRequest {
       {'R', 'o', 'B', 'Q', 'K', 'o', 'o', 'R'}
     };
 
-    String fenString = "rnb1kbnr/ppp2ppp/3p4/4p1q1/2B1P3/2N2N2/PPPP1PPP/R1BQK2R";
+    String fenString = "rnb1kbnr/ppp2ppp/3p4/4p1q1/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 0 1";
     char[][] actualState = req.transformGameState(fenString);
     assertTrue(Arrays.deepEquals(expectedState, actualState));
   }
@@ -103,7 +103,7 @@ public class TestMoveRequest {
       {'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'}
     };
 
-    String fenString = "8/1k6/8/8/8/3K4/8/8";
+    String fenString = "8/1k6/8/8/8/3K4/8/8 w KQkq - 0 1";
     char[][] actualState = req.transformGameState(fenString);
     assertTrue(Arrays.deepEquals(expectedState, actualState));
   }
@@ -128,5 +128,16 @@ public class TestMoveRequest {
     char[][] initialBoardState = board.getBoardState();
     req.validateMove(blackKnightG8, g6Square, initialBoardState);
     assertEquals(req.getIsLegalMove(), false);
+  }
+
+  @Test
+  @DisplayName("victor45: test build resposne for white pawn to d4 - valid move")
+  public void testBuildResponseForWhitePawnD4Move() {
+    req.setSourceSquare("d2");
+    req.setTargetSquare("d4");
+    req.setPiece("wP");
+    req.setGameState("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+    req.buildResponse();
+    assertEquals(true, req.getIsLegalMove());
   }
 }

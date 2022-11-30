@@ -1,6 +1,7 @@
 package com.tco.requests;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import com.tco.model.Board;
 import com.tco.model.Square;
 import com.tco.model.Piece;
@@ -24,7 +25,7 @@ public class MoveRequest extends Request {
     Square targetPos = transformSquare(targetSquare);
     Piece targetPiece = transformPiece(initialPos);
     char[][] boardState = transformGameState(gameState);
-    validateMove(targetPiece, initialPos, boardState);
+    validateMove(targetPiece, targetPos, boardState);
   }
 
   public void validateMove(Piece piece, Square target, char[][] boardState) {
@@ -52,32 +53,27 @@ public class MoveRequest extends Request {
   }
 
   public char[][] transformGameState(String fenString) {
-    //this check may or may not be needed depending on client-side implementation
-    if (fenString.equals("start")) {
-      //returns initial board state
-      Board board = new Board();
-      char[][] boardState = board.getBoardState();
-      return boardState;
-    }
+    //get only piece information from fenString
+    String trimmedFENString = fenString.substring(0, fenString.indexOf(" "));
 
     char[][] boardState = new char[8][8];
     int x = 0;
     int y = 0;
 
-    for (int i = 0; i < fenString.length(); i++) {
-      if (fenString.charAt(i) == '/') { //reached end of row
+    for (int i = 0; i < trimmedFENString.length(); i++) {
+      if (trimmedFENString.charAt(i) == '/') { //reached end of row
         x = 0;
         y++;
       }
-      else if (Character.isDigit(fenString.charAt(i))) { //encounter empty square(s)
-        int numEmptySquares = Character.getNumericValue(fenString.charAt(i));
+      else if (Character.isDigit(trimmedFENString.charAt(i))) { //encounter empty square(s)
+        int numEmptySquares = Character.getNumericValue(trimmedFENString.charAt(i));
         for (int j = 0; j < numEmptySquares; j++) {
           boardState[y][x] = 'o';
           x++;
         }
       }
       else { //encountered piece
-        boardState[y][x] = fenString.charAt(i);
+        boardState[y][x] = trimmedFENString.charAt(i);
         x++;
       }
 
@@ -88,8 +84,20 @@ public class MoveRequest extends Request {
 
 
   //VISIBLE FOR TESTING
+  public void setSourceSquare(String source) {
+    this.sourceSquare = source;
+  }
+
+  public void setTargetSquare(String target) {
+    this.targetSquare = target;
+  }
+
   public void setPiece(String p) {
     this.piece = p;
+  }
+
+  public void setGameState(String fen) {
+    this.gameState = fen;
   }
 
   public boolean getIsLegalMove() {

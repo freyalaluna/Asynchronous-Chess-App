@@ -20,5 +20,5 @@
     }
   },
   "required":["requestType", "isLegalMove"],
-  "additionalProperties": false
+  "additionalProperties": true
 }
