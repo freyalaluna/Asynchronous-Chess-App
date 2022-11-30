@@ -16,15 +16,24 @@ public class TestMatch {
 
   
     @BeforeEach
-    public void initializePlayer() {
+    public void initialize() {
         player1 = new Player();
         player2 = new Player();
         matchID = 10;
+        match = new Match(player1, player2, matchID);
     }
     @Test
     @DisplayName("rheachan9983: Test getCurrentPlayer")
     public void testGetCurrentPlayer() {
         match = new Match(player1, player2, matchID);
         assertEquals(0, match.getCurrentPlayer());
+    }
+
+    @Test
+    @DisplayName("craetz: Test captured String")
+    public void testCapturedString()
+    {
+        match.appendToCaptured("B");
+        assertEquals(match.getCaptured(),"B");
     }
 }
