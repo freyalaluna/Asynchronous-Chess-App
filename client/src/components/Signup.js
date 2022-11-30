@@ -49,9 +49,7 @@ export default function Signup(props){
 
         if(responseID != -1){
             console.log("Success");
-            console.log("UserID: " + responseID);
-            props.setUserID(responseID);
-            props.setEmail(formData.email);
+            props.toggleLogin();
         } else {
             console.log("Failure");
         }
