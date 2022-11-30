@@ -13,8 +13,8 @@ public class SQLGuide {
   //add more tables as needed
   private final static String USERS_TABLE = "users";
   private final static String USERS_COLUMNS = " (username, email, pass)";
-  private final static String MATCH_STATE = "matchState";
-  private final static String MATCH_STATE_COLUMNS = " (match_id, fenstring)";
+  private final static String MATCH_STATE = "ongoingMatch";
+  private final static String MATCH_STATE_COLUMNS = " (matchID, gameStateFEN)";
 
   public static class Database {
     public static boolean registerUser(String user, String email, String encryptedPassword) throws Exception {
@@ -130,19 +130,16 @@ public class SQLGuide {
         + " WHERE user_id = '" + userId + "';";
     }
 
-    // static String insertMatch(int matchId, String fenstring){
-    //   return "INSERT INTO"
-    //   + MATCH_STATE
-    //   + MATCH_STATE_COLUMNS
-    //   + "WHERE match_id = " + matchId
-    //   + "AND fenstring = '" + fenstring + "';";
-    // }
-
     static String updateMatchById(int matchId, String fenstring) {
       return "UPDATE"
         + MATCH_STATE
         + "SET fenstring = '" + fenstring + "'"
-        + "WHERE match_id = " + matchId + ";";
+        + "WHERE match_id = " + matchId + ""
+        + "IF @@ROWCOUNT=0 "
+          + "INSERT INTO"
+          + MATCH_STATE
+          + MATCH_STATE_COLUMNS
+          + "(" + matchId + "," + "'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR')";
     }
   }
 
