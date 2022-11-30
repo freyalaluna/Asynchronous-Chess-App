@@ -10,6 +10,7 @@ public class Match {
     private MatchRecord matchRecord;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+    private String captured ="";
 
     public Match(Player player1, Player player2, int matchID)
     {
@@ -43,6 +44,16 @@ public class Match {
     public void createMatchRecord()
     {
         return;
+    }
+
+    public void appendToCaptured(String piece)
+    {
+        captured += piece;
+    }
+
+    public String getCaptured()
+    {
+        return captured;
     }
 }
 

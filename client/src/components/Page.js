@@ -17,27 +17,44 @@ export default function Page(props) {
 	const [chessboardWidth, setChessboardWidth] = useState(400);
 	const {account, setAccount, userID, setUserID, email, setEmail, accountActions} = useAccount();
 	const {moveActions} = useMove();
+	const [showLogin, toggleLogin] = useToggle(false);
 
-	useEffect(() => {
     function handleResize() {
-      const display = document.getElementsByClassName("primary-board-container")[0];
-			let width = Math.min(display.offsetWidth - 20, display.offsetHeight - 20);
-      setChessboardWidth(width);
-    }
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+		const display = document.getElementsByClassName("primary-board-container")[0];
+		let width = Math.min(display.offsetWidth - 20, display.offsetHeight - 20);
+		setChessboardWidth(Math.max(width,0));
+	}
+	
+	useEffect(() => {
+    	window.addEventListener("resize", handleResize);
+    	handleResize();
+ 		return () => window.removeEventListener("resize", handleResize);
+  	}, []);
 
 	return (
 		<>
 			<Header />
 
-      {/*<Signup accountActions = {accountActions} setUserID = {setUserID} setEmail = {setEmail}/>*/}
-			{/*<Login accountActions = {accountActions} setUserID = {setUserID} />*/}
-			
-			<GamePage boardWidth={chessboardWidth} moveActions={moveActions}/>
+      		<Signup 
+				accountActions={accountActions} 
+				setUserID={setUserID} 
+				setEmail={setEmail}
+				visible={userID == 0 && !showLogin}
+				toggleLogin={toggleLogin}
+			/>
+			<Login 
+				accountActions={accountActions} 
+				setUserID={setUserID} 
+				visible={userID == 0 && showLogin}
+				toggleLogin={toggleLogin}
+				handleResize={handleResize}
+			/>
+			<GamePage 
+				account={account} 
+				boardWidth={chessboardWidth}
+				visible={userID != 0}
+        moveActions={moveActions}
+			/>
 
 		</>
 	);

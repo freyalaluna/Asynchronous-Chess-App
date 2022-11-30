@@ -15,7 +15,11 @@
       "type":"boolean"
     },
     "fenString": {
-      "description":"fen string which sotres current state of game",
+      "description":"fen string which stores current state of game",
+      "type":"string"
+    },
+    "captured": {
+      "description":"string that stores captured pieces",
       "type":"string"
     }
   },

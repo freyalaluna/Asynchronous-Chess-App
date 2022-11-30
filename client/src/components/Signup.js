@@ -49,17 +49,14 @@ export default function Signup(props){
 
         if(responseID != -1){
             console.log("Success");
-            console.log("UserID: " + responseID);
-            props.setUserID(responseID);
-            props.setEmail(formData.email);
+            props.toggleLogin();
         } else {
             console.log("Failure");
         }
     };
 
     return(
-        <>
-            <Header/>
+        <div style={props.visible?null:{display:"none"}}>
             <div className='auth-wrapper'>
                 <p className={errorMessage ? "signinError" : "offscreen"}>
                     {errorMessage}
@@ -122,10 +119,13 @@ export default function Signup(props){
                     </button>
                 </form>
                 <br></br>
-                <p className='signup-subscript'>Already have an account? <a className='subscript-link' href='#'>Click here to sign up.</a>
+                <p 
+                    className='signup-subscript'
+                >
+                    Already have an account? <a className='subscript-link' onClick={() => props.toggleLogin()}>Click here to sign in.</a>
                 </p>
             </div>
-        </>
+        </div>
     )
 }
 
