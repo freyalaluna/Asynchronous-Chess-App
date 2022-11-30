@@ -21,6 +21,7 @@ export default function Login(props){
             console.log("Success");
             console.log("UserID: " + responseID);
             props.setUserID(responseID);
+            props.handleResize();
         } else {
             console.log("Failure");
         }
@@ -35,7 +36,7 @@ export default function Login(props){
     };
 
     return(
-            <div className='auth-wrapper'>
+            <div className='auth-wrapper' style={props.visible?null:{display:"none"}}>
                 <h2>Log In</h2>
                 <form onSubmit={handleLogin}>
                     <div className='input-field'>
@@ -68,7 +69,10 @@ export default function Login(props){
                     </button>
                 </form>
                 <br></br>
-                <p className='signup-subscript'>Don't have an account? <a className='subscript-link' href='#'>Click here to sign up.</a>
+                <p 
+                    className='signup-subscript'
+                >
+                    Don't have an account? <a className='subscript-link' onClick={() => props.toggleLogin()}>Click here to sign up.</a>
                 </p>
             </div>
     )
