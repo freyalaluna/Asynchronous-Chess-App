@@ -5,10 +5,10 @@ import Board from '../Gameplay/Board';
 export default function GamePage(props) {
 
   return (
-    <>
-    <Board boardWidth={props.boardWidth}/>
-    <div className='opponent-username'>Opponent</div>
-    <div className='player-username' data-testid='player-username'>{props.account}</div>
-    </>
+    <div style={props.visible?null:{display:"none"}}>
+      <Board boardWidth={props.boardWidth}/>
+      <div className='opponent-username'>Opponent</div>
+      <div className='player-username' data-testid='player-username'>{props.account}</div>
+    </div>
   );
 }
