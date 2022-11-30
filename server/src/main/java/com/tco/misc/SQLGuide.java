@@ -13,6 +13,8 @@ public class SQLGuide {
   //add more tables as needed
   private final static String USERS_TABLE = "users";
   private final static String USERS_COLUMNS = " (username, email, pass)";
+  private final static String MATCH_STATE = "matchState";
+  private final static String MATCH_STATE_COLUMNS = " (match_id, fenstring)";
 
   public static class Database {
     public static boolean registerUser(String user, String email, String encryptedPassword) throws Exception {
@@ -70,6 +72,19 @@ public class SQLGuide {
     }
     
     //add other needed db queries here, e.g. update match-history
+    public static String[] updateMatchState(int matchId, String fenstring) throws Exception {
+      String sql = Select.selectMatchById(matchId);
+
+      try (
+        Connection conn = DriverManager.getConnection(Credential.getUrl(), Credential.getUser(), Credential.getPassword());
+        Statement query = conn.createStatement();
+        ResultSet results = query.executeQuery(sql);
+      ) {
+        return convertResultsToStringArray(results);
+      } catch (Exception e) {
+        throw e;
+      }
+    }
 
     //helper methods
     private static String[] convertResultsToStringArray(ResultSet results) throws Exception {
@@ -113,6 +128,21 @@ public class SQLGuide {
       return "SELECT * FROM "
         + USERS_TABLE
         + " WHERE user_id = '" + userId + "';";
+    }
+
+    // static String insertMatch(int matchId, String fenstring){
+    //   return "INSERT INTO"
+    //   + MATCH_STATE
+    //   + MATCH_STATE_COLUMNS
+    //   + "WHERE match_id = " + matchId
+    //   + "AND fenstring = '" + fenstring + "';";
+    // }
+
+    static String updateMatchById(int matchId, String fenstring) {
+      return "UPDATE"
+        + MATCH_STATE
+        + "SET fenstring = '" + fenstring + "'"
+        + "WHERE match_id = " + matchId + ";";
     }
   }
 
