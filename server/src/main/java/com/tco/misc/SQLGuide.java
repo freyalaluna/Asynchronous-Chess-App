@@ -73,7 +73,7 @@ public class SQLGuide {
     
     //add other needed db queries here, e.g. update match-history
     public static String[] updateMatchState(int matchId, String fenstring) throws Exception {
-      String sql = Select.selectMatchById(matchId);
+      String sql = Select.updateMatchById(matchId, fenstring);
 
       try (
         Connection conn = DriverManager.getConnection(Credential.getUrl(), Credential.getUser(), Credential.getPassword());
