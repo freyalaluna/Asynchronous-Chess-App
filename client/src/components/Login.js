@@ -64,8 +64,9 @@ export default function Login(props){
 
                     <button
                         className='submit-button'
+                        placeholder='Log In'
                         type='submit'>
-                        Register
+                        Log In
                     </button>
                 </form>
                 <br></br>
