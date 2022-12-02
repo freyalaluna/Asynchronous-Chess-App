@@ -24,10 +24,11 @@ async function sendMoveRequest(sourceSquare, targetSquare, pieceType, gameState,
                                                 gameState: gameState}, getOriginalServerUrl());
     if(accountResponse != null && accountResponse.isLegalMove){
         context.setValidMove(true);
-        console.log("Move is legal");
+        LOG.info("Move is legal");
+        return true;
     } else {
         context.setValidMove(false);
         LOG.error("Move is not legal");
+        return false;
     }
-    return context.validMove;
 }
