@@ -33,7 +33,7 @@ export default function Page(props) {
 
 	return (
 		<>
-			<Header />
+			<Header userID={userID} toggleLogin={toggleLogin} setUserID={setUserID}/>
 
       		<Signup 
 				accountActions={accountActions} 
@@ -59,41 +59,3 @@ export default function Page(props) {
 		</>
 	);
 }
-// <MainContentArea
-// showAbout={showAbout}
-// toggleAbout={toggleAbout}
-// tripName={tripName}
-// />
-// function MainContentArea(props) {
-// 	return (
-// 		<div className='body'>
-// 		</div>
-// 	);
-// }
-
-// function useServerSettings(showMessage) {
-// 	const [serverUrl, setServerUrl] = useState(getOriginalServerUrl());
-// 	const [serverConfig, setServerConfig] = useState(null);
-
-// 	useEffect(() => {
-// 		sendConfigRequest();
-// 	}, []);
-
-// 	function processServerConfigSuccess(config, url) {
-// 		LOG.info('Switching to Server:', url);
-// 		setServerConfig(config);
-// 		setServerUrl(url);
-// 	}
-
-// 	async function sendConfigRequest() {
-// 		const configResponse = await sendAPIRequest({ requestType: 'config' },serverUrl);
-// 		if (configResponse) {
-// 			processServerConfigSuccess(configResponse, serverUrl);
-// 		} else {
-// 			setServerConfig(null);
-// 			showMessage(`Config request to ${serverUrl} failed. Check the log for more details.`, 'error');
-// 		}
-// 	}
-
-// 	return [{ serverUrl: serverUrl, serverConfig: serverConfig }, processServerConfigSuccess,];
-// }

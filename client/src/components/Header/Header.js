@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Button, Menu } from 'reactstrap';
+import { Container, ButtonGroup, DropdownMenu, DropdownToggle, UncontrolledDropdown, DropdownItem } from 'reactstrap';
 import { APP_NAME, CLIENT_TEAM_NAME } from '../../utils/constants';
 import { useToggle } from '../../hooks/useToggle';
 import { IoMdMenu } from 'react-icons/io';
@@ -7,7 +7,7 @@ import { IoMdMenu } from 'react-icons/io';
 export default function Header(props) {
 	return (
 		<React.Fragment>
-			<HeaderContents />
+			<HeaderContents userID={props.userID} toggleLogin={props.toggleLogin} setUserID={props.setUserID} />
 		</React.Fragment>
 	);
 }
@@ -31,21 +31,34 @@ function HeaderContents(props) {
 							{CLIENT_TEAM_NAME}
 						</p>
 					</h1>
-					<HeaderButton />
+					{props.userID != 0 ? <HeaderDropdown toggleLogin={props.toggleLogin} setUserID={props.setUserID} /> : null }
 				</div>
 			</Container>
 		</div>
 	);
 }
 
-function HeaderButton(props) {
+function HeaderDropdown(props) {
 	return (
-		<React.Fragment>
-			<Button
-				color='primary'
-			>
+		<Dropdown>
+			<DropdownItem data-testid='account-logout-button' onClick={() => {props.setUserID(0); props.toggleLogin()}}>
+				Log Out
+			</DropdownItem>
+		</Dropdown>
+	);
+}
+
+function Dropdown(props) {
+	return (
+		<UncontrolledDropdown direction="left">
+			<DropdownToggle color="primary">
 				<IoMdMenu size={32} />
-			</Button>
-		</React.Fragment>
+			</DropdownToggle>
+			<DropdownMenu>
+				<ButtonGroup>
+					{props.children}
+				</ButtonGroup>
+			</DropdownMenu>
+		</UncontrolledDropdown>
 	);
 }

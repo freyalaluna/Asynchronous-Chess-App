@@ -56,6 +56,10 @@ a {
     max-width: 520px;
 }
 
+.alert {
+    z-index: 99999;
+}
+
 .alert-primary {
     position: absolute !important;
     top: 50%;
