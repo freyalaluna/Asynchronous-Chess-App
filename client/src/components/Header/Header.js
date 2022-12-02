@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, ButtonGroup, DropdownMenu, DropdownToggle, UncontrolledDropdown, DropdownItem } from 'reactstrap';
+import { Container, DropdownMenu, DropdownToggle, UncontrolledDropdown, DropdownItem } from 'reactstrap';
 import { APP_NAME, CLIENT_TEAM_NAME } from '../../utils/constants';
 import { useToggle } from '../../hooks/useToggle';
 import { IoMdMenu } from 'react-icons/io';
@@ -7,7 +7,7 @@ import { IoMdMenu } from 'react-icons/io';
 export default function Header(props) {
 	return (
 		<React.Fragment>
-			<HeaderContents userID={props.userID} toggleLogin={props.toggleLogin} setUserID={props.setUserID} />
+			<HeaderContents userID={props.userID} setShowLogin={props.setShowLogin} setShowProfile={props.setShowProfile} setShowGame={props.setShowGame} setUserID={props.setUserID} />
 		</React.Fragment>
 	);
 }
@@ -31,7 +31,7 @@ function HeaderContents(props) {
 							{CLIENT_TEAM_NAME}
 						</p>
 					</h1>
-					{props.userID != 0 ? <HeaderDropdown toggleLogin={props.toggleLogin} setUserID={props.setUserID} /> : null }
+					{props.userID != 0 ? <HeaderDropdown setShowLogin={props.setShowLogin} setShowProfile={props.setShowProfile} setShowGame={props.setShowGame} setUserID={props.setUserID} /> : null }
 				</div>
 			</Container>
 		</div>
@@ -41,7 +41,10 @@ function HeaderContents(props) {
 function HeaderDropdown(props) {
 	return (
 		<Dropdown>
-			<DropdownItem data-testid='account-logout-button' onClick={() => {props.setUserID(0); props.toggleLogin()}}>
+			<DropdownItem data-testid='show-profile-button' onClick={() => {props.setShowProfile(true); props.setShowLogin(false); props.setShowGame(false)}}>
+				My Profile
+			</DropdownItem>
+			<DropdownItem data-testid='account-logout-button' onClick={() => {props.setUserID(0); props.setShowLogin(true); props.setShowGame(false); props.setShowProfile(false)}}>
 				Log Out
 			</DropdownItem>
 		</Dropdown>
@@ -50,14 +53,12 @@ function HeaderDropdown(props) {
 
 function Dropdown(props) {
 	return (
-		<UncontrolledDropdown direction="left">
+		<UncontrolledDropdown direction="down">
 			<DropdownToggle color="primary">
 				<IoMdMenu size={32} />
 			</DropdownToggle>
 			<DropdownMenu>
-				<ButtonGroup>
-					{props.children}
-				</ButtonGroup>
+				{props.children}
 			</DropdownMenu>
 		</UncontrolledDropdown>
 	);

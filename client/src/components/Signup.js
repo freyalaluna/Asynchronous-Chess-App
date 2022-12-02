@@ -49,7 +49,7 @@ export default function Signup(props){
 
         if(responseID != -1){
             console.log("Success");
-            props.toggleLogin();
+            props.setShowLogin(true);
         } else {
             console.log("Failure");
         }
@@ -122,7 +122,7 @@ export default function Signup(props){
                 <p 
                     className='signup-subscript'
                 >
-                    Already have an account? <a className='subscript-link' onClick={() => props.toggleLogin()}>Click here to sign in.</a>
+                    Already have an account? <a className='subscript-link' onClick={() => props.setShowLogin(true)}>Click here to sign in.</a>
                 </p>
             </div>
         </div>

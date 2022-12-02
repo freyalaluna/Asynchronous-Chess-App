@@ -69,6 +69,7 @@ public class AccountRequest extends Request {
         log.info("Attempting to login with username "+this.username);
         String[] results = SQLGuide.Database.verifyUser(this.username, this.password);
         this.userID = Integer.parseInt(results[0]);
+        this.email = results[3];
         log.info("Successfully logged in with username "+this.username);
     }
 

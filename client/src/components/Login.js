@@ -21,6 +21,8 @@ export default function Login(props){
             console.log("Success");
             console.log("UserID: " + responseID);
             props.setUserID(responseID);
+            props.setShowLogin(false);
+            props.setShowProfile(true);
             props.handleResize();
         } else {
             console.log("Failure");
@@ -72,7 +74,7 @@ export default function Login(props){
                 <p 
                     className='signup-subscript'
                 >
-                    Don't have an account? <a className='subscript-link' onClick={() => props.toggleLogin()}>Click here to sign up.</a>
+                    Don't have an account? <a className='subscript-link' onClick={() => props.setShowLogin(false)}>Click here to sign up.</a>
                 </p>
             </div>
     )
