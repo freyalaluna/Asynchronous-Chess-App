@@ -32,13 +32,6 @@ export default function Board(props) {
 
     //call api request
     if (await props.moveActions.sendMoveRequest(sourceSquare, targetSquare, piece, game.fen())) {
-      // const updatedGame = game.move({
-      //   from: sourceSquare,
-      //   to: targetSquare,
-      //   promotion: 'q'  //always promote to queen for now, until custom promotion implemented
-      // });
-      // setGame(updatedGame);
-      console.log("in if")
       game.move({
         from: sourceSquare,
         to: targetSquare
