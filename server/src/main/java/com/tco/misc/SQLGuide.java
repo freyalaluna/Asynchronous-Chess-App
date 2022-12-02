@@ -13,6 +13,8 @@ public class SQLGuide {
   //add more tables as needed
   private final static String USERS_TABLE = "users";
   private final static String USERS_COLUMNS = " (username, email, pass)";
+  private final static String MATCH_STATE = "ongoingMatch";
+  private final static String MATCH_STATE_COLUMNS = " (playerTurn, gameStateFEN, whitePlayer, blackPlayer)";
 
   public static class Database {
     public static boolean registerUser(String user, String email, String encryptedPassword) throws Exception {
@@ -70,6 +72,37 @@ public class SQLGuide {
     }
     
     //add other needed db queries here, e.g. update match-history
+    public static boolean createMatch(String whiteID, String blackID) throws Exception {
+      String sql = Select.insertMatch(whiteID, blackID);
+
+      try (
+        Connection conn = DriverManager.getConnection(Credential.getUrl(), Credential.getUser(), Credential.getPassword());
+        Statement query = conn.createStatement();
+      ) {
+        int rowCount = query.executeUpdate(sql);
+        if (rowCount == 1) {
+          return true;
+        } else {
+          return false;
+        }
+      } catch (Exception e){
+        throw e;
+      }
+    }
+
+    public static String[] updateMatchState(String matchId, String fenstring, String captured) throws Exception {
+      String sql = Select.updateMatchById(matchId, fenstring, captured);
+
+      try (
+        Connection conn = DriverManager.getConnection(Credential.getUrl(), Credential.getUser(), Credential.getPassword());
+        Statement query = conn.createStatement();
+        ResultSet results = query.executeQuery(sql);
+      ) {
+        return convertResultsToStringArray(results);
+      } catch (Exception e) {
+        throw e;
+      }
+    }
 
     //helper methods
     private static String[] convertResultsToStringArray(ResultSet results) throws Exception {
@@ -113,6 +146,25 @@ public class SQLGuide {
       return "SELECT * FROM "
         + USERS_TABLE
         + " WHERE user_id = '" + userId + "';";
+    }
+
+    static String insertMatch(String whiteID, String blackID){
+      return "INSERT INTO "
+      + MATCH_STATE 
+      + MATCH_STATE_COLUMNS
+      + " VALUES ('"
+      + "0', '"
+      + "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR', '"
+      + whiteID + "', '"
+      + blackID + "');";
+    }
+
+    static String updateMatchById(String matchId, String fenstring, String captured) {
+      return "UPDATE "
+        + MATCH_STATE
+        + " SET fenstring = '" + fenstring + "', "
+        + "capturedPieces = '" + captured + "' "
+        + "WHERE match_id = '" + matchId + "';";
     }
   }
 
