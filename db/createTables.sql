@@ -19,9 +19,10 @@ CREATE TABLE notifications (
 );
 
 CREATE TABLE ongoingMatch (
-    matchID int PRIMARY KEY,
+    matchID int PRIMARY KEY AUTO_INCREMENT,
     playerTurn boolean NOT NULL,
     gameStateFEN text,
+    capturedPieces text,
     whitePlayer int NOT NULL,
     blackPlayer int NOT NULL,
     FOREIGN KEY (whitePlayer) REFERENCES users(userID),

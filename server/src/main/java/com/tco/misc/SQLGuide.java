@@ -14,7 +14,7 @@ public class SQLGuide {
   private final static String USERS_TABLE = "users";
   private final static String USERS_COLUMNS = " (username, email, pass)";
   private final static String MATCH_STATE = "ongoingMatch";
-  private final static String MATCH_STATE_COLUMNS = " (matchID, gameStateFEN)";
+  private final static String MATCH_STATE_COLUMNS = " (playerTurn, gameStateFEN, whitePlayer, blackPlayer)";
 
   public static class Database {
     public static boolean registerUser(String user, String email, String encryptedPassword) throws Exception {
@@ -72,8 +72,26 @@ public class SQLGuide {
     }
     
     //add other needed db queries here, e.g. update match-history
-    public static String[] updateMatchState(int matchId, String fenstring) throws Exception {
-      String sql = Select.updateMatchById(matchId, fenstring);
+    public static boolean createMatch(int whitePlayer, int blackPlayer) throws Exception {
+      String sql = Select.insertMatch(whitePlayer, blackPlayer);
+
+      try (
+        Connection conn = DriverManager.getConnection(Credential.getUrl(), Credential.getUser(), Credential.getPassword());
+        Statement query = conn.createStatement();
+      ) {
+        int rowCount = query.executeUpdate(sql);
+        if (rowCount == 1) {
+          return true;
+        } else {
+          return false;
+        }
+      } catch (Exception e){
+        throw e;
+      }
+    }
+
+    public static String[] updateMatchState(int matchId, String fenstring, String captured) throws Exception {
+      String sql = Select.updateMatchById(matchId, fenstring, captured);
 
       try (
         Connection conn = DriverManager.getConnection(Credential.getUrl(), Credential.getUser(), Credential.getPassword());
@@ -130,16 +148,23 @@ public class SQLGuide {
         + " WHERE user_id = '" + userId + "';";
     }
 
-    static String updateMatchById(int matchId, String fenstring) {
+    static String insertMatch(int whitePlayer, int blackPlayer){
+      return "INSERT INTO"
+      + MATCH_STATE 
+      + MATCH_STATE_COLUMNS
+      + "VALUES ('"
+      + "'0', '"
+      + "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR', '"
+      + whitePlayer + "', '"
+      + blackPlayer + "');";
+    }
+
+    static String updateMatchById(int matchId, String fenstring, String captured) {
       return "UPDATE"
         + MATCH_STATE
-        + "SET fenstring = '" + fenstring + "'"
-        + "WHERE match_id = " + matchId + ""
-        + "IF @@ROWCOUNT=0 "
-          + "INSERT INTO"
-          + MATCH_STATE
-          + MATCH_STATE_COLUMNS
-          + "(" + matchId + "," + "'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR')";
+        + "SET fenstring = '" + fenstring + "', "
+        + "capturedPieces = '" + captured + "' "
+        + "WHERE match_id = " + matchId + ";";
     }
   }
 
