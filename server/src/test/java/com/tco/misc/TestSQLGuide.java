@@ -65,6 +65,20 @@ public class TestSQLGuide {
         assertEquals(expected, Select.selectUserById("1"));
     }
 
+    @Test
+    @DisplayName("fturner: Test insertMatch")
+    public void testInsertMatch() {
+        String expected = "INSERT INTO ongoingMatch (playerTurn, gameStateFEN, whitePlayer, blackPlayer) VALUES ('0', 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR', '1', '2');";
+        assertEquals(expected, Select.insertMatch("1", "2"));
+    }
+
+    @Test
+    @DisplayName("fturner: Test updateMatchById")
+    public void testUpdateMatchById() {
+        String expected = "UPDATE ongoingMatch SET fenstring = 'fenstring', capturedPieces = '' WHERE match_id = '1';";
+        assertEquals(expected, Select.updateMatchById("1", "fenstring", ""));
+    }
+
     // Tests for Database Class
     @Test
     @DisplayName("mheavner: Test registerUser w/ true")
@@ -154,5 +168,63 @@ public class TestSQLGuide {
         Mockito.when(mockStatement.executeQuery(Mockito.anyString())).thenThrow(sqlException);
 
         assertThrows(SQLException.class, () -> Database.getUserById("1"));
+    }
+
+    @Test
+    @DisplayName("fturner: Test createMatch w/ true")
+    public void testCreateMatchTrue() throws Exception {
+        Connection mockConnection = Mockito.mock(Connection.class);
+        Statement mockStatement = Mockito.mock(Statement.class);
+
+        mockDriverManager.when(() -> DriverManager.getConnection(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
+            .thenReturn(mockConnection);
+        Mockito.when(mockConnection.createStatement()).thenReturn(mockStatement);
+        Mockito.when(mockStatement.executeUpdate(Mockito.anyString())).thenReturn(1);
+
+        assertTrue(Database.createMatch("1", "2"));
+    }
+
+    @Test
+    @DisplayName("fturner: Test createMatch w/ false")
+    public void testCreateMatchFalse() throws Exception {
+        Connection mockConnection = Mockito.mock(Connection.class);
+        Statement mockStatement = Mockito.mock(Statement.class);
+
+        mockDriverManager.when(() -> DriverManager.getConnection(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
+            .thenReturn(mockConnection);
+        Mockito.when(mockConnection.createStatement()).thenReturn(mockStatement);
+        Mockito.when(mockStatement.executeUpdate(Mockito.anyString())).thenReturn(0);
+
+        assertFalse(Database.createMatch("1", "2"));
+    }
+
+    @Test
+    @DisplayName("fturner: Test createMatch w/ error")
+    public void testCreateMatchError() throws Exception {
+        Connection mockConnection = Mockito.mock(Connection.class);
+        Statement mockStatement = Mockito.mock(Statement.class);
+        SQLException sqlException = new SQLException();
+
+        mockDriverManager.when(() -> DriverManager.getConnection(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
+            .thenReturn(mockConnection);
+        Mockito.when(mockConnection.createStatement()).thenReturn(mockStatement);
+        Mockito.when(mockStatement.executeUpdate(Mockito.anyString())).thenThrow(sqlException);
+
+        assertThrows(SQLException.class, () -> Database.createMatch("1", "2"));
+    }
+
+    @Test
+    @DisplayName("fturner: Test updateMatchState")
+    public void testUpdateMatchStateError() throws Exception {
+        Connection mockConnection = Mockito.mock(Connection.class);
+        Statement mockStatement = Mockito.mock(Statement.class);
+        SQLException sqlException = new SQLException();
+
+        mockDriverManager.when(() -> DriverManager.getConnection(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
+            .thenReturn(mockConnection);
+        Mockito.when(mockConnection.createStatement()).thenReturn(mockStatement);
+        Mockito.when(mockStatement.executeQuery(Mockito.anyString())).thenThrow(sqlException);
+
+        assertThrows(SQLException.class, () -> Database.updateMatchState("1", "fenstring", "captured"));
     }
 }

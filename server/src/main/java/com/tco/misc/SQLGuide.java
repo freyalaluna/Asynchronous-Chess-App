@@ -72,8 +72,8 @@ public class SQLGuide {
     }
     
     //add other needed db queries here, e.g. update match-history
-    public static boolean createMatch(int whitePlayer, int blackPlayer) throws Exception {
-      String sql = Select.insertMatch(whitePlayer, blackPlayer);
+    public static boolean createMatch(String whiteID, String blackID) throws Exception {
+      String sql = Select.insertMatch(whiteID, blackID);
 
       try (
         Connection conn = DriverManager.getConnection(Credential.getUrl(), Credential.getUser(), Credential.getPassword());
@@ -90,7 +90,7 @@ public class SQLGuide {
       }
     }
 
-    public static String[] updateMatchState(int matchId, String fenstring, String captured) throws Exception {
+    public static String[] updateMatchState(String matchId, String fenstring, String captured) throws Exception {
       String sql = Select.updateMatchById(matchId, fenstring, captured);
 
       try (
@@ -148,23 +148,23 @@ public class SQLGuide {
         + " WHERE user_id = '" + userId + "';";
     }
 
-    static String insertMatch(int whitePlayer, int blackPlayer){
-      return "INSERT INTO"
+    static String insertMatch(String whiteID, String blackID){
+      return "INSERT INTO "
       + MATCH_STATE 
       + MATCH_STATE_COLUMNS
-      + "VALUES ('"
-      + "'0', '"
+      + " VALUES ('"
+      + "0', '"
       + "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR', '"
-      + whitePlayer + "', '"
-      + blackPlayer + "');";
+      + whiteID + "', '"
+      + blackID + "');";
     }
 
-    static String updateMatchById(int matchId, String fenstring, String captured) {
-      return "UPDATE"
+    static String updateMatchById(String matchId, String fenstring, String captured) {
+      return "UPDATE "
         + MATCH_STATE
-        + "SET fenstring = '" + fenstring + "', "
+        + " SET fenstring = '" + fenstring + "', "
         + "capturedPieces = '" + captured + "' "
-        + "WHERE match_id = " + matchId + ";";
+        + "WHERE match_id = '" + matchId + "';";
     }
   }
 
