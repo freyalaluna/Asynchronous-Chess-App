@@ -22,12 +22,13 @@ async function sendMoveRequest(sourceSquare, targetSquare, pieceType, gameState,
                                                 targetSquare: targetSquare,
                                                 piece: pieceType,
                                                 gameState: gameState}, getOriginalServerUrl());
-    if(accountResponse.isLegalMove){
+    if(accountResponse != null && accountResponse.isLegalMove){
         context.setValidMove(true);
-        context.log("Move is legal");   
+        LOG.info("Move is legal");
+        return true;
     } else {
         context.setValidMove(false);
         LOG.error("Move is not legal");
+        return false;
     }
-    return context.validMove;
 }
