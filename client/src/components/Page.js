@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Collapse } from 'reactstrap';
 import Header from './Header/Header';
 import GamePage from './Gameplay/GamePage';
+import ProfilePage from './Profile/ProfilePage';
 import Signup from './Signup';
 import Login from './Login';
 import { useToggle } from '../hooks/useToggle';
@@ -17,7 +18,9 @@ export default function Page(props) {
 	const [chessboardWidth, setChessboardWidth] = useState(400);
 	const {account, setAccount, userID, setUserID, email, setEmail, accountActions} = useAccount();
 	const {moveActions} = useMove();
-	const [showLogin, toggleLogin] = useToggle(false);
+	const [showLogin, setShowLogin] = useState(false);
+	const [showProfile, setShowProfile] = useState(false);
+	const [showGame, setShowGame] = useState(false);
 
     function handleResize() {
 		const display = document.getElementsByClassName("primary-board-container")[0];
@@ -33,26 +36,34 @@ export default function Page(props) {
 
 	return (
 		<>
-			<Header userID={userID} toggleLogin={toggleLogin} setUserID={setUserID}/>
+			<Header userID={userID} setShowLogin={setShowLogin} setShowProfile={setShowProfile} setShowGame={setShowGame} setUserID={setUserID}/>
 
-      		<Signup 
+      <Signup 
 				accountActions={accountActions} 
 				setUserID={setUserID} 
 				setEmail={setEmail}
 				visible={userID == 0 && !showLogin}
-				toggleLogin={toggleLogin}
+				setShowLogin={setShowLogin}
 			/>
 			<Login 
 				accountActions={accountActions} 
 				setUserID={setUserID} 
 				visible={userID == 0 && showLogin}
-				toggleLogin={toggleLogin}
+				setShowLogin={setShowLogin}
+				setShowProfile={setShowProfile}
 				handleResize={handleResize}
+			/>
+			<ProfilePage
+				account={account}
+				email={email}
+				visible={showProfile}
+				setShowProfile={setShowProfile}
+				setShowGame={setShowGame}
 			/>
 			<GamePage 
 				account={account} 
 				boardWidth={chessboardWidth}
-				visible={userID != 0}
+				visible={showGame}
         moveActions={moveActions}
 			/>
 

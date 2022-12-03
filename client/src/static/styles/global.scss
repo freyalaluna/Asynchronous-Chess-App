@@ -56,6 +56,23 @@ a {
     max-width: 520px;
 }
 
+// Profile styles
+
+.profileInfo {
+    margin-top: 10vh;
+}
+
+.profileText {
+    font-weight: bold;
+}
+
+.playGameButton {
+    width: 90vw;
+    margin-top: 5vh;
+    margin-left: 5vw;
+}
+
+
 .alert {
     z-index: 99999;
 }
