@@ -15,6 +15,7 @@ export function useAccount(){
 
     const accountActions = {
         sendAccountRequest: async(username, password, email) => sendAccountRequest(username, password, email, context),
+        sendDeleteRequest: async() => sendDeleteRequest(context)
     };
 
     return {account, setAccount, userID, setUserID, email, setEmail, accountActions};
@@ -38,5 +39,23 @@ async function sendAccountRequest(username, password, email = "", context) {
     } else {
         LOG.error("Account Request failed.");
         return -1;
+    }
+}
+
+async function sendDeleteRequest(context) {
+    var deleteResponse = await sendAPIRequest({requestType: "delete", userID: ""+context.userID}, getOriginalServerUrl());
+
+    if (deleteResponse != null) {
+        LOG.info("Delete Request succeeded.")
+        var success = deleteResponse.deleteSuccess;
+        if (success) {
+            context.setAccount('Player');
+            context.setUserID(0);
+            context.setEmail(null);
+        }
+        return success;
+    } else {
+        LOG.error("Delete Request failed.")
+        return false;
     }
 }

@@ -8,7 +8,7 @@ export default function ProfilePage(props) {
 
   return (
     <div style={props.visible?null:{display:"none"}}>
-      <PlayerInfo email={props.email} account={props.account}/>
+      <PlayerInfo email={props.email} account={props.account} accountActions={props.accountActions} setShowProfile={props.setShowProfile} />
       <ProfileActions setShowProfile={props.setShowProfile} setShowGame={props.setShowGame} />
     </div>
   );

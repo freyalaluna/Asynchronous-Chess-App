@@ -1,12 +1,14 @@
 import Ajv from 'ajv';
 import * as configSchema from '../../schemas/ConfigResponse';
 import * as registerAccountSchema from '../../schemas/RegisterAccountResponse.json'
+import * as deleteSchema from '../../schemas/DeleteResponse.json'
 import * as moveAccountSchema from '../../schemas/MoveResponse.json'
 import { LOG } from './constants';
 
 const SCHEMAS = {
     config: configSchema,
     account: registerAccountSchema,
+    delete: deleteSchema,
     move: moveAccountSchema
 }
 

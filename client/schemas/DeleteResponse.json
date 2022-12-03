@@ -1,0 +1,15 @@
+{
+  "$id": "https://example.com/address.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "delete",
+  "description": "delete account object for POST request",
+  "type": "object",
+  "properties": {
+    "deleteSuccess": {
+      "description": "if account deletion was successful",
+      "type": "boolean"
+    }
+  },
+  "required":["deleteSuccess"],
+  "additionalProperties": true
+}

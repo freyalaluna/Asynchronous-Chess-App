@@ -59,6 +59,7 @@ export default function Page(props) {
 				visible={showProfile}
 				setShowProfile={setShowProfile}
 				setShowGame={setShowGame}
+				accountActions={accountActions}
 			/>
 			<GamePage 
 				account={account} 
