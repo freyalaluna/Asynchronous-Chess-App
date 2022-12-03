@@ -19,7 +19,7 @@ describe('Login', () => {
 
         const nameField = screen.getByPlaceholderText("Enter username");
         const pwField = screen.getByPlaceholderText("Enter password");
-        const submitButton = screen.getByText("Register");
+        const submitButton = screen.getByPlaceholderText("Log In");
 
         fireEvent.change(nameField, {target: {value: name}});
         fireEvent.change(pwField, {target: {value: pass}});
