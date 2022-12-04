@@ -23,18 +23,18 @@ public class TestKing {
     @DisplayName("fturner: test king's moves in the center of the board")
     public void testValidCenterMoves(){
         char[][] newBoard = board.getBoardState();
-        King king = new King(false, new Square(4, 3));
+        King king = new King(false, new Square(3, 4));
 
         ArrayList<Square> result = king.getPossibleMoves(newBoard);
         ArrayList<Square> expected = new ArrayList<Square>();
-        expected.add(new Square(5, 4));
+        expected.add(new Square(4, 5));
+        expected.add(new Square(3, 5));
+        expected.add(new Square(2, 5));
         expected.add(new Square(4, 4));
-        expected.add(new Square(3, 4));
-        expected.add(new Square(5, 3));
+        expected.add(new Square(2, 4));
+        expected.add(new Square(4, 3));
         expected.add(new Square(3, 3));
-        expected.add(new Square(5, 2));
-        expected.add(new Square(4, 2));
-        expected.add(new Square(3, 2));
+        expected.add(new Square(2, 3));
 
         assertEquals(result, expected);
     }
@@ -65,8 +65,20 @@ public class TestKing {
         char[][] newBoard = board.getBoardState();
         King king = new King(false, new Square(0, 4));
 
+        newBoard[1][5] = 'P';
+        newBoard[0][5] = 'Q';
+        newBoard[1][4] = 'P';
+        newBoard[1][3] = 'B';
+        newBoard[0][3] = 'P';
+
         ArrayList<Square> result = king.getPossibleMoves(newBoard);
         ArrayList<Square> expected = new ArrayList<Square>();
+
+        expected.add(new Square(1, 5));
+        expected.add(new Square(0, 5));
+        expected.add(new Square(1, 4));
+        expected.add(new Square(1, 3));
+        expected.add(new Square(0, 3));
 
         assertEquals(result, expected);
     }
