@@ -40,7 +40,7 @@ export default function Board(props) {
       }, { sloppy: true });
       forceUpdate();
       if (response[1]) {
-        if (game.turn == 'b') {
+        if (game.turn() == 'b') {
           setShowGameWon(true);
         } else {
           setShowGameLost(true);

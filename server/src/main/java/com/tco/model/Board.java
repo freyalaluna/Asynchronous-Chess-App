@@ -1,5 +1,8 @@
 package com.tco.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Board {
   private char[][] boardState = new char[8][8];
   private Player whitePlayer;
@@ -15,6 +18,59 @@ public class Board {
 
   public Board() {
     setInitialBoardState();
+  }
+
+  public boolean[] validateIncomingMove(String sourceSquare, String targetSquare, String piece, String fenString) {
+    Square sourceSquareObj = new Square(sourceSquare);
+    Square targetSquareObj = new Square(targetSquare);
+    PieceFactory factory = new PieceFactory();
+    Piece pieceObj = factory.createPieceFENType(piece.charAt(1), piece.charAt(0) == 'b', sourceSquareObj);
+    boolean isGameOver = setBoardStateFromFEN(fenString, targetSquareObj);
+    boolean isLegalMove = isValidMove(pieceObj, targetSquareObj);
+    return new boolean[] {isLegalMove, isGameOver};
+  }
+
+  private boolean setBoardStateFromFEN(String fenString, Square targetSquare) {
+    //list of number of pieces
+    HashMap<Character, Integer> pieceCounter = new HashMap<>();
+    //get only piece information from fenString
+    String trimmedFENString = fenString.substring(0, fenString.indexOf(" "));
+
+    int x = 0;
+    int y = 0;
+
+    for (int i = 0; i < trimmedFENString.length(); i++) {
+      if (trimmedFENString.charAt(i) == '/') { //reached end of row
+        x = 0;
+        y++;
+      }
+      else if (Character.isDigit(trimmedFENString.charAt(i))) { //encounter empty square(s)
+        int numEmptySquares = Character.getNumericValue(trimmedFENString.charAt(i));
+        for (int j = 0; j < numEmptySquares; j++) {
+          this.boardState[y][x] = 'o';
+          x++;
+        }
+      }
+      else { //encountered piece
+        char piece = trimmedFENString.charAt(i);
+        pieceCounter.put(piece, pieceCounter.getOrDefault(piece, 0) + 1);
+        this.boardState[y][x] = piece;
+        x++;
+      }
+
+    }
+
+    char targetPiece = this.boardState[targetSquare.getY()][targetSquare.getX()];
+    
+    if (targetPiece != 'o') { //game can only be over on a capture move
+      return (pieceCounter.size() < 12  || pieceCounter.get(targetPiece) <= 1);
+    }
+    return false;
+  }
+
+  private boolean isValidMove(Piece piece, Square targetSquare) {
+    ArrayList<Square> validMoves = piece.getPossibleMoves(this.boardState);
+    return validMoves.contains(targetSquare);
   }
 
   private void setInitialBoardState() {
@@ -52,12 +108,6 @@ public class Board {
       boardState[5][i] = 'o';
       boardState[6][i] = 'P';
     }
-  }
-
-  public boolean validateMove(Move incomingMove) {
-    boolean isValidMove = false;
-    //call getPossibleMoves() on piece given current board state, see if returned ArrayList<Square> contains incomingMove.getEndCoord()
-    return isValidMove;
   }
 
   public char[][] getBoardState() {

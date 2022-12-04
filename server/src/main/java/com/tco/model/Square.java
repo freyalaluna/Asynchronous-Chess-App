@@ -11,6 +11,16 @@ public class Square {
     y = yCoord;
   }
 
+  public Square(String chessNotationString) {
+    //a-h maps to 0-7
+    int xCoord = ((int) chessNotationString.charAt(0)) - 97;
+    //8-1 maps to 0-7
+    int yCoord = 8 - Character.getNumericValue(chessNotationString.charAt(1));
+
+    x = xCoord;
+    y = yCoord;
+  }
+
   public int getX() {
     return x;
   }
