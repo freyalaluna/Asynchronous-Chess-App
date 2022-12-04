@@ -48,10 +48,7 @@ export default function Signup(props){
         }
 
         if(responseID != -1){
-            console.log("Success");
             props.setShowLogin(true);
-        } else {
-            console.log("Failure");
         }
     };
 

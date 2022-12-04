@@ -34,7 +34,6 @@ async function sendAccountRequest(username, password, email = "", context) {
         context.setEmail(accountResponse.email);
         context.setAccount(accountResponse.username);
         console.log("Account Request succeeded.");
-        console.log(accountResponse);
         return accountResponse.userID;
     } else {
         LOG.error("Account Request failed.");

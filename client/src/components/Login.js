@@ -18,14 +18,10 @@ export default function Login(props){
         }
         
         if(responseID != -1){
-            console.log("Success");
-            console.log("UserID: " + responseID);
             props.setUserID(responseID);
             props.setShowLogin(false);
             props.setShowProfile(true);
             props.handleResize();
-        } else {
-            console.log("Failure");
         }
         
     };
