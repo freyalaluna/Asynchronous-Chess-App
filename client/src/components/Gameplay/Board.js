@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Chess } from 'chess.js';
 import { Alert, Button } from 'reactstrap';
 import { FiFlag } from 'react-icons/fi'
+import { BsInfoLg } from 'react-icons/bs'
 import { Chessboard } from 'react-chessboard';
 
 function useForceUpdate(){
@@ -15,6 +16,7 @@ export default function Board(props) {
   const [showAlert, setShowAlert] = useState(false);
   const [showGameWon, setShowGameWon] = useState(false);
   const [showGameLost, setShowGameLost] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
   const forceUpdate = useForceUpdate();
 
   let customStyle = { borderRadius: '5px', boxShadow: '0 5px 15px rgba(0, 0, 0, 0.5 '}
@@ -60,8 +62,17 @@ export default function Board(props) {
         position={game.fen()}
         onPieceDrop={onDrop}
       />
-      <ConcedeButton setShowGameLost={setShowGameLost}/>
+      <div>
+        <InfoButton setShowInfo={setShowInfo}/>
+        <br/>
+        <ConcedeButton setShowGameLost={setShowGameLost}/>
+      </div>
       <WarningAlert className="wrong-turn-warning" showAlert={showAlert}/>
+      <GameInfoAlert
+        className="game-over-alert"
+        showInfo={showInfo}
+        setShowInfo={setShowInfo}
+      />
       <GameWonAlert
         className="game-over-alert"
         showAlert={showGameWon}
@@ -82,6 +93,18 @@ export default function Board(props) {
   );
 }
 
+export function InfoButton(props) {
+  return (
+    <div className="infoButton">
+      <Button color="primary" size="sm" onClick={() => {
+        props.setShowInfo(true);
+      }}>
+        <BsInfoLg/>
+      </Button>
+    </div>
+  );
+}
+
 export function ConcedeButton(props) {
   return (
     <div className="concedeButton">
@@ -92,6 +115,24 @@ export function ConcedeButton(props) {
       </Button>
     </div>
   );
+}
+
+export function GameInfoAlert(props) {
+  const onDismiss = () => props.setShowInfo(false);
+  return (
+    <Alert color="info" fade={false} isOpen={props.showInfo} toggle={onDismiss}>
+      <h5>
+        Extinction Chess Rules
+      </h5>
+      <hr/>
+      <p>All the same rules as regular chess apply, except:</p>
+      <ul>
+        <li>Check and checkmate no longer exist</li>
+        <li>You win by capturing all of a particular type of piece from your opponent</li>
+        <li>The king is no more protected than any other piece</li>
+      </ul>
+    </Alert>
+  )
 }
 
 export function WarningAlert(props) {
