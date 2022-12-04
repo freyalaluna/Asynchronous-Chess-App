@@ -56,6 +56,25 @@ public class SQLGuide {
       }
     }
 
+    public static boolean deleteUser(String userID) throws Exception {
+      String sql = Select.deleteUser(userID);
+      // try-with-resources, auto closes db connection
+      try (
+        // connect to db
+        Connection conn = DriverManager.getConnection(Credential.getUrl(), Credential.getUser(), Credential.getPassword());
+        Statement query = conn.createStatement();
+      ) {
+        int rowCount = query.executeUpdate(sql);
+        if (rowCount == 1) {
+          return true;
+        } else {
+          return false;
+        }
+      } catch (Exception e) {
+        throw e;
+      }
+    }
+
     public static String[] getUserById(String userId) throws Exception {
       String sql = Select.selectUserById(userId);
       // try-with-resources, auto closes db connection
@@ -133,6 +152,12 @@ public class SQLGuide {
         + user + "', '"
         + email + "', '"
         + encryptedPassword + "');";
+    }
+
+    static String deleteUser(String userID) {
+      return "DELETE FROM "
+        + USERS_TABLE
+        + " WHERE userID = '" + userID + "';";
     }
 
     static String selectUserByLogin(String user, String encryptedPassword) {
