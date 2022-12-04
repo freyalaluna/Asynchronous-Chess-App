@@ -25,10 +25,10 @@ async function sendMoveRequest(sourceSquare, targetSquare, pieceType, gameState,
     if(accountResponse != null && accountResponse.isLegalMove){
         context.setValidMove(true);
         LOG.info("Move is legal");
-        return true;
+        return [true, accountResponse.isGameOver];
     } else {
         context.setValidMove(false);
         LOG.error("Move is not legal");
-        return false;
+        return [false, false];
     }
 }

@@ -64,6 +64,8 @@ export default function Page(props) {
 				account={account} 
 				boardWidth={chessboardWidth}
 				visible={showGame}
+				setShowGame={setShowGame}
+				setShowProfile={setShowProfile}
         moveActions={moveActions}
 			/>
 

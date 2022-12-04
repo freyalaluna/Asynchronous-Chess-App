@@ -20,6 +20,7 @@ public class TestMoveRequest {
   @BeforeEach
   public void createRequestForTestCases() {
     req = new MoveRequest();
+    req.setTargetSquare("e4");
   }
 
   @Test

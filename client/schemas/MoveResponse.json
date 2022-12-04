@@ -14,6 +14,10 @@
       "description":"whether the requested move is legal or not",
       "type":"boolean"
     },
+    "isGameOver": {
+      "description":"whether the move ended the game or not",
+      "type":"boolean"
+    },
     "fenString": {
       "description":"fen string which stores current state of game",
       "type":"string"
@@ -23,6 +27,6 @@
       "type":"string"
     }
   },
-  "required":["requestType", "isLegalMove"],
+  "required":["requestType", "isLegalMove", "isGameOver"],
   "additionalProperties": true
 }
