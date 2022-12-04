@@ -24,7 +24,7 @@ export default function Board(props) {
     //check if correct color piece moved
     if (game.turn() != piece.charAt(0)) {
       setShowAlert(true);
-      setTimeout(() => { setShowAlert(false); }, 2000);
+      setTimeout(() => { setShowAlert(false); }, 1500);
       return null;
     }
 
@@ -38,7 +38,6 @@ export default function Board(props) {
       forceUpdate();
       if (response[1]) {
         setShowGameOver(true);
-        setTimeout(() => { setShowAlert(false); }, 2000);
       }
 
       return game;
@@ -57,7 +56,14 @@ export default function Board(props) {
         onPieceDrop={onDrop}
       />
       <WarningAlert className="wrong-turn-warning" showAlert={showAlert}/>
-      <GameOverAlert className="game-over-alert" showAlert={showGameOver} game={game}/>
+      <GameOverAlert
+        className="game-over-alert"
+        showAlert={showGameOver}
+        setShowGameOver={setShowGameOver}
+        game={game}
+        setShowGame={props.setShowGame}
+        setShowProfile={props.setShowProfile}
+      />
     </div>
   );
 }
@@ -80,13 +86,27 @@ export function GameOverAlert(props) {
       <div className="backgroundBlocker">
       <Alert color="success" fade={false}>
         You won!<br/>Congratulations 😄<br/>
-        <Button className="postGameButton" color="primary" >Back Home</Button>
+        <Button className="postGameButton" color="primary" onClick={() => {
+          props.game.reset();
+          props.setShowGame(false);
+          props.setShowGameOver(false);
+          props.setShowProfile(true);
+        }}>
+          Back Home
+        </Button>
       </Alert></div>) :
       (
       <div className="backgroundBlocker">
       <Alert color="danger" fade={false}>
         You lost!<br/>Better luck next time 🤕<br/>
-        <Button className="postGameButton" color="danger" >Back Home</Button>
+        <Button className="postGameButton" color="danger" onClick={() => {
+          props.game.reset();
+          props.setShowGame(false);
+          props.setShowGameOver(false);
+          props.setShowProfile(true);
+        }}>
+          Back Home
+        </Button>
       </Alert></div>)
   }
   return null;
