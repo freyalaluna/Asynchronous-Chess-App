@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { Chess } from 'chess.js';
-import { Alert } from 'reactstrap';
+import { Alert, Button } from 'reactstrap';
 
 import { Chessboard } from 'react-chessboard';
 
@@ -13,6 +13,7 @@ function useForceUpdate(){
 export default function Board(props) {
   const [game, setGame] = useState(new Chess());
   const [showAlert, setShowAlert] = useState(false);
+  const [showGameOver, setShowGameOver] = useState(false);
   const forceUpdate = useForceUpdate();
 
   let customStyle = { borderRadius: '5px', boxShadow: '0 5px 15px rgba(0, 0, 0, 0.5 '}
@@ -21,20 +22,24 @@ export default function Board(props) {
 
   async function onDrop(sourceSquare, targetSquare, piece) {
     //check if correct color piece moved
-    var pieceIdentifier = piece.charAt(0);
     if (game.turn() != piece.charAt(0)) {
       setShowAlert(true);
-      setTimeout(() => { setShowAlert(false); }, 1000);
+      setTimeout(() => { setShowAlert(false); }, 2000);
       return null;
     }
 
     //call api request
-    if (await props.moveActions.sendMoveRequest(sourceSquare, targetSquare, piece, game.fen())) {
+    let response = await props.moveActions.sendMoveRequest(sourceSquare, targetSquare, piece, game.fen())
+    if (response[0]) {
       game.move({
         from: sourceSquare,
         to: targetSquare
       }, { sloppy: true });
       forceUpdate();
+      if (response[1]) {
+        setShowGameOver(true);
+        setTimeout(() => { setShowAlert(false); }, 2000);
+      }
 
       return game;
     }
@@ -52,6 +57,7 @@ export default function Board(props) {
         onPieceDrop={onDrop}
       />
       <WarningAlert className="wrong-turn-warning" showAlert={showAlert}/>
+      <GameOverAlert className="game-over-alert" showAlert={showGameOver} game={game}/>
     </div>
   );
 }
@@ -63,6 +69,25 @@ export function WarningAlert(props) {
         You can't move your opponent's pieces!
       </Alert>
     )
+  }
+  return null;
+}
+
+export function GameOverAlert(props) {
+  if (props.showAlert) {
+    return props.game.turn() == 'b' ?
+      (
+      <div className="backgroundBlocker">
+      <Alert color="success" fade={false}>
+        You won!<br/>Congratulations 😄<br/>
+        <Button className="postGameButton" color="primary" >Back Home</Button>
+      </Alert></div>) :
+      (
+      <div className="backgroundBlocker">
+      <Alert color="danger" fade={false}>
+        You lost!<br/>Better luck next time 🤕<br/>
+        <Button className="postGameButton" color="danger" >Back Home</Button>
+      </Alert></div>)
   }
   return null;
 }

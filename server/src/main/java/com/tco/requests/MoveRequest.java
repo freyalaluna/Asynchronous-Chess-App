@@ -2,6 +2,7 @@ package com.tco.requests;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import com.tco.model.Board;
 import com.tco.model.Square;
 import com.tco.model.Piece;
@@ -18,6 +19,7 @@ public class MoveRequest extends Request {
   private String piece;
   private String gameState;
   private boolean isLegalMove;
+  private boolean isGameOver = false;
 
   @Override
   public void buildResponse() {
@@ -53,6 +55,8 @@ public class MoveRequest extends Request {
   }
 
   public char[][] transformGameState(String fenString) {
+    //list of number of pieces
+    HashMap<Character, Integer> pieceCounter = new HashMap<>();
     //get only piece information from fenString
     String trimmedFENString = fenString.substring(0, fenString.indexOf(" "));
 
@@ -73,10 +77,17 @@ public class MoveRequest extends Request {
         }
       }
       else { //encountered piece
-        boardState[y][x] = trimmedFENString.charAt(i);
+        char piece = trimmedFENString.charAt(i);
+        pieceCounter.put(piece, pieceCounter.getOrDefault(piece, 0) + 1);
+        boardState[y][x] = piece;
         x++;
       }
 
+    }
+    Square target = transformSquare(targetSquare);
+    char targetPiece = boardState[target.getY()][target.getX()];
+    if (targetPiece != 'o') {
+      this.isGameOver = (pieceCounter.size() < 12  || pieceCounter.get(targetPiece) <= 1);
     }
 
     return boardState;

@@ -72,14 +72,31 @@ a {
     margin-left: 5vw;
 }
 
-
-.alert {
-    z-index: 99999;
+.postGameButton {
+    margin-top: 5vh;
 }
 
-.alert-primary {
+.backgroundBlocker {
+    position: absolute;
+    z-index: 900;
+    height: 80vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    margin-top: 20vh;
+}
+
+.alert-success {
+    color: csu-green !important;
+    background-color: rgb(210, 231, 210) !important;
+    border-color: rgb(210, 231, 210) !important;
+}
+
+.alert {
     position: absolute !important;
-    top: 50%;
+    z-index: 99999;
+    top: 35%;
     left: 50%;
     margin-top: -40px;
     margin-left: -150px;
