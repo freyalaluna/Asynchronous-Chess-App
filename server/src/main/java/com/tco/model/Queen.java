@@ -25,19 +25,22 @@ public class Queen extends Piece {
     int currentX = currentPosition.getX();
     int currentY = currentPosition.getY();
     int deltaX, deltaY;
+    int targetX, targetY;
     for (int i=1; i<8; ++i) {
       deltaX = i*xDirection;
       deltaY = i*yDirection;
-      if (!isValidCoord(currentX+deltaX, currentY+deltaY)) {break;}
-      else if (boardState[currentX+deltaX][currentY+deltaY]!='o') {
-        if (Character.isLowerCase(boardState[currentX+deltaX][currentY+deltaY])==color) {
+      targetX = currentX+deltaX;
+      targetY = currentY+deltaY;
+      if (!isValidCoord(targetX, targetY)) {break;}
+      else if (boardState[targetY][targetX]!='o') {
+        if (Character.isLowerCase(boardState[targetY][targetX])==color) {
         }
         else {
-          directionMoves.add(new Square(currentX+deltaX, currentY+deltaY));
+          directionMoves.add(new Square(targetX, targetY));
         }
         break;
       } else {
-        directionMoves.add(new Square(currentX+deltaX, currentY+deltaY));
+        directionMoves.add(new Square(targetX, targetY));
       }
     }
     return directionMoves;

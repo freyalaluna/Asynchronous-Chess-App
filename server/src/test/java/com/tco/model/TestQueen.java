@@ -26,7 +26,7 @@ public class TestQueen {
     @Test
     @DisplayName("mheavner: test getValidMoves with white queen on starting board")
     public void testGetValidMovesInitialPositionWhite() {
-        Queen queen = new Queen(false, new Square(7,3));
+        Queen queen = new Queen(false, new Square(3,7));
         ArrayList<Square> result = queen.getPossibleMoves(boardState);
         ArrayList<Square> expected = new ArrayList<Square>();
         assertEquals(expected, result);
@@ -35,7 +35,7 @@ public class TestQueen {
     @Test
     @DisplayName("mheavner: test getValidMoves with black queen on starting board")
     public void testGetValidMovesInitialPositionBlack() {
-        Queen queen = new Queen(true, new Square(0,3));
+        Queen queen = new Queen(true, new Square(3,0));
         ArrayList<Square> result = queen.getPossibleMoves(boardState);
         ArrayList<Square> expected = new ArrayList<Square>();
         assertEquals(expected, result);
@@ -44,21 +44,21 @@ public class TestQueen {
     @Test
     @DisplayName("mheavner: test getValidMoves with white queen on D2")
     public void testGetValidMovesD2() {
-        Queen queen = new Queen(false, new Square(6,3));
+        Queen queen = new Queen(false, new Square(3,6));
         ArrayList<Square> result = queen.getPossibleMoves(boardState);
         ArrayList<Square> expected = new ArrayList<Square>();
-        expected.add(new Square(5,2));
-        expected.add(new Square(4,1));
-        expected.add(new Square(3,0));
-        expected.add(new Square(5,3));
-        expected.add(new Square(4,3));
+        expected.add(new Square(2,5));
+        expected.add(new Square(1,4));
+        expected.add(new Square(0,3));
+        expected.add(new Square(3,5));
+        expected.add(new Square(3,4));
         expected.add(new Square(3,3));
-        expected.add(new Square(2,3));
-        expected.add(new Square(1,3));
-        expected.add(new Square(5,4));
+        expected.add(new Square(3,2));
+        expected.add(new Square(3,1));
         expected.add(new Square(4,5));
-        expected.add(new Square(3,6));
-        expected.add(new Square(2,7));
+        expected.add(new Square(5,4));
+        expected.add(new Square(6,3));
+        expected.add(new Square(7,2));
         assertEquals(expected, result);
     }
 
@@ -68,19 +68,19 @@ public class TestQueen {
         Queen queen = new Queen(true, new Square(2,2));
         ArrayList<Square> result = queen.getPossibleMoves(boardState);
         ArrayList<Square> expected = new ArrayList<Square>();
-        expected.add(new Square(2,1));
-        expected.add(new Square(2,0));
+        expected.add(new Square(1,2));
+        expected.add(new Square(0,2));
+        expected.add(new Square(1,3));
+        expected.add(new Square(0,4));
         expected.add(new Square(2,3));
         expected.add(new Square(2,4));
         expected.add(new Square(2,5));
         expected.add(new Square(2,6));
-        expected.add(new Square(2,7));
-        expected.add(new Square(3,1));
-        expected.add(new Square(4,0));
         expected.add(new Square(3,2));
         expected.add(new Square(4,2));
         expected.add(new Square(5,2));
         expected.add(new Square(6,2));
+        expected.add(new Square(7,2));
         expected.add(new Square(3,3));
         expected.add(new Square(4,4));
         expected.add(new Square(5,5));
