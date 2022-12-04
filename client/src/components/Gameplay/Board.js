@@ -120,7 +120,7 @@ export function ConcedeButton(props) {
 export function GameInfoAlert(props) {
   const onDismiss = () => props.setShowInfo(false);
   return (
-    <Alert color="info" fade={false} isOpen={props.showInfo} toggle={onDismiss}>
+    <Alert color="info" fade={true} isOpen={props.showInfo} toggle={onDismiss}>
       <h5>
         Extinction Chess Rules
       </h5>
@@ -150,7 +150,7 @@ export function GameWonAlert(props) {
   if (props.showAlert) {
     return (
       <div className="backgroundBlocker">
-      <Alert color="success" fade={false}>
+      <Alert color="success" fade={true}>
         You won!<br/>Congratulations 😄<br/>
         <Button className="postGameButton" color="primary" onClick={() => {
           props.game.reset();
@@ -170,7 +170,7 @@ export function GameLostAlert(props) {
   if (props.showAlert) {
     return (
       <div className="backgroundBlocker">
-      <Alert color="danger" fade={false}>
+      <Alert color="danger" fade={true}>
         You lost!<br/>Better luck next time 🤕<br/>
         <Button className="postGameButton" color="danger" onClick={() => {
           props.game.reset();
