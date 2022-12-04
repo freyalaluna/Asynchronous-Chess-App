@@ -53,8 +53,8 @@ public class King extends Piece {
     if((x < 0 || x > 7) || (y < 0 || y > 7)){
       return false;
     }
-    if(boardState[x][y] != 'o'){
-      if(Character.isUpperCase(boardState[x][y]) == this.color){
+    if(boardState[y][x] != 'o'){
+      if(Character.isLowerCase(boardState[y][x]) == this.color){
         return false;
       }
     }
