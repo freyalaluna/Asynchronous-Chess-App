@@ -24,7 +24,7 @@ export default function Page(props) {
 
     function handleResize() {
 		const display = document.getElementsByClassName("primary-board-container")[0];
-		let width = Math.min(display.offsetWidth - 20, display.offsetHeight - 20);
+		let width = Math.min(display.offsetWidth - 50, display.offsetHeight - 50);
 		setChessboardWidth(Math.max(width,0));
 	}
 	
