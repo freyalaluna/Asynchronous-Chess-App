@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Chess } from 'chess.js';
 import { Alert, Button } from 'reactstrap';
-
+import { FiFlag } from 'react-icons/fi'
 import { Chessboard } from 'react-chessboard';
 
 function useForceUpdate(){
@@ -38,7 +38,11 @@ export default function Board(props) {
       }, { sloppy: true });
       forceUpdate();
       if (response[1]) {
-        setShowGameOver(true);
+        if (game.turn == 'b') {
+          setShowGameWon(true);
+        } else {
+          setShowGameLost(true);
+        }
       }
 
       return game;
@@ -56,20 +60,20 @@ export default function Board(props) {
         position={game.fen()}
         onPieceDrop={onDrop}
       />
-      <ConcedeButton setShowGameOver={setShowGameOver}/>
+      <ConcedeButton setShowGameLost={setShowGameLost}/>
       <WarningAlert className="wrong-turn-warning" showAlert={showAlert}/>
       <GameWonAlert
         className="game-over-alert"
-        showAlert={showGameOver}
-        setShowGameOver={setShowGameOver}
+        showAlert={showGameWon}
+        setShowGameOver={setShowGameWon}
         game={game}
         setShowGame={props.setShowGame}
         setShowProfile={props.setShowProfile}
       />
       <GameLostAlert
         className="game-over-alert"
-        showAlert={showGameOver}
-        setShowGameOver={setShowGameOver}
+        showAlert={showGameLost}
+        setShowGameOver={setShowGameLost}
         game={game}
         setShowGame={props.setShowGame}
         setShowProfile={props.setShowProfile}
@@ -80,12 +84,13 @@ export default function Board(props) {
 
 export function ConcedeButton(props) {
   return (
-    <Button color="warning" size="sm" onClick={() => {
-      props.setLossOverride(true);
-      props.setShowGameOver(true);
-    }}>
-      Concede
-    </Button>
+    <div className="concedeButton">
+      <Button color="warning" size="sm" onClick={() => {
+        props.setShowGameLost(true);
+      }}>
+        <FiFlag/>
+      </Button>
+    </div>
   );
 }
 
@@ -102,8 +107,7 @@ export function WarningAlert(props) {
 
 export function GameWonAlert(props) {
   if (props.showAlert) {
-    return props.game.turn() == 'b' || props.lossOverride ?
-      (
+    return (
       <div className="backgroundBlocker">
       <Alert color="success" fade={false}>
         You won!<br/>Congratulations 😄<br/>
@@ -115,21 +119,28 @@ export function GameWonAlert(props) {
         }}>
           Back Home
         </Button>
-      </Alert></div>) :
-      (
+      </Alert></div>
+    )
+  }
+  return null;
+}
+
+export function GameLostAlert(props) {
+  if (props.showAlert) {
+    return (
       <div className="backgroundBlocker">
       <Alert color="danger" fade={false}>
         You lost!<br/>Better luck next time 🤕<br/>
         <Button className="postGameButton" color="danger" onClick={() => {
           props.game.reset();
-          props.setLossOverride(false);
           props.setShowGame(false);
           props.setShowGameOver(false);
           props.setShowProfile(true);
         }}>
           Back Home
         </Button>
-      </Alert></div>)
+      </Alert></div>
+    )
   }
   return null;
 }
