@@ -13,7 +13,8 @@ function useForceUpdate(){
 export default function Board(props) {
   const [game, setGame] = useState(new Chess());
   const [showAlert, setShowAlert] = useState(false);
-  const [showGameOver, setShowGameOver] = useState(false);
+  const [showGameWon, setShowGameWon] = useState(false);
+  const [showGameLost, setShowGameLost] = useState(false);
   const forceUpdate = useForceUpdate();
 
   let customStyle = { borderRadius: '5px', boxShadow: '0 5px 15px rgba(0, 0, 0, 0.5 '}
@@ -55,8 +56,17 @@ export default function Board(props) {
         position={game.fen()}
         onPieceDrop={onDrop}
       />
+      <ConcedeButton setShowGameOver={setShowGameOver}/>
       <WarningAlert className="wrong-turn-warning" showAlert={showAlert}/>
-      <GameOverAlert
+      <GameWonAlert
+        className="game-over-alert"
+        showAlert={showGameOver}
+        setShowGameOver={setShowGameOver}
+        game={game}
+        setShowGame={props.setShowGame}
+        setShowProfile={props.setShowProfile}
+      />
+      <GameLostAlert
         className="game-over-alert"
         showAlert={showGameOver}
         setShowGameOver={setShowGameOver}
@@ -65,6 +75,17 @@ export default function Board(props) {
         setShowProfile={props.setShowProfile}
       />
     </div>
+  );
+}
+
+export function ConcedeButton(props) {
+  return (
+    <Button color="warning" size="sm" onClick={() => {
+      props.setLossOverride(true);
+      props.setShowGameOver(true);
+    }}>
+      Concede
+    </Button>
   );
 }
 
@@ -79,9 +100,9 @@ export function WarningAlert(props) {
   return null;
 }
 
-export function GameOverAlert(props) {
+export function GameWonAlert(props) {
   if (props.showAlert) {
-    return props.game.turn() == 'b' ?
+    return props.game.turn() == 'b' || props.lossOverride ?
       (
       <div className="backgroundBlocker">
       <Alert color="success" fade={false}>
@@ -101,6 +122,7 @@ export function GameOverAlert(props) {
         You lost!<br/>Better luck next time 🤕<br/>
         <Button className="postGameButton" color="danger" onClick={() => {
           props.game.reset();
+          props.setLossOverride(false);
           props.setShowGame(false);
           props.setShowGameOver(false);
           props.setShowProfile(true);
