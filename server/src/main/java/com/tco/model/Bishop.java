@@ -28,8 +28,8 @@ public class Bishop extends Piece {
       currentX = currentX + xDirection;
       currentY = currentY + yDirection;
       if(!isValidCoord(currentX,currentY)) {break;}
-      else if(boardState[currentX][currentY] != 'o'){
-        if(Character.isLowerCase(boardState[currentX][currentY])== color){
+      else if(boardState[currentY][currentX] != 'o'){
+        if(Character.isLowerCase(boardState[currentY][currentX])== color){
         }
         else{
           possibleMoves.add(new Square(currentX,currentY));

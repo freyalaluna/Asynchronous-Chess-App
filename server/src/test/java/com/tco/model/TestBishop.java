@@ -22,7 +22,7 @@ public class TestBishop {
     @Test
     @DisplayName("craetz: test getPossibleMoves for left white bishop in starting position")
     public void testValidMovesWhiteBishopC1(){
-        Bishop bishop = new Bishop(false, new Square(7,2));
+        Bishop bishop = new Bishop(false, new Square(2,7));
         ArrayList<Square> result = bishop.getPossibleMoves(boardState);
         ArrayList<Square> expected = new ArrayList<Square>();
         assertEquals(expected,result);
@@ -31,7 +31,7 @@ public class TestBishop {
     @Test
     @DisplayName("craetz: test getPossibleMoves for left black bishop in starting position")
     public void testValidMovesBlackBishopC8(){
-        Bishop bishop = new Bishop(true,new Square(0,2));
+        Bishop bishop = new Bishop(true,new Square(2,0));
         ArrayList<Square> result = bishop.getPossibleMoves(boardState);
         ArrayList<Square> expected = new ArrayList<Square>();
         assertEquals(expected,result);
