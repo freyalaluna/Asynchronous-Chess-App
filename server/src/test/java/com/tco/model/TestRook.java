@@ -39,17 +39,17 @@ public class TestRook {
       Rook rook = new Rook(true, new Square(4,4));
       ArrayList<Square> result = rook.getPossibleMoves(boardState);
       ArrayList<Square> expected = new ArrayList<>();
-      expected.add(new Square(4, 5));
-      expected.add(new Square(4, 6));
-      expected.add(new Square(4, 7));
-      expected.add(new Square(4, 3));
-      expected.add(new Square(4, 2));
-      expected.add(new Square(4, 1));
-      expected.add(new Square(4, 0));
+      expected.add(new Square(5, 4));
+      expected.add(new Square(6, 4));
+      expected.add(new Square(7, 4));
       expected.add(new Square(3, 4));
       expected.add(new Square(2, 4));
       expected.add(new Square(1, 4));
-      expected.add(new Square(5, 4));
+      expected.add(new Square(0, 4));
+      expected.add(new Square(4, 3));
+      expected.add(new Square(4, 2));
+      expected.add(new Square(4, 1));
+      expected.add(new Square(4, 5));
       assertTrue(expected.size() == result.size() && expected.containsAll(result) && result.containsAll(expected));
     }
     @Test
@@ -58,17 +58,17 @@ public class TestRook {
       Rook rook = new Rook(false, new Square(4,4));
       ArrayList<Square> result = rook.getPossibleMoves(boardState);
       ArrayList<Square> expected = new ArrayList<>();
-      expected.add(new Square(4, 5));
-      expected.add(new Square(4, 6));
-      expected.add(new Square(4, 7));
-      expected.add(new Square(4, 3));
-      expected.add(new Square(4, 2));
-      expected.add(new Square(4, 1));
-      expected.add(new Square(4, 0));
+      expected.add(new Square(5, 4));
+      expected.add(new Square(6, 4));
+      expected.add(new Square(7, 4));
       expected.add(new Square(3, 4));
       expected.add(new Square(2, 4));
-      expected.add(new Square(6, 4));
-      expected.add(new Square(5, 4));
+      expected.add(new Square(1, 4));
+      expected.add(new Square(0, 4));
+      expected.add(new Square(4, 3));
+      expected.add(new Square(4, 2));
+      expected.add(new Square(4, 6));
+      expected.add(new Square(4, 5));
       assertTrue(expected.size() == result.size() && expected.containsAll(result) && result.containsAll(expected));
     }
 
