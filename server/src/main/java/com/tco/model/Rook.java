@@ -45,7 +45,7 @@ public class Rook extends Piece {
         break;
       }
       else if(boardState[currentColumn][currentRow] != 'o') {
-        if(Character.isLowerCase(boardState[currentColumn][currentRow])!= color) {
+        if(Character.isLowerCase(boardState[currentColumn][currentRow])== color) {
         }
         else {
           getRightDirectionMoves.add(new Square(currentRow,currentColumn));
@@ -66,7 +66,7 @@ public class Rook extends Piece {
         break;
       }
       else if(boardState[currentColumn][currentRow] != 'o') {
-        if(Character.isLowerCase(boardState[currentColumn][currentRow])!= color) {
+        if(Character.isLowerCase(boardState[currentColumn][currentRow])== color) {
         }
         else {
           getLeftDirectionMoves.add(new Square(currentRow,currentColumn));
@@ -87,7 +87,7 @@ public class Rook extends Piece {
         break;
       }
       else if(boardState[currentColumn][currentRow] != 'o') {
-        if(Character.isLowerCase(boardState[currentColumn][currentRow])!= color) {
+        if(Character.isLowerCase(boardState[currentColumn][currentRow])== color) {
         }
         else {
           getUpDirectionMoves.add(new Square(currentRow,currentColumn));
@@ -107,7 +107,7 @@ public class Rook extends Piece {
         break;
       }
       else if(boardState[currentColumn][currentRow] != 'o') {
-        if(Character.isLowerCase(boardState[currentColumn][currentRow])!=color) {
+        if(Character.isLowerCase(boardState[currentColumn][currentRow])==color) {
         }
         else {
           getDownDirectionMoves.add(new Square(currentRow,currentColumn));
