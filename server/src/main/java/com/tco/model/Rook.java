@@ -44,8 +44,8 @@ public class Rook extends Piece {
       if(!isValidCoord(currentRow,currentColumn)) {
         break;
       }
-      else if(boardState[currentRow][currentColumn] != 'o') {
-        if(Character.isLowerCase(boardState[currentRow][currentColumn])!= color) {
+      else if(boardState[currentColumn][currentRow] != 'o') {
+        if(Character.isLowerCase(boardState[currentColumn][currentRow])== color) {
         }
         else {
           getRightDirectionMoves.add(new Square(currentRow,currentColumn));
@@ -65,8 +65,8 @@ public class Rook extends Piece {
       if(!isValidCoord(currentRow,currentColumn)) {
         break;
       }
-      else if(boardState[currentRow][currentColumn] != 'o') {
-        if(Character.isLowerCase(boardState[currentRow][currentColumn])!= color) {
+      else if(boardState[currentColumn][currentRow] != 'o') {
+        if(Character.isLowerCase(boardState[currentColumn][currentRow])== color) {
         }
         else {
           getLeftDirectionMoves.add(new Square(currentRow,currentColumn));
@@ -86,8 +86,8 @@ public class Rook extends Piece {
       if(!isValidCoord(currentRow,currentColumn)) {
         break;
       }
-      else if(boardState[currentRow][currentColumn] != 'o') {
-        if(Character.isLowerCase(boardState[currentRow][currentColumn])!= color) {
+      else if(boardState[currentColumn][currentRow] != 'o') {
+        if(Character.isLowerCase(boardState[currentColumn][currentRow])== color) {
         }
         else {
           getUpDirectionMoves.add(new Square(currentRow,currentColumn));
@@ -106,8 +106,8 @@ public class Rook extends Piece {
       if(!isValidCoord(currentRow,currentColumn)) {
         break;
       }
-      else if(boardState[currentRow][currentColumn] != 'o') {
-        if(Character.isLowerCase(boardState[currentRow][currentColumn])!=color) {
+      else if(boardState[currentColumn][currentRow] != 'o') {
+        if(Character.isLowerCase(boardState[currentColumn][currentRow])==color) {
         }
         else {
           getDownDirectionMoves.add(new Square(currentRow,currentColumn));
