@@ -79,6 +79,13 @@ public class TestSQLGuide {
         assertEquals(expected, Select.updateMatchById("1", "fenstring", ""));
     }
 
+    @Test
+    @DisplayName("victor45: Test deleteUser")
+    public void testDeleteUser() {
+        String expected = "DELETE FROM users WHERE userID = '69';";
+        assertEquals(expected, Select.deleteUser("69"));
+    }
+
     // Tests for Database Class
     @Test
     @DisplayName("mheavner: Test registerUser w/ true")
@@ -226,5 +233,34 @@ public class TestSQLGuide {
         Mockito.when(mockStatement.executeQuery(Mockito.anyString())).thenThrow(sqlException);
 
         assertThrows(SQLException.class, () -> Database.updateMatchState("1", "fenstring", "captured"));
+    }
+
+    @Test
+    @DisplayName("victor45: Test deleteUser w/ true")
+    public void testDeleteUserSuccess() throws Exception {
+        Connection mockConnection = Mockito.mock(Connection.class);
+        Statement mockStatement = Mockito.mock(Statement.class);
+
+        mockDriverManager.when(() -> DriverManager.getConnection(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
+            .thenReturn(mockConnection);
+        Mockito.when(mockConnection.createStatement()).thenReturn(mockStatement);
+        Mockito.when(mockStatement.executeUpdate(Mockito.anyString())).thenReturn(1);
+
+        assertTrue(Database.deleteUser("17"));
+    }
+
+    @Test
+    @DisplayName("victor45: Test deleteUser w/ false")
+    public void testDeleteUserError() throws Exception {
+        Connection mockConnection = Mockito.mock(Connection.class);
+        Statement mockStatement = Mockito.mock(Statement.class);
+        SQLException sqlException = new SQLException();
+
+        mockDriverManager.when(() -> DriverManager.getConnection(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
+            .thenReturn(mockConnection);
+        Mockito.when(mockConnection.createStatement()).thenReturn(mockStatement);
+        Mockito.when(mockStatement.executeUpdate(Mockito.anyString())).thenThrow(sqlException);
+
+        assertThrows(SQLException.class, () -> Database.deleteUser("17"));
     }
 }

@@ -12,11 +12,11 @@ public class Inbox {
     }
 
     public void addInvite(Invitation newInvite){
-        //TODO: implement this
+        allInvites.add(newInvite);
     }
 
     public void addNotification(Notification newNotif){
-        //TODO: implement this
+        allNotifs.add(newNotif);
     }
 
     public ArrayList<Notification> getNotificationList(){

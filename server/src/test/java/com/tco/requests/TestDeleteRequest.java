@@ -43,8 +43,8 @@ public class TestDeleteRequest {
     }
 
     @Test
-    @DisplayName("victor45: Test delete account buildResponse with mock connection")
-    public void testDeleteBuildResponse() throws Exception {
+    @DisplayName("victor45: Test delete account success with mock connection")
+    public void testDeleteSuccess() throws Exception {
         Method deleteMethod = DeleteRequest.class.getDeclaredMethod("deleteAccount");
         deleteMethod.setAccessible(true);
         mockDb.when(() -> Database.deleteUser(Mockito.anyString())).thenReturn(true);
@@ -57,9 +57,17 @@ public class TestDeleteRequest {
     public void testDeleteError() throws Exception {
         mockDb.when(() -> Database.deleteUser(Mockito.anyString()))
             .thenThrow(new Exception());
-        Method registerMethod = DeleteRequest.class.getDeclaredMethod("deleteAccount");
-        registerMethod.setAccessible(true);
-        assertThrows(Exception.class, () -> registerMethod.invoke(req));
+        Method deleteMethod = DeleteRequest.class.getDeclaredMethod("deleteAccount");
+        deleteMethod.setAccessible(true);
+        assertThrows(Exception.class, () -> deleteMethod.invoke(req));
+    }
+
+    @Test
+    @DisplayName("victor45: Test delete account buildResponse success")
+    public void testDeleteBuildResponse() throws Exception {
+        mockDb.when(() -> Database.deleteUser(Mockito.anyString())).thenReturn(true);
+        req.buildResponse();
+        assertTrue(req.getDeleteSuccess());
     }
 
 }

@@ -26,25 +26,25 @@ public class Match {
         return 0;
     }
 
-    public void addMatchToHistory(Player player)
-    {
-        return;
-    }
+    // public void addMatchToHistory(Player player)
+    // {
+    //     return;
+    // }
 
-    public void generateInvite(Player player)
-    {
-        return;
-    }
+    // public void generateInvite(Player player)
+    // {
+    //     return;
+    // }
 
-    public void sendTurnNotification(Player player)
-    {
-        return;
-    }
+    // public void sendTurnNotification(Player player)
+    // {
+    //     return;
+    // }
 
-    public void createMatchRecord()
-    {
-        return;
-    }
+    // public void createMatchRecord()
+    // {
+    //     return;
+    // }
 
     public void appendToCaptured(String piece)
     {

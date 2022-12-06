@@ -50,4 +50,20 @@ public class TestInbox {
         // inbox.getInvitationList();
         assertEquals(inbox.getInvitationList().size(), 2);
     }
+
+    @Test
+    @DisplayName("victor45: test addInvite")
+    public void testAddInvite() {
+        inbox.addInvite(invite1);
+        inbox.addInvite(invite2);
+        assertEquals(inbox.getInvitationList().size(), 2);
+    }
+
+    @Test
+    @DisplayName("victor45: test addNotification")
+    public void testAddNotification() {
+        inbox.addNotification(notif1);
+        inbox.addNotification(notif2);
+        assertEquals(inbox.getNotificationList().size(), 2);
+    }
 }
