@@ -28,10 +28,6 @@ public class DeleteRequest extends Request {
       return this.userID;
     }
 
-    public boolean getDeleteSuccess() {
-        return this.deleteSuccess;
-    }
-
     private void sendDBQuery() {
         try {
           this.deleteSuccess = deleteAccount();
@@ -48,4 +44,8 @@ public class DeleteRequest extends Request {
         return success;
     }
 
+    //VISIBLE FOR TESTING
+    public boolean getDeleteSuccess() {
+        return this.deleteSuccess;
+    }
 }
